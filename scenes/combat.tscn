@@ -7,3 +7,4 @@
 script = ExtResource("1_qajva")
 
 [node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
+position = Vector2(44, 304)
