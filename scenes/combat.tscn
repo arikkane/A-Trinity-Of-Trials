@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://kd2pyxwew622"]
+
+[ext_resource type="Script" uid="uid://cux3wsvyxqmo6" path="res://code/combat.gd" id="1_qajva"]
+[ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
+
+[node name="Combat" type="Node" unique_id=1594897435]
+script = ExtResource("1_qajva")
+
+[node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
