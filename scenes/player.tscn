@@ -67,9 +67,9 @@ texture = ExtResource("4_tuyoq")
 script = ExtResource("6_fjrip")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=286274635]
-position = Vector2(92, 85)
 scale = Vector2(3, 3)
 texture = ExtResource("3_qhqgy")
+centered = false
 
 [node name="CharacterDataUI" type="Control" parent="." unique_id=1015692185]
 layout_mode = 3

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cux3wsvyxqmo6" path="res://code/combat.gd" id="1_qajva"]
 [ext_resource type="Texture2D" uid="uid://biw6vue111yhc" path="res://assets/placeholder_background.aseprite" id="2_4l26h"]
 [ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
+[ext_resource type="PackedScene" uid="uid://d4gi0v84vucqk" path="res://scenes/enemy.tscn" id="4_4l26h"]
 
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
@@ -14,3 +15,6 @@ texture = ExtResource("2_4l26h")
 
 [node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
 position = Vector2(49, 550)
+
+[node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
+position = Vector2(1600, 640)
