@@ -32,7 +32,6 @@ offset_left = -1.0
 offset_top = 144.0
 offset_right = 127.0
 offset_bottom = 336.0
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_tuyoq")
 script = ExtResource("3_dqkch")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -64,7 +63,6 @@ offset_left = 394.0
 offset_top = 149.0
 offset_right = 522.0
 offset_bottom = 341.0
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_tuyoq")
 script = ExtResource("6_fjrip")
 

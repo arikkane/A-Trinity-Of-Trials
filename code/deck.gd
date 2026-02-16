@@ -40,6 +40,7 @@ func draw_cards():
 		var current_card = $"DrawPile".card_array.back()
 		$"DrawPile".remove_card(current_card)
 		$"HandContainer".add_card(current_card)
+		current_card.update_debug_label()
 
 #_on_card_played event action function, should handle moving played card
 #to the discard pile

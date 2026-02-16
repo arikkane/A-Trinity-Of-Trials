@@ -10,7 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.5, 1.5)
 script = ExtResource("1_d81rb")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1277772547]
