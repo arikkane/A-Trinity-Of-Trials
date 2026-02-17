@@ -21,11 +21,13 @@ func remove_card(card:Control):
 func update_card_positions():
 	if not card_array.is_empty():
 		var card_spacing = 0
-		if card_array.size() > 10:
-			card_spacing = -72
-		elif card_array.size() > 7:
-			card_spacing = -32
+		#increases the overlap by 16 pixels for every card over 6 in the players hand
+		if card_array.size() > 6:
+			card_spacing += (card_array.size()-6)*-16
+		else:
+			card_spacing = 0
 		var hand_width = (card_array.size() * card_width) + ((card_array.size()-1) * card_spacing)
+		#x coordinate of the far left side of the hand node
 		var start_x = (get_tree().root.get_visible_rect().size.x - hand_width)/2
 		for i in range(card_array.size()):
 			print("Card #" + str(i) + ": " + str(card_array[i].card_id))

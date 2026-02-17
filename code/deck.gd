@@ -18,6 +18,7 @@ func _ready() -> void:
 	init_cards()
 	init_pile_transforms()
 
+#sets the position and size of the draw and discard pile
 func init_pile_transforms():
 	$"DrawPile".set_transforms()
 	$"DiscardPile".set_transforms()
@@ -50,6 +51,7 @@ func init_cards():
 #draws cards from the draw pile at the start of every turn
 func draw_cards():
 	for i in range(get_parent().cards_per_turn):
+		#gets the card at the top of the draw pile
 		var current_card = $"DrawPile".card_array.back()
 		$"DrawPile".remove_card(current_card)
 		$"HandContainer".add_card(current_card)
