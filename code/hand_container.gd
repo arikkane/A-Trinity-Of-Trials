@@ -1,9 +1,12 @@
 extends Control
 
 var card_array: Array[Control]
-var card_overlap = 0
+var card_width = 192
+var card_height = 288
+var Deck: Control = null
+
 func _ready() -> void:
-	global_position = Vector2(960,760)
+	Deck = get_parent()
 
 func add_card(card:Control):
 	card_array.append(card)
@@ -16,16 +19,14 @@ func remove_card(card:Control):
 	update_card_positions()
 
 func update_card_positions():
-	var odd_offset = 0
-	if card_array.size() > 8:
-		card_overlap = 64
-	else:
-		card_overlap = 0
-	if card_array.size()%2 == 0:
-		odd_offset = 0
-	else:
-		odd_offset = 0.5
 	if not card_array.is_empty():
+		var card_spacing = 0
+		if card_array.size() > 10:
+			card_spacing = -72
+		elif card_array.size() > 7:
+			card_spacing = -32
+		var hand_width = (card_array.size() * card_width) + ((card_array.size()-1) * card_spacing)
+		var start_x = (get_tree().root.get_visible_rect().size.x - hand_width)/2
 		for i in range(card_array.size()):
 			print("Card #" + str(i) + ": " + str(card_array[i].card_id))
-			card_array[i].position = Vector2((i-(card_array.size()/2)-odd_offset)*(192-card_overlap),0)
+			card_array[i].global_position = Vector2(start_x + i * (card_width+card_spacing), Deck.card_y)

@@ -4,11 +4,13 @@ extends Control
 #will also hold the logic for dragging and dropping
 
 var card_id = 0
+#Damage, Utility, or Power
 var type = null
 var damage = 0
 var block = 0
 var heal = 0
 var description = null
+#flag for if the card is in the players hand
 var in_hand = false
 var debug_label = null
 
