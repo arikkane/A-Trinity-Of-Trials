@@ -74,22 +74,18 @@ centered = false
 [node name="CharacterDataUI" type="Control" parent="." unique_id=1015692185]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -9.0
-offset_top = 1.0
-offset_right = 31.0
-offset_bottom = 41.0
-scale = Vector2(3, 3)
+offset_left = -45.0
+offset_top = -80.0
+offset_right = 255.0
 
 [node name="HealthBar" type="ProgressBar" parent="CharacterDataUI" unique_id=1818458707]
 layout_mode = 0
-offset_left = -10.0
-offset_top = -48.0
-offset_right = 90.0
-offset_bottom = -21.0
+offset_right = 300.0
+offset_bottom = 35.0
 script = SubResource("GDScript_qhqgy")
 
-[node name="StatusEffectsContainer" type="Control" parent="CharacterDataUI" unique_id=1979649822]
-anchors_preset = 0
-offset_left = -11.0
-offset_top = -20.0
-offset_right = 89.0
+[node name="StatusEffectsContainer" type="HBoxContainer" parent="CharacterDataUI" unique_id=1873251225]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 300.0
+offset_bottom = 75.0

@@ -1,15 +1,30 @@
 [gd_scene format=3 uid="uid://d4gi0v84vucqk"]
 
 [ext_resource type="Texture2D" uid="uid://dc5nbq4m75m3a" path="res://assets/Monsters/goblin_1.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://5r77yqlkybu4" path="res://code/enemy.gd" id="1_md0e3"]
 
 [node name="Enemy" type="Node2D" unique_id=1076380734]
+script = ExtResource("1_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292957994]
 scale = Vector2(4, 4)
 texture = ExtResource("1_7p1mj")
+centered = false
 
-[node name="CharacterDataUI" type="Control" parent="." unique_id=2136906322]
+[node name="EnemyDataUI" type="Control" parent="." unique_id=2136906322]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -90.0
+offset_top = -80.0
+offset_right = 210.0
+
+[node name="HealthBar" type="ProgressBar" parent="EnemyDataUI" unique_id=552501359]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 35.0
+
+[node name="StatusEffectContainer" type="HBoxContainer" parent="EnemyDataUI" unique_id=1177759634]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 300.0
+offset_bottom = 75.0
