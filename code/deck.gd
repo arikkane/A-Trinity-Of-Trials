@@ -1,7 +1,5 @@
 extends Control
 
-#will hold and handle all the logic related to player cards
-
 #holds references to all the cards in the deck
 var full_deck: Array[Control]
 var card_scene: PackedScene = preload("res://scenes/card.tscn")

@@ -1,5 +1,7 @@
 extends Node
 
+#main node for the game, loads on startup of the game
+
 func _ready() -> void:
 	print("Main scene loaded")
 	#initializes player variables, (max player hp, cards drawn per turn)

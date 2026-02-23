@@ -1,5 +1,8 @@
 extends Node
 
+#combat node holds all the related nodes necessary for the combat encounter
+
+#variables used to set the transform for all the cards/piles
 var card_width = 192
 var card_height = 288
 var side_margin = 32

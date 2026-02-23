@@ -1,14 +1,10 @@
 extends Node
 
-#This script is autoloaded via Project/Globals tab, and contains the player node as well as the functions needed to transition between
-#different scenes.
+#This script is autoloaded via Project/Globals tab, and contains the player variables and deck node
 var PlayerMaxHP = 0
 var PlayerHP = 0
 var CardsDrawnPerTurn = 0
 var Deck: Control
-
-func _ready() -> void:
-	print("GameManager loaded")
 
 func init_player_variables(maxhp,cdpt):
 	print("In init_player_variables")
