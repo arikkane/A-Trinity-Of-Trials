@@ -1,15 +1,12 @@
 extends TextureRect
 
 var card_array: Array[Control]
-var Deck: Control = null
-
-func _ready() -> void:
-	Deck = get_parent()
 
 #sets size and position of sprite
 func set_transforms():
-	custom_minimum_size = Vector2(Deck.card_width, Deck.card_height)
-	global_position = Vector2(Deck.side_margin, Deck.card_y)
+	print("DrawPile: in set_transforms()")
+	custom_minimum_size = Vector2(get_parent().card_width, get_parent().card_height)
+	global_position = Vector2(get_parent().side_margin, get_parent().card_y)
 
 func add_card(card:Control):
 	card_array.append(card)

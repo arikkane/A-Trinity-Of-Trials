@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c06yqc0opn76g"]
+
+[ext_resource type="Texture2D" uid="uid://bnjqxguiflpaq" path="res://assets/back_card.aseprite" id="1_3ocai"]
+[ext_resource type="Script" uid="uid://u436efqddavy" path="res://code/discard_pile.gd" id="2_844um"]
+
+[node name="DiscardPile" type="TextureRect" unique_id=1770958959]
+offset_right = 192.0
+offset_bottom = 288.0
+texture = ExtResource("1_3ocai")
+script = ExtResource("2_844um")

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b760cju5tnn0o"]
+
+[ext_resource type="Texture2D" uid="uid://bnjqxguiflpaq" path="res://assets/back_card.aseprite" id="1_uf7fb"]
+[ext_resource type="Script" uid="uid://dffdwglokajhi" path="res://code/draw_pile.gd" id="2_brcev"]
+
+[node name="DrawPile" type="TextureRect" unique_id=1849675310]
+offset_right = 192.0
+offset_bottom = 288.0
+texture = ExtResource("1_uf7fb")
+script = ExtResource("2_brcev")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"pending_changes": {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "",
+"source_uid": -1
+}
+}

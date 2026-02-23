@@ -1,66 +1,12 @@
 [gd_scene format=3 uid="uid://b0ijnhs8nkfku"]
 
 [ext_resource type="Script" uid="uid://clpppggjhab5w" path="res://code/player.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://bb7x1jlpyylvl" path="res://code/deck.gd" id="2_g2els"]
-[ext_resource type="Script" uid="uid://dffdwglokajhi" path="res://code/draw_pile.gd" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dledm3sbhjwi2" path="res://assets/UI&Charactors/swordman_1.png" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://kk3fup1dusvx" path="res://code/hand_container.gd" id="3_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://bnjqxguiflpaq" path="res://assets/back_card.aseprite" id="4_tuyoq"]
-[ext_resource type="Script" uid="uid://u436efqddavy" path="res://code/discard_pile.gd" id="6_fjrip"]
 
 [sub_resource type="GDScript" id="GDScript_qhqgy"]
 
 [node name="Player" type="Node2D" unique_id=618503237]
 script = ExtResource("1_3vyb7")
-
-[node name="Deck" type="Control" parent="." unique_id=177101824]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_g2els")
-
-[node name="HandContainer" type="Control" parent="Deck" unique_id=1520532924]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_qlg0r")
-
-[node name="DrawPile" type="TextureRect" parent="Deck" unique_id=1249154249]
-layout_mode = 0
-offset_right = 192.0
-offset_bottom = 288.0
-texture = ExtResource("4_tuyoq")
-script = ExtResource("3_dqkch")
-metadata/_aseprite_wizard_interface_config_ = {
-"animation_section": false,
-"layer_section": false,
-"pending_changes": {
-"convert_fps_field": 60.0,
-"convert_ms_field": 16.0,
-"convert_to_fps": false,
-"embed_tex": true,
-"i_mode": 0,
-"keep_anim_length": false,
-"layers": [],
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "",
-"only_visible": false,
-"player": "",
-"scale": "1.0",
-"slice": "",
-"source": "",
-"source_uid": -1
-}
-}
-
-[node name="DiscardPile" type="TextureRect" parent="Deck" unique_id=1826341990]
-layout_mode = 0
-offset_right = 192.0
-offset_bottom = 288.0
-texture = ExtResource("4_tuyoq")
-script = ExtResource("6_fjrip")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=286274635]
 scale = Vector2(3, 3)

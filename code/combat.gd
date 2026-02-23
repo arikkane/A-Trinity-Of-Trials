@@ -1,9 +1,9 @@
 extends Node
 
 func _ready() -> void:
-	$"Player/Deck".combat_start()
-	$"Player/Deck".draw_cards()
-	$"Player/Deck".combat_start()
+	GameManager.Deck.combat_start()
+	GameManager.Deck.draw_cards()
+	GameManager.Deck.combat_start()
 
 #initalize enemy function
 

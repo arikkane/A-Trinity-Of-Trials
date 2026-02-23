@@ -30,5 +30,4 @@ func update_card_positions():
 		#x coordinate of the far left side of the hand node
 		var start_x = (get_tree().root.get_visible_rect().size.x - hand_width)/2
 		for i in range(card_array.size()):
-			print("Card #" + str(i) + ": " + str(card_array[i].card_id))
 			card_array[i].global_position = Vector2(start_x + i * (card_width+card_spacing), Deck.card_y)

@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="A Trinity Of Trials"
+run/main_scene="uid://bfvo303c42qg6"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*uid://1l86yrm0xd2j"
+SceneManager="*uid://be18llq7gax6j"
 
 [display]
 

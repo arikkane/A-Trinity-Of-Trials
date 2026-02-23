@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bfvo303c42qg6"]
+
+[ext_resource type="Script" uid="uid://b3p5dbytxkpq5" path="res://code/main.gd" id="1_o5qli"]
+
+[node name="Main" type="Node" unique_id=1443758286]
+script = ExtResource("1_o5qli")
+
+[node name="SceneContainer" type="Node" parent="." unique_id=1628622375]
+
+[node name="UIOverlay" type="CanvasLayer" parent="." unique_id=1009881346]
