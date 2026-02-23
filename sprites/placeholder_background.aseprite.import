@@ -3,12 +3,12 @@
 importer="aseprite_wizard.plugin.static-texture"
 type="PortableCompressedTexture2D"
 uid="uid://biw6vue111yhc"
-path="res://.godot/imported/placeholder_background.aseprite-59eb0d65415c528e04e5a761ceb06177.res"
+path="res://.godot/imported/placeholder_background.aseprite-b715bb8e726d9a1dfa123d657402d6b4.res"
 
 [deps]
 
-source_file="res://assets/placeholder_background.aseprite"
-dest_files=["res://.godot/imported/placeholder_background.aseprite-59eb0d65415c528e04e5a761ceb06177.res"]
+source_file="res://sprites/placeholder_background.aseprite"
+dest_files=["res://.godot/imported/placeholder_background.aseprite-b715bb8e726d9a1dfa123d657402d6b4.res"]
 
 [params]
 

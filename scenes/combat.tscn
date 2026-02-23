@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://kd2pyxwew622"]
 
 [ext_resource type="Script" uid="uid://cux3wsvyxqmo6" path="res://code/combat.gd" id="1_qajva"]
-[ext_resource type="Texture2D" uid="uid://biw6vue111yhc" path="res://assets/placeholder_background.aseprite" id="2_4l26h"]
+[ext_resource type="Texture2D" uid="uid://biw6vue111yhc" path="res://sprites/placeholder_background.aseprite" id="2_4l26h"]
 [ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
 [ext_resource type="PackedScene" uid="uid://d4gi0v84vucqk" path="res://scenes/enemy.tscn" id="4_4l26h"]
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]

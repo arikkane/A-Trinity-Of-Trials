@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b760cju5tnn0o"]
 
-[ext_resource type="Texture2D" uid="uid://bnjqxguiflpaq" path="res://assets/back_card.aseprite" id="1_uf7fb"]
+[ext_resource type="Texture2D" uid="uid://bnjqxguiflpaq" path="res://sprites/back_card.aseprite" id="1_uf7fb"]
 [ext_resource type="Script" uid="uid://dffdwglokajhi" path="res://code/draw_pile.gd" id="2_brcev"]
 
 [node name="DrawPile" type="TextureRect" unique_id=1849675310]

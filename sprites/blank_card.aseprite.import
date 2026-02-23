@@ -2,13 +2,13 @@
 
 importer="aseprite_wizard.plugin.static-texture"
 type="PortableCompressedTexture2D"
-uid="uid://bnjqxguiflpaq"
-path="res://.godot/imported/back_card.aseprite-d4b958251aeadf306fe1a17b41c8fd1a.res"
+uid="uid://dmnmyrhjxxmoi"
+path="res://.godot/imported/blank_card.aseprite-69555b1d37f7026195901bf455e7c9c7.res"
 
 [deps]
 
-source_file="res://assets/back_card.aseprite"
-dest_files=["res://.godot/imported/back_card.aseprite-d4b958251aeadf306fe1a17b41c8fd1a.res"]
+source_file="res://sprites/blank_card.aseprite"
+dest_files=["res://.godot/imported/blank_card.aseprite-69555b1d37f7026195901bf455e7c9c7.res"]
 
 [params]
 
