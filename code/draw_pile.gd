@@ -15,3 +15,8 @@ func add_card(card:Control):
 func remove_card(card:Control):
 	card_array.erase(card)
 	remove_child(card)
+
+func display_cards():
+	print("In Draw Pile: ")
+	for i in range(card_array.size()):
+		print("  Card #" + str(i) + ": " + str(card_array[i].card_id))

@@ -2,5 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cnp7lxc0ctdpi" path="res://code/main_menu.gd" id="1_l6cm7"]
 
-[node name="MainMenu" type="Node" unique_id=1081103799]
+[node name="MainMenu" type="Node" unique_id=139064769]
 script = ExtResource("1_l6cm7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=799125659]
+offset_left = 618.0
+offset_top = 325.0
+offset_right = 1129.0
+offset_bottom = 620.0
+bbcode_enabled = true
+text = "Main Menu "

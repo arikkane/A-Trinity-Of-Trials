@@ -17,3 +17,4 @@ func init_player_variables(maxhp,cdpt):
 	CardsDrawnPerTurn = cdpt
 	Deck = load("res://scenes/deck.tscn").instantiate()
 	add_child(Deck)
+	Deck.init_cards()

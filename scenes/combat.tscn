@@ -4,11 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://biw6vue111yhc" path="res://assets/placeholder_background.aseprite" id="2_4l26h"]
 [ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
 [ext_resource type="PackedScene" uid="uid://d4gi0v84vucqk" path="res://scenes/enemy.tscn" id="4_4l26h"]
+[ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
+[ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
+[ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
 
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=728056167]
+[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=728056167]
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_4l26h")
@@ -18,3 +21,17 @@ position = Vector2(160, 550)
 
 [node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
 position = Vector2(1600, 568)
+
+[node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
+offset_left = 46.0
+offset_top = 756.0
+offset_right = 238.0
+offset_bottom = 1044.0
+
+[node name="DiscardPile" parent="." unique_id=1770958959 instance=ExtResource("6_4gnb8")]
+offset_left = 1645.0
+offset_top = 751.0
+offset_right = 1837.0
+offset_bottom = 1039.0
+
+[node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
