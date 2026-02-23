@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bdbp13qanlchd"]
 
 [ext_resource type="Script" uid="uid://dyn5rw11p80e5" path="res://code/card.gd" id="1_d81rb"]
-[ext_resource type="Texture2D" uid="uid://dmnmyrhjxxmoi" path="res://sprites/blank_card.aseprite" id="2_6u4wf"]
+[ext_resource type="Texture2D" uid="uid://bo2q86ol7q7l1" path="res://sprites/blank_card.png" id="2_6u4wf"]
 
 [node name="Card" type="Control" unique_id=1208374418]
 layout_mode = 3
