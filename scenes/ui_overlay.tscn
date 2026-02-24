@@ -1,18 +1,16 @@
 [gd_scene format=3 uid="uid://b3p02bo3iinga"]
 
-[ext_resource type="Texture2D" uid="uid://burmdelm45t3v" path="res://sprites/UIOverlayBackground.aseprite" id="1_5mppo"]
+[ext_resource type="Texture2D" uid="uid://dtwd3bsourw48" path="res://sprites/UIOverlayBackground.png" id="1_5mppo"]
 
-[node name="UIOverlay" type="CanvasLayer" unique_id=72302991]
+[node name="UIOverlay" type="CanvasLayer" unique_id=209031180]
 
-[node name="Background" type="TextureRect" parent="." unique_id=800022821]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=860190741]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_5mppo")
 
-[node name="TempLabel" type="RichTextLabel" parent="." unique_id=944902126]
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=770671719]
 offset_left = 860.0
-offset_right = 1060.0
-offset_bottom = 40.0
+offset_right = 960.0
+offset_bottom = 60.0
 text = "UI Overlay"
-horizontal_alignment = 1
-vertical_alignment = 1

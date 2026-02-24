@@ -22,6 +22,14 @@ func combat_start():
 	$"DrawPile".card_array.shuffle()
 	$"DrawPile".display_cards()
 
+func combat_end():
+	for i in range($"DrawPile".card_array.size()):
+		$"DrawPile".remove_card($"DrawPile".card_array.back())
+	for i in range($"DiscardPile".card_array.size()):
+		$"DiscardPile".remove_card($"DiscardPile".card_array.back())
+	for i in range($"HandContainer".card_array.size()):
+		$"HandContainer".remove_card($"HandContainer".card_array.back())
+
 #sets the position and size of the draw and discard pile
 func init_pile_transforms():
 	$"DrawPile".set_transforms()

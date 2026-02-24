@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d4gi0v84vucqk" path="res://scenes/enemy.tscn" id="4_4l26h"]
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
-[ext_resource type="Texture2D" uid="uid://cl21v08l83x47" path="res://sprites/back_card.png" id="6_sa5k0"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
 
 [node name="Combat" type="Node" unique_id=1594897435]
@@ -28,13 +27,11 @@ offset_left = 46.0
 offset_top = 756.0
 offset_right = 238.0
 offset_bottom = 1044.0
-texture = ExtResource("6_sa5k0")
 
 [node name="DiscardPile" parent="." unique_id=1770958959 instance=ExtResource("6_4gnb8")]
 offset_left = 1645.0
 offset_top = 751.0
 offset_right = 1837.0
 offset_bottom = 1039.0
-texture = ExtResource("6_sa5k0")
 
 [node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
