@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://iuun7igjk4wa"]
+
+[ext_resource type="Texture2D" uid="uid://cv777ghyce6pb" path="res://sprites/temp_map_icon.png" id="1_hs614"]
+[ext_resource type="Script" uid="uid://cg7rv78x0ygg8" path="res://code/map_node.gd" id="1_whnn0"]
+
+[node name="MapNode" type="Control" unique_id=749028550]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2556.0
+offset_top = 492.0
+offset_right = 2596.0
+offset_bottom = 532.0
+script = ExtResource("1_whnn0")
+
+[node name="NodeTexture" type="TextureRect" parent="." unique_id=1202764258]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_hs614")

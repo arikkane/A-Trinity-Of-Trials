@@ -1,3 +1,14 @@
 [gd_scene format=3 uid="uid://ctp8rvaaf7vuy"]
 
+[ext_resource type="Texture2D" uid="uid://dpc6u08xd1you" path="res://sprites/map_background.png" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://iuun7igjk4wa" path="res://scenes/map_node.tscn" id="2_paxxb"]
+
 [node name="Map" type="Node" unique_id=485005483]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1783313100]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_4xfga")
+
+[node name="MapNode" parent="." unique_id=749028550 instance=ExtResource("2_paxxb")]
+scale = Vector2(0.75, 0.75)
