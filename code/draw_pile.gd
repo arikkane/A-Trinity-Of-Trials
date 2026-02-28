@@ -12,9 +12,10 @@ func add_card(card:Control):
 	card_array.append(card)
 	add_child(card)
 
-func remove_card(card:Control):
+func remove_card(card: Control):
 	card_array.erase(card)
-	remove_child(card)
+	if card.get_parent() == self:
+		remove_child(card)
 
 func display_cards():
 	print("In Draw Pile: ")
