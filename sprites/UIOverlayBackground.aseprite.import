@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://lpauvd5pd6nv"
+path="res://.godot/imported/UIOverlayBackground.aseprite-9fd733ce0e51846e6eb292bb1e3bee9b.res"
+
+[deps]
+
+source_file="res://sprites/UIOverlayBackground.aseprite"
+dest_files=["res://.godot/imported/UIOverlayBackground.aseprite-9fd733ce0e51846e6eb292bb1e3bee9b.res"]
+
+[params]
+

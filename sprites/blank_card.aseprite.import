@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://gp05fapeuhnf"
+path="res://.godot/imported/blank_card.aseprite-69555b1d37f7026195901bf455e7c9c7.res"
+
+[deps]
+
+source_file="res://sprites/blank_card.aseprite"
+dest_files=["res://.godot/imported/blank_card.aseprite-69555b1d37f7026195901bf455e7c9c7.res"]
+
+[params]
+

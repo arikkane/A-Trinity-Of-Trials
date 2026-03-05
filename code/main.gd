@@ -7,7 +7,7 @@ func _ready() -> void:
 	#initializes player variables, (max player hp, cards drawn per turn)
 	GameManager.init_player_variables(100,6)
 	#change the filepath in this function call to change which scene loads when you start the game
-	SceneManager.change_scene("res://scenes/combat.tscn")
+	SceneManager.change_scene("res://scenes/map.tscn")
 	#test_scene_change()
 
 #test function for scene transitions, makes sure that combat reinitializes the draw pile properly
