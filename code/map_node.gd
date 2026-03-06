@@ -11,6 +11,10 @@ var connected_backwards_nodes: Array[Control]
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	scale = Vector2(0.5, 0.5)
+
+func update_position():
+	position = Vector2(get_parent().size.x/2, get_parent().size.y/GameManager.MapGridHeight * row_position)
 
 func _on_mouse_entered():
 	if $"NodeTexture".texture != hoverTexture:

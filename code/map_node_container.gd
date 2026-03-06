@@ -6,9 +6,12 @@ var map_node_scene: PackedScene = preload("res://scenes/map_node.tscn")
 var column_nodes_flag: Array[int] = [0,0,0,0,0,0,0,0,0,0,0,0]
 var column_nodes: Array[Control]
 
+func _ready() -> void:
+	mouse_filter = MOUSE_FILTER_IGNORE
+
 func init_container_transform():
-	custom_minimum_size = Vector2(get_parent().map_texture.size.x/GameManager.MapGridWidth, get_parent().map_texture.size.y)
-	global_position = Vector2(get_parent().map_texture.size.x*container_index, 0)
+	custom_minimum_size = Vector2(get_parent().map_texture.size.x/GameManager.MapGridWidth, 704)
+	global_position = Vector2(get_parent().map_texture.size.x*container_index, 184)
 	init_debug_border()
 
 func add_node(new_node):
@@ -22,7 +25,7 @@ func get_node_at_position(index):
 
 func update_node_positions():
 	for node in column_nodes:
-		node.position.x = (get_parent().map_texture.size.x/GameManager.MapGridWidth)/2
+		node.update_position()
 
 func print_column_nodes_flag():
 	print(column_nodes_flag)
