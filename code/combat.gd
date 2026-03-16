@@ -18,6 +18,8 @@ var player_turn = true
 var max_mana = 5
 var player_mana = 3
 
+var max_hand = 6 #Temporary variable that contains how many cards the player can have in their hand!!
+
 func _ready() -> void:
 	player = $"Player"
 	enemy = $"Enemy"
@@ -33,6 +35,7 @@ func combat_start():
 		$"DrawPile".card_array.append(GameManager.Deck.full_deck[i])
 	$"DrawPile".card_array.shuffle()
 	$"DrawPile".display_cards()
+
 
 func combat_end():
 	for i in range($"DrawPile".card_array.size()):
@@ -98,11 +101,14 @@ func draw_cards():
 			return
 
 		var current_card = $"DrawPile".card_array.back()
-		$"DrawPile".remove_card(current_card)
-		$"HandContainer".add_card(current_card)
-
-		current_card.combat = self
-		current_card.update_debug_label()
+		
+		if $"HandContainer".card_array.size() < max_hand:
+			print("Hand size:");
+			print($"HandContainer".card_array.size());
+			$"DrawPile".remove_card(current_card)
+			$"HandContainer".add_card(current_card)
+			current_card.combat = self
+			current_card.update_debug_label()
 
 
 func reshuffle_discard_into_draw():
