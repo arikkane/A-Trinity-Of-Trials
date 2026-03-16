@@ -6,8 +6,9 @@ var PlayerHP = 0
 var CardsDrawnPerTurn = 0
 var Deck: Control
 
+var Map: Node
 var MapGridWidth = 8
-var MapGridHeight = 12
+var MapGridHeight = 6
 
 func init_player_variables(maxhp,cdpt):
 	print("In init_player_variables")
