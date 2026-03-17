@@ -4,6 +4,7 @@ var column_index = 0
 
 var map_node_scene: PackedScene = preload("res://scenes/map_node.tscn")
 var existing_node_flags: Array[int] = [0,0,0,0,0,0,0,0,0,0,0,0]
+var connections: Array[Vector2]
 var map_nodes: Array[Control]
 
 func _ready() -> void:
@@ -22,10 +23,11 @@ func init_empty_nodes():
 		add_child(new_node)
 		new_node.update_position()
 
-#func add_node(new_node):
-	#map_nodes.append(new_node)
-	#add_child(new_node)
-
+func check_for_crossing(current_position, target_position):
+	for conn in connections:
+		if (current_position < conn.x and target_position > conn.y) or (current_position > conn.x and target_position < conn.y):
+			return true
+	return false
 #func get_node_at_position(index):
 	#for node in column_nodes:
 		#if node.row_index == index:

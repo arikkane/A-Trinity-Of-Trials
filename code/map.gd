@@ -19,11 +19,9 @@ func _ready() -> void:
 	
 	init_map_node_containers()
 	init_map_nodes()
-	visualize_paths()
+	clear_empty_nodes()
 	print_connected_nodes()
-	#generate_connecting_lines()
-	#print_container_data()
-	#print_connected_nodes()
+	generate_boss_node()
 
 func init_map_node_containers():
 	for i in range(GameManager.MapGridWidth):
@@ -35,99 +33,58 @@ func init_map_node_containers():
 		new_column.init_empty_nodes()
 
 func init_map_nodes():
-	#repeat 6 times
-		#pick a starting node, ensure first two are not the same
-		#generate a path to the last column, with each node picking from the 3 closest nodes
-	print("In init_map_nodes()")
 	for i in range(6):
 		var start_pos = randi() % GameManager.MapGridHeight
-		print("i: " + str(i) + ", start_pos: " + str(start_pos))
 		if i == 1 and map_grid_columns[0].existing_node_flags[start_pos] == 1:
-			print("in second gen if statement")
 			while map_grid_columns[0].existing_node_flags[start_pos] != 1:
 				start_pos = randi() % GameManager.MapGridHeight
-				print("start_pos: " + str(start_pos))
 		var current_node = map_grid_columns[0].map_nodes[start_pos]
+		current_node.is_empty = false
 		for j in range(1,GameManager.MapGridWidth):
-			current_node.is_empty = false
-			var next_position = randi() % (current_node.row_index+1) + (current_node.row_index-1)
+			var next_position = randi() % 3 + (current_node.row_index-1)
+			while(map_grid_columns[j-1].check_for_crossing(current_node.row_index, next_position)):
+				next_position = randi() % 3 + (current_node.row_index-1)
 			next_position = clamp(next_position, 0, GameManager.MapGridHeight-1)
 			var next_node = map_grid_columns[j].map_nodes[next_position]
 			map_grid_columns[j].existing_node_flags[next_position] = 1
 			if not next_node in current_node.connected_nodes:
 				current_node.connected_nodes.append(next_node)
+			current_node.create_path_line(next_node)
+			map_grid_columns[j-1].connections.append(Vector2(current_node.row_index, next_position))
+			next_node.is_empty = false
 			current_node = next_node
-	
-	#generate_starting_nodes()
-	#generate_next_column(map_node_containers[0], map_node_containers[1])
-	#for container in map_node_containers:
-		#container.update_node_positions()
-	#generate_boss_node()
 
-func visualize_paths():
+func clear_empty_nodes():
 	for column in map_grid_columns:
-		for node in column.map_nodes:
-			if node.is_empty:
-				column.map_nodes.erase(node)
-				node.queue_free()
-			else:
-				node.create_connecting_lines()
+		for i in range(column.map_nodes.size()-1, -1, -1):
+			print("is (" + str(column.column_index) + "," + str(column.map_nodes[i].row_index) + ") empty?")
+			if column.map_nodes[i].is_empty:
+				print("Deleting node (" + str(column.column_index) + "," + str(column.map_nodes[i].row_index) + ")...")
+				var deleting_node = column.map_nodes[i]
+				column.map_nodes.erase(deleting_node)
+				deleting_node.queue_free()
 
 func print_connected_nodes():
 	for column in map_grid_columns:
 		print("Column: " + str(column.column_index))
 		print("--------------------------------------")
 		for node in column.map_nodes:
-			print("Size: " + str(node.size))
 			print("Position: " + str(node.position))
 			print("Global Position: " + str(node.global_position))
 			print("Row: " + str(node.row_index))
+			print("is_empty: " + str(node.connected_nodes.is_empty()))
 			print("Connected nodes: ")
 			for conn_node in node.connected_nodes:
 				print("(" + str(conn_node.get_parent().column_index) + "," + str(conn_node.row_index) + ")")
 
-#func generate_starting_nodes():
-	#for i in range(3):
-		#var gen_flag = false
-		#while not gen_flag:
-			#var random_pos = randi() % (GameManager.MapGridHeight)
-			#if map_node_containers[0].column_nodes_flag[random_pos] == 0:
-				#map_node_containers[0].column_nodes_flag[random_pos] = 1
-				#var new_node = map_node.instantiate()
-				#new_node.row_index = random_pos
-				#map_node_containers[0].add_node(new_node)
-				#gen_flag = true
-#
-#func generate_next_column(current_col, next_col):
-	#for current_node in current_col.column_nodes:
-		#for i in range(current_node.row_index-1, current_node.row_index+2):
-			#if i >= 0 and i < GameManager.MapGridHeight:
-				#if next_col.column_nodes_flag[i] == 0:
-					#next_col.column_nodes_flag[i] = randi()%2
-					#if next_col.column_nodes_flag[i] == 1:
-						#var new_node = map_node.instantiate()
-						#new_node.row_index = i
-						#current_node.connected_forward_nodes.append(new_node)
-						#new_node.connected_backwards_nodes.append(current_node)
-						#next_col.add_node(new_node)
-				#elif next_col.column_nodes_flag[i] == 1:
-					#var next_node = next_col.get_node_at_position(i)
-					#current_node.connected_forward_nodes.append(next_node)
-					#next_node.connected_backwards_nodes.append(current_node)
-	#if not current_col.container_index == map_node_containers.size()-2:
-		#generate_next_column(next_col, map_node_containers[next_col.container_index+1])
-#
-#func generate_connecting_lines():
-	#for container in map_node_containers:
-		#for node in container.column_nodes:
-			#node.create_connecting_lines()
-#
-#func generate_boss_node():
+func generate_boss_node():
 	#print("in generate_boss_node()")
-	##boss_node = map_node.instantiate()
-	##add_child(boss_node)
-	##for node in map_node_containers.back().column_nodes:
-		##
+	boss_node = map_node.instantiate()
+	boss_node.global_position = Vector2(2650, map_texture.size.y/2-boss_node.size.y/2)
+	boss_node.row_index = GameManager.MapGridHeight/2
+	add_child(boss_node)
+	for node in map_grid_columns.back().map_nodes:
+		node.create_path_line(boss_node)
 #
 #func print_connected_nodes():
 	#for container in map_node_containers:
