@@ -2,8 +2,8 @@ extends Camera2D
 
 var dragging = false
 
-#func _ready() -> void:
-	#limit_right = 2880 - get_viewport_rect().size.x
+func _ready() -> void:
+	limit_right = 2880 - get_viewport_rect().size.x
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
