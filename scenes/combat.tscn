@@ -35,3 +35,24 @@ offset_right = 1837.0
 offset_bottom = 1039.0
 
 [node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
+
+[node name="ManaLabel" type="Label" parent="." unique_id=2140329730]
+offset_left = 315.0
+offset_top = 517.0
+offset_right = 416.0
+offset_bottom = 572.0
+
+[node name="BlockValue" type="Label" parent="." unique_id=294225787]
+offset_left = 228.0
+offset_top = 421.0
+offset_right = 293.0
+offset_bottom = 468.0
+
+[node name="EndTurnButton" type="Button" parent="." unique_id=1965496006]
+offset_left = 24.0
+offset_top = 623.0
+offset_right = 151.0
+offset_bottom = 681.0
+text = "End Turn"
+
+[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
