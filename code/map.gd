@@ -10,6 +10,8 @@ var column_width
 var column_height
 var column_vertical_offset
 
+var room_select_lock = false
+
 func _ready() -> void:
 	randomize()
 	map_texture = $"TextureRect"
@@ -20,8 +22,9 @@ func _ready() -> void:
 	init_map_node_containers()
 	init_map_nodes()
 	clear_empty_nodes()
-	print_connected_nodes()
 	generate_boss_node()
+	generate_room_types()
+	#print_connected_nodes()
 
 func init_map_node_containers():
 	for i in range(GameManager.MapGridWidth):
@@ -85,17 +88,10 @@ func generate_boss_node():
 	add_child(boss_node)
 	for node in map_grid_columns.back().map_nodes:
 		node.create_path_line(boss_node)
-#
-#func print_connected_nodes():
-	#for container in map_node_containers:
-		#print("Column: " + str(container.container_index))
-		#for node in container.column_nodes:
-			#print("Position: (" + str(node.position.x) + "," + str(node.position.y) + ")")
-			#print("	Row: " + str(node.row_index))
-			#print("		Connected forward nodes:")
-			#for connected_node in node.connected_forward_nodes:
-				#print("			" + str(connected_node.row_index))
-#
-#func print_container_data():
-	#for container in map_node_containers:
-		#container.print_transform_data()
+
+func generate_room_types():
+	
+
+func print_container_data():
+	for container in map_grid_columns:
+		container.print_transform_data()
