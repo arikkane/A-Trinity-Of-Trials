@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://blj5vv8tyro0x"
+path="res://.godot/imported/back_card.aseprite-aa0bc22d9b2227a683f4777d6187ee67.res"
+
+[deps]
+
+source_file="res://sprites/back_card.aseprite"
+dest_files=["res://.godot/imported/back_card.aseprite-aa0bc22d9b2227a683f4777d6187ee67.res"]
+
+[params]
+

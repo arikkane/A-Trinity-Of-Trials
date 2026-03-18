@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://b0ijnhs8nkfku"]
+
+[ext_resource type="Script" uid="uid://clpppggjhab5w" path="res://code/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://dledm3sbhjwi2" path="res://assets/UI&Charactors/swordman_1.png" id="3_qhqgy"]
+
+[sub_resource type="GDScript" id="GDScript_qhqgy"]
+
+[node name="Player" type="Node2D" unique_id=618503237]
+script = ExtResource("1_3vyb7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=286274635]
+scale = Vector2(3, 3)
+texture = ExtResource("3_qhqgy")
+centered = false
+
+[node name="CharacterDataUI" type="Control" parent="." unique_id=1015692185]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -45.0
+offset_top = -80.0
+offset_right = 255.0
+
+[node name="HealthBar" type="ProgressBar" parent="CharacterDataUI" unique_id=1818458707]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 35.0
+script = SubResource("GDScript_qhqgy")
+
+[node name="StatusEffectsContainer" type="HBoxContainer" parent="CharacterDataUI" unique_id=1873251225]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 300.0
+offset_bottom = 75.0
