@@ -1,14 +1,13 @@
 extends Control
 
-var idleTexture: Texture2D = preload("res://sprites/temp_map_icon.png")
-var hoverTexture: Texture2D = preload("res://sprites/temp_map_icon_hovering.png")
+var idleTexture: Texture2D = preload("res://sprites/map/battle_icon.png")
+var hoverTexture: Texture2D = preload("res://sprites/map/battle_icon_hovering.png")
 
 var row_index
 var is_empty = true
 var connected_nodes: Array[Control]
 var connecting_lines: Array[Line2D]
-var line_padding = 15
-var line_offset_radius = 64
+var line_offset_radius = 48
 
 func _ready() -> void:
 	connected_nodes.clear()

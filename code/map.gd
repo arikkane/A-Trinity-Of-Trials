@@ -26,6 +26,7 @@ func _ready() -> void:
 	generate_room_types()
 	#print_connected_nodes()
 
+
 func init_map_node_containers():
 	for i in range(GameManager.MapGridWidth):
 		var new_column = map_grid_column.instantiate()
@@ -90,7 +91,6 @@ func generate_boss_node():
 		node.create_path_line(boss_node)
 
 func generate_room_types():
-	
 
 func print_container_data():
 	for container in map_grid_columns:
