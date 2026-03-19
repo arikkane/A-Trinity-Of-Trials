@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://egu1wngeu73e"
-path="res://.godot/imported/map_background.png-f847869d4177fb0e15af72b9f02040f8.ctex"
+uid="uid://bcrtsoquutvh7"
+path="res://.godot/imported/rest_icon_hovering.png-b245299db2ecf1e680b272bfd2cafb39.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/map/map_background.png"
-dest_files=["res://.godot/imported/map_background.png-f847869d4177fb0e15af72b9f02040f8.ctex"]
+source_file="res://sprites/map/rest_icon_hovering.png"
+dest_files=["res://.godot/imported/rest_icon_hovering.png-b245299db2ecf1e680b272bfd2cafb39.ctex"]
 
 [params]
 

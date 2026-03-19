@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://egu1wngeu73e"
-path="res://.godot/imported/map_background.png-f847869d4177fb0e15af72b9f02040f8.ctex"
+uid="uid://b8xix6p0yurpy"
+path="res://.godot/imported/event_icon_hovering.png-bf1fc1076b723da71abf6faf54e10bdf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/map/map_background.png"
-dest_files=["res://.godot/imported/map_background.png-f847869d4177fb0e15af72b9f02040f8.ctex"]
+source_file="res://sprites/map/event_icon_hovering.png"
+dest_files=["res://.godot/imported/event_icon_hovering.png-bf1fc1076b723da71abf6faf54e10bdf.ctex"]
 
 [params]
 

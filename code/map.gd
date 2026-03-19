@@ -23,7 +23,7 @@ func _ready() -> void:
 	init_map_nodes()
 	clear_empty_nodes()
 	generate_boss_node()
-	generate_room_types()
+	#generate_room_types()
 	#print_connected_nodes()
 
 
@@ -82,7 +82,6 @@ func print_connected_nodes():
 				print("(" + str(conn_node.get_parent().column_index) + "," + str(conn_node.row_index) + ")")
 
 func generate_boss_node():
-	#print("in generate_boss_node()")
 	boss_node = map_node.instantiate()
 	boss_node.global_position = Vector2(2650, map_texture.size.y/2-boss_node.size.y/2)
 	boss_node.row_index = GameManager.MapGridHeight/2
@@ -90,7 +89,8 @@ func generate_boss_node():
 	for node in map_grid_columns.back().map_nodes:
 		node.create_path_line(boss_node)
 
-func generate_room_types():
+#func generate_room_types():
+	#make the middle row be chest
 
 func print_container_data():
 	for container in map_grid_columns:

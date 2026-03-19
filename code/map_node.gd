@@ -20,7 +20,7 @@ func update_position():
 
 func create_path_line(next_node):
 	var new_line = Line2D.new()
-	new_line.default_color = "#673e2b"
+	new_line.default_color = "#75503f"
 	new_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	new_line.end_cap_mode = Line2D.LINE_CAP_ROUND
 	new_line.width = 6

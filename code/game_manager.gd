@@ -4,6 +4,7 @@ extends Node
 var PlayerMaxHP = 0
 var PlayerHP = 0
 var CardsDrawnPerTurn = 0
+var PlayerPosition = 0
 var Deck: Control
 
 var Map: Node
