@@ -5,6 +5,7 @@ var hoverTexture: Texture2D = preload("res://sprites/map/battle_icon_hovering.pn
 
 var row_index
 var is_empty = true
+var room_type
 var connected_nodes: Array[Control]
 var connecting_lines: Array[Line2D]
 var line_offset_radius = 48

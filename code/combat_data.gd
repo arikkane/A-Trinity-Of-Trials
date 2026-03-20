@@ -1,9 +1,6 @@
 extends RoomData
 class_name CombatData
 
-enum Difficulty {
-	Common,
-	Elite
-}
-
-@export var difficulty: Difficulty
+@export var enemys: Array[String]
+@export var max_gold: int = 12
+@export var min_gold: int = 8

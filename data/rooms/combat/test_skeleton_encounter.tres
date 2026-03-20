@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CombatData" format=3 uid="uid://cx6vfgpdw5qob"]
+
+[ext_resource type="Script" uid="uid://c4mghernpg8ny" path="res://code/combat_data.gd" id="1_030ji"]
+
+[resource]
+script = ExtResource("1_030ji")
+enemys = Array[String](["skeleton_1", "skeleton_2"])
+id = "test_goblin_encounter"
+metadata/_custom_type_script = "uid://c4mghernpg8ny"

@@ -1,5 +1,12 @@
 extends Node
 
+enum RoomTypes {
+	combat,
+	event,
+	rest,
+	shop
+}
+
 var map_grid_column: PackedScene = preload("res://scenes/map_node_container.tscn")
 var map_node: PackedScene = preload("res://scenes/map_node.tscn")
 var map_grid_columns: Array[Control]
@@ -26,7 +33,6 @@ func _ready() -> void:
 	#generate_room_types()
 	#print_connected_nodes()
 
-
 func init_map_node_containers():
 	for i in range(GameManager.MapGridWidth):
 		var new_column = map_grid_column.instantiate()
@@ -38,10 +44,17 @@ func init_map_node_containers():
 
 func init_map_nodes():
 	for i in range(6):
+		var room_weights = {
+		"combat": 50,
+		"event": 25,
+		"rest": 15,
+		"shop": 10
+		}
 		var start_pos = randi() % GameManager.MapGridHeight
 		if i == 1 and map_grid_columns[0].existing_node_flags[start_pos] == 1:
 			while map_grid_columns[0].existing_node_flags[start_pos] != 1:
 				start_pos = randi() % GameManager.MapGridHeight
+		var previous_nodes = Array[Control]
 		var current_node = map_grid_columns[0].map_nodes[start_pos]
 		current_node.is_empty = false
 		for j in range(1,GameManager.MapGridWidth):
@@ -49,14 +62,26 @@ func init_map_nodes():
 			while(map_grid_columns[j-1].check_for_crossing(current_node.row_index, next_position)):
 				next_position = randi() % 3 + (current_node.row_index-1)
 			next_position = clamp(next_position, 0, GameManager.MapGridHeight-1)
+			
 			var next_node = map_grid_columns[j].map_nodes[next_position]
 			map_grid_columns[j].existing_node_flags[next_position] = 1
 			if not next_node in current_node.connected_nodes:
 				current_node.connected_nodes.append(next_node)
+			
 			current_node.create_path_line(next_node)
 			map_grid_columns[j-1].connections.append(Vector2(current_node.row_index, next_position))
+			
+			var weights = room_weights.duplicate()
+			adjust_weights(previous_nodes, weights)
+			
 			next_node.is_empty = false
+			previous_nodes.append(current_node)
 			current_node = next_node
+
+func adjust_weights(previous_nodes, weights):
+	for weight in weights:
+		if previous_nodes.back().room_type == weight:
+			weights[weight] = 0.0
 
 func clear_empty_nodes():
 	for column in map_grid_columns:
