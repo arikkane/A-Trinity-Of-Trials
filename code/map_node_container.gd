@@ -28,6 +28,7 @@ func check_for_crossing(current_position, target_position):
 		if (current_position < conn.x and target_position > conn.y) or (current_position > conn.x and target_position < conn.y):
 			return true
 	return false
+
 #func get_node_at_position(index):
 	#for node in column_nodes:
 		#if node.row_index == index:

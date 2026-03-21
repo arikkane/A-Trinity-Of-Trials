@@ -11,6 +11,13 @@ var Map: Node
 var MapGridWidth = 8
 var MapGridHeight = 6
 
+enum RoomTypes {
+	Combat,
+	Event,
+	Rest,
+	Shop
+}
+
 func init_player_variables(maxhp,cdpt):
 	print("In init_player_variables")
 	PlayerMaxHP = maxhp
