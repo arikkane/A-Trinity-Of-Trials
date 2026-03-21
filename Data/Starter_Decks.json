@@ -1,0 +1,17 @@
+{
+  "GUNDAM": [
+	{"name": "Laser Shot", "type": "Damage", "damage": 6, "block": 0, "heal": 0, "count": 10},
+	{"name": "Shield Up", "type": "Utility", "damage": 0, "block": 5, "heal": 0, "count": 6},
+	{"name": "Repair", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 4}
+  ],
+  "HEXTECHMAGE": [
+	{"name": "Fireball", "type": "Damage", "damage": 7, "block": 0, "heal": 0, "count": 8},
+	{"name": "Heal Pulse", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6},
+	{"name": "Draw Boost", "type": "Utility", "damage": 0, "block": 0, "heal": 0, "draw": 2, "count": 6}
+  ],
+  "CREATURE": [
+	{"name": "Bite", "type": "Damage", "damage": 5, "block": 0, "heal": 0, "count": 8},
+	{"name": "Hide", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "count": 6},
+	{"name": "Regenerate", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6}
+  ]
+}

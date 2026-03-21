@@ -1,33 +1,100 @@
 extends Control
 
-#holds references to all the cards in the deck
-var full_deck: Array[Control]
+# Holds all cards in the player's deck
+var full_deck: Array = []
+
 var card_scene: PackedScene = preload("res://scenes/card.tscn")
+
+# Card layout variables
 var card_width = 192
 var card_height = 288
 var side_margin = 32
 var bottom_margin = 32
 var card_y = 0
 
+# Deck data loaded from JSON
+var deck_data = {}
+
+# ----------------------------
+# Debug function
+# ----------------------------
 func display_full_deck():
 	for i in range(full_deck.size()):
-		print("Card #" + str(i) + ": " + str(full_deck[i].card_id))
+		print("Card #" + str(i) + ": " + str(full_deck[i].card_name))
 
-#initalize cards function, should be called when run is started
+# ----------------------------
+# Initialize deck from JSON
+# ----------------------------
 func init_cards():
-	#generates placeholder cards for the initial prototype
-	for i in range(20):
-		full_deck.append(card_scene.instantiate())
-		full_deck.back().card_id = i
-	for i in range(10):
-		full_deck[i].type = "Damage"
-		full_deck[i].damage = 5
-		full_deck[i].description = "Deals " + str(full_deck[i].damage) + " damage to the target"
-	for i in range(5): 
-		full_deck[i+10].type = "Utility"
-		full_deck[i+10].block = 4
-		full_deck[i+10].description = "Applies " + str(full_deck[i].block) + " block to the user"
-	for i in range(5):
-		full_deck[i+15].type = "Utility"
-		full_deck[i+15].heal = 2
-		full_deck[i+15].description = "Heals the user for " + str(full_deck[i].heal) + " health"
+	full_deck.clear()
+	load_decks()
+	
+	var className = ""
+	match GameManager.current_class:
+		GameManager.PlayerClass.GUNDAM:
+			className = "GUNDAM"
+		GameManager.PlayerClass.HEXTECHMAGE:
+			className = "HEXTECHMAGE"
+		GameManager.PlayerClass.CREATURE:
+			className = "CREATURE"
+
+	if not deck_data.has(className):
+		push_error("Class not found in JSON: " + className)
+		return
+
+	for card_info in deck_data[className]:
+		var count = int(card_info.get("count", 1))
+		for i in range(count):
+			var card = create_card(
+				card_info.get("type", "Damage"),
+				card_info.get("damage", 0),
+				card_info.get("block", 0),
+				card_info.get("heal", 0),
+				card_info.get("name", "Unnamed Card")
+			)
+			# Optional draw effect
+			if card_info.has("draw"):
+				card.draw_amount = int(card_info["draw"])
+			full_deck.append(card)
+
+# ----------------------------
+# Card creation helper
+# ----------------------------
+func create_card(card_type, damage, block, heal, card_name_str):
+	var card = card_scene.instantiate()
+
+	card.type = card_type
+	card.damage = damage
+	card.block = block
+	card.heal = heal
+	card.card_name = card_name_str
+	card.name = card_name_str  # assign node name to avoid confusion
+
+	# Auto-generate description if none provided
+	if damage > 0:
+		card.description = "Deals " + str(damage) + " damage"
+	elif block > 0:
+		card.description = "Gain " + str(block) + " block"
+	elif heal > 0:
+		card.description = "Heal " + str(heal)
+	else:
+		card.description = card_name_str
+
+	return card
+
+# ----------------------------
+# Load decks from JSON file
+# ----------------------------
+func load_decks():
+	var file = FileAccess.open("res://data/Starter_Decks.json", FileAccess.READ)
+	if not file:
+		push_error("Could not open Starter_Decks.json")
+		return
+
+	var text = file.get_as_text()
+	var parsed = JSON.parse_string(text)
+	
+	if typeof(parsed) == TYPE_DICTIONARY:
+		deck_data = parsed
+	else:
+		push_error("JSON parse failed: " + str(parsed))

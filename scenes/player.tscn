@@ -22,8 +22,11 @@ offset_right = 255.0
 
 [node name="HealthBar" type="ProgressBar" parent="CharacterDataUI" unique_id=1818458707]
 layout_mode = 0
-offset_right = 300.0
+offset_right = 346.0
 offset_bottom = 35.0
+max_value = 120.0
+rounded = true
+allow_greater = true
 script = SubResource("GDScript_qhqgy")
 
 [node name="StatusEffectsContainer" type="HBoxContainer" parent="CharacterDataUI" unique_id=1873251225]
@@ -31,3 +34,10 @@ layout_mode = 0
 offset_top = 35.0
 offset_right = 300.0
 offset_bottom = 75.0
+
+[node name="HPLabel" type="Label" parent="CharacterDataUI" unique_id=186671773]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 7.0
+offset_right = 316.0
+offset_bottom = 30.0

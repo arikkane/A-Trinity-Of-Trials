@@ -6,7 +6,8 @@ extends Control
 var card_id = 0
 var combat
 #Damage, Utility, or Power
-var type = null
+var type: String = ""
+var card_name: String = ""
 var damage = 0
 var block = 0
 var heal = 0
@@ -14,6 +15,7 @@ var description = null
 #flag for if the card is in the players hand
 var in_hand = false
 var debug_label = null
+var draw_amount: int = 0
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
