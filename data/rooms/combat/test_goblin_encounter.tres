@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_fivue")
+enemies = Array[String](["goblin_1", "goblin_2"])
 id = "test_goblin_encounter"
 gen_weight = 50.0
 scene_path = "res://scenes/test_combat_variation.tscn"
