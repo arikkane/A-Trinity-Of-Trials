@@ -14,6 +14,11 @@ var connecting_lines: Array[Line2D]
 #gives spacing between the connecting lines and their nodes 
 var line_offset_radius = 48
 
+signal node_clicked
+#keeps track of how long the left click was held on the node to handle dragging the map when clicking on a node
+var pressed_time = 0
+var click_deadzone = 3
+
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -92,6 +97,11 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	if $"NodeTexture".texture != idleTexture:
 		$"NodeTexture".texture = idleTexture
+
+func _gui_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if not event.pressed:
+			node_clicked.emit(self)
 
 #--------------------------------Debug Functions-------------------------------------------
 func print_queue(queue, prev_path):

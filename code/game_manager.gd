@@ -7,7 +7,7 @@ var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
 var Deck: Control
 
-var Map: Node
+var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
 
@@ -26,3 +26,10 @@ func init_player_variables(maxhp,cdpt):
 	Deck = load("res://scenes/deck.tscn").instantiate()
 	add_child(Deck)
 	Deck.init_cards()
+
+func start_run():
+	Map = load("res://scenes/map.tscn").instantiate()
+
+func encounter_complete():
+	Map.show()
+	Map.map_lock = false
