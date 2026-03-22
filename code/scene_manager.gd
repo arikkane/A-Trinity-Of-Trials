@@ -6,16 +6,18 @@ var PrimaryScene
 
 func change_scene(scene_path):
 	print("changing scene to: " + scene_path)
+	var children = SceneContainer.get_children()
 	
-	for child in SceneContainer.get_children():
-		if child.scene_file_path == "res://scenes/combat.tscn":
-			child.combat_end()
-		remove_child(child)
-		child.queue_free()
+	for i in range(children.size()-1,-1,-1):
+		if children[i].scene_file_path == "res://scenes/combat.tscn":
+			children[i].combat_end()
+		children[i].queue_free()
 	
 	var new_scene = load(scene_path).instantiate()
 	SceneContainer.add_child(new_scene)
 	PrimaryScene = new_scene
+	
+	print_all_scene_container_children()
 	
 	#makes the overlay invisible if the main menu scene is loaded
 	if scene_path == "res://scenes/main_menu.tscn":
@@ -23,10 +25,14 @@ func change_scene(scene_path):
 	else:
 		get_node("/root/Main/UIOverlay").visible = true
 
-func print_all_scene_container_children():
-	for child in SceneContainer.get_children():
-		print(child.scene_file_path)
-
+#passes the room data resource for the loaded room into the scene
 func load_room_data(data: RoomData):
 	print("in load_room_data")
 	PrimaryScene.init_room_data(data)
+
+#------------------------Debug Function---------------------
+func print_all_scene_container_children():
+	print("\nCurrent scenes in scene container:")
+	for child in SceneContainer.get_children():
+		print(child.scene_file_path)
+	print("")

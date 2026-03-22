@@ -1,7 +1,7 @@
 extends Control
 
-var idleTexture: Texture2D = preload("res://sprites/map/battle_icon.png")
-var hoverTexture: Texture2D = preload("res://sprites/map/battle_icon_hovering.png")
+var idleTexture: Texture2D
+var hoverTexture: Texture2D
 
 var row_index
 var is_empty = true
@@ -10,6 +10,8 @@ var room_type_rolled = false
 var forward_connected_nodes: Array[Control]
 var backward_connected_nodes: Array[Control]
 var connecting_lines: Array[Line2D]
+
+var is_path_option = false
 
 #gives spacing between the connecting lines and their nodes 
 var line_offset_radius = 48
@@ -29,19 +31,27 @@ func update_position():
 
 #changes the sprites to correlate to their room type
 func update_sprite():
+	#fades the node if it is not a valid path option
+	if not is_path_option:
+		$"NodeTexture".self_modulate.a = 0.50
+	else:
+		$"NodeTexture".self_modulate.a = 1.0
 	match room_type:
 		GameManager.RoomTypes.Combat:
-			idleTexture = preload("res://sprites/map/battle_icon.png")
-			hoverTexture = preload("res://sprites/map/battle_icon_hovering.png")
+			idleTexture = load("res://sprites/map/battle_icon.png")
+			hoverTexture = load("res://sprites/map/battle_icon_hovering.png")
 		GameManager.RoomTypes.Event:
-			idleTexture = preload("res://sprites/map/event_icon.png")
-			hoverTexture = preload("res://sprites/map/event_icon_hovering.png")
+			idleTexture = load("res://sprites/map/event_icon.png")
+			hoverTexture = load("res://sprites/map/event_icon_hovering.png")
 		GameManager.RoomTypes.Rest:
-			idleTexture = preload("res://sprites/map/rest_icon.png")
-			hoverTexture = preload("res://sprites/map/rest_icon_hovering.png")
+			idleTexture = load("res://sprites/map/rest_icon.png")
+			hoverTexture = load("res://sprites/map/rest_icon_hovering.png")
 		GameManager.RoomTypes.Shop:
-			idleTexture = preload("res://sprites/map/shop_icon.png")
-			hoverTexture = preload("res://sprites/map/shop_icon_hovering.png")
+			idleTexture = load("res://sprites/map/shop_icon.png")
+			hoverTexture = load("res://sprites/map/shop_icon_hovering.png")
+		GameManager.RoomTypes.Boss:
+			idleTexture = load("res://sprites/map/battle_icon.png")
+			hoverTexture = load("res://sprites/map/battle_icon_hovering.png")
 	$"NodeTexture".texture = idleTexture
 
 #renders the line between connected nodes
@@ -99,7 +109,7 @@ func _on_mouse_exited():
 		$"NodeTexture".texture = idleTexture
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if is_path_option and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if not event.pressed:
 			node_clicked.emit(self)
 

@@ -17,6 +17,7 @@ var column_vertical_offset
 var map_lock = false
 
 var used_combat_encounters: Dictionary
+var used_event_encounters: Dictionary
 
 func _ready() -> void:
 	randomize()
@@ -66,6 +67,7 @@ func init_node_paths():
 		#sets the current node to the starting position
 		var current_node = map_grid_columns[0].map_nodes[start_pos]
 		current_node.is_empty = false
+		current_node.is_path_option = true
 		#for every column up to the boss node
 		for j in range(1,GameManager.MapGridWidth):
 			#generates the next position of the path based on the 3 closest nodes in the next column
@@ -199,15 +201,22 @@ func generate_boss_node():
 	boss_node = map_node.instantiate()
 	boss_node.global_position = Vector2(2650, map_texture.size.y/2-boss_node.size.y/2)
 	boss_node.row_index = GameManager.MapGridHeight/2
+	boss_node.room_type = GameManager.RoomTypes.Boss
+	boss_node.update_sprite()
 	add_child(boss_node)
+	boss_node.node_clicked.connect(_on_map_node_clicked)
 	for node in map_grid_columns.back().map_nodes:
+		node.forward_connected_nodes.append(boss_node)
 		node.create_path_line(boss_node)
 
+#-----------------------------------------------------------
+# This event handling function is called whenever a map node 
+# that is a valid path option is clicked on
+#-----------------------------------------------------------
 func _on_map_node_clicked(node: Control):
+	#ensures that the player can't progress to the next room if they havent finished the current encounter
 	if not map_lock:
 		var room_data
-		print("Node clicked:")
-		node.print_grid_position()
 		match node.room_type:
 			GameManager.RoomTypes.Combat:
 				room_data = roll_combat_encounter()
@@ -217,23 +226,37 @@ func _on_map_node_clicked(node: Control):
 				room_data = init_rest_room()
 			GameManager.RoomTypes.Shop:
 				room_data = init_shop_room()
+			GameManager.RoomTypes.Boss:
+				room_data = init_boss_room()
+		update_path_options(node)
 		SceneManager.change_scene(room_data.scene_path)
+		#loads the room data into the next room scene
 		SceneManager.load_room_data(room_data)
+		#prevents the user from clicking another map node while the current encounter hasn't finished
 		map_lock = true
-		hide()
+		hide_map()
 
+#------------------------------------------------
+# This function gets the weights from each combat
+# encounter variation and rolls for one
+#------------------------------------------------
 func roll_combat_encounter():
 	print("in roll_combat_encounter")
+	#loads all the resources in the data/rooms/combat folder
 	var combat_encounter_variations = get_all_room_variation_tres(GameManager.RoomTypes.Combat)
+	#if resources were successfully loaded
 	if combat_encounter_variations:
+		#adds all the weights together
 		var total = 0
 		for variation in combat_encounter_variations:
 			if variation.id in used_combat_encounters:
+				#lowers the weight relative to how many times that combat variation was used
 				variation.gen_weight /= used_combat_encounters[variation.id]
 			total += variation.gen_weight
 		
 		var roll = randi_range(0, total-1)
 		var cumulative = 0
+		#adds each weight to cumulative, checking to see if cumulative is greater than roll each time
 		for variation in combat_encounter_variations:
 			cumulative += variation.gen_weight
 			if roll < cumulative:
@@ -246,30 +269,43 @@ func roll_combat_encounter():
 		print("Error: Failed to load combat_data resources")
 		return null
 
+#-----------------------------------------------
+# This function gets the weights from each event
+# variation and rolls for one
+#-----------------------------------------------
 func roll_event_variation():
 	print("in roll_event_variation")
+	#loads all the resources in the data/rooms/event folder
 	var event_variations = get_all_room_variation_tres(GameManager.RoomTypes.Event)
+	#if resources were successfully loaded
 	if event_variations:
+		#adds all the weights together
 		var total = 0
 		for variation in event_variations:
-			if variation.id in used_combat_encounters:
-				variation.gen_weight /= used_combat_encounters[variation.id]
+			if variation.id in used_event_encounters:
+				#lowers the weight relative to how many times that event variation was used
+				variation.gen_weight /= used_event_encounters[variation.id]
 			total += variation.gen_weight
 		
 		var roll = randi_range(0, total-1)
 		var cumulative = 0
+		#adds each weight to cumulative, checking to see if cumulative is greater than roll each time
 		for variation in event_variations:
 			cumulative += variation.gen_weight
 			if roll < cumulative:
-				if variation.id in used_combat_encounters:
-					used_combat_encounters[variation.id] += 1
+				if variation.id in used_event_encounters:
+					used_event_encounters[variation.id] += 1
 				else:
-					used_combat_encounters[variation.id] = 2
+					used_event_encounters[variation.id] = 2
 				return variation
 	else:
 		print("Error: Failed to load combat_data resources")
 		return null
 
+#------------------------------------------
+# This function loads the RestData resource
+# from the data/rooms/rest folder
+#------------------------------------------
 func init_rest_room():
 	print("in init_rest_room")
 	var resource = ResourceLoader.load("res://data/rooms/rest/rest.tres")
@@ -279,15 +315,37 @@ func init_rest_room():
 		print("Error: Failed to load rest room")
 		return null
 
+#------------------------------------------
+# This function loads the ShopData resource
+# from the data/rooms/shop folder
+#------------------------------------------
 func init_shop_room():
 	print("in init_shop_room")
 	var resource = ResourceLoader.load("res://data/rooms/shop/shop.tres")
 	if resource:
 		return resource
 	else:
-		print("Error: Failed to load rest room")
+		print("Error: Failed to load shop room")
 		return null
 
+#--------------------------------------------
+# This function loads the CombatData resource
+# from the data/rooms/boss folder
+#--------------------------------------------
+func init_boss_room():
+	print("in init_boss_room")
+	var resource = ResourceLoader.load("res://data/rooms/boss/test_boss.tres")
+	if resource:
+		return resource
+	else:
+		print("Error: Failed to load boss room")
+		return null
+
+#-----------------------------------------------------
+# This function gets all the RoomData resources files
+# of the given room type, loads them all into an array
+# then returns it
+#-----------------------------------------------------
 func get_all_room_variation_tres(room_type: GameManager.RoomTypes):
 	var path = "res://data/rooms/"
 	match room_type:
@@ -295,9 +353,12 @@ func get_all_room_variation_tres(room_type: GameManager.RoomTypes):
 			path += "combat"
 		GameManager.RoomTypes.Event:
 			path += "event"
+	#opens the data/rooms folder for the given room type
 	var dir_access = DirAccess.open(path)
 	var resources: Array[Resource]
+	#if folder successfully opened
 	if dir_access:
+		#gets the filepath of all the files in the folder
 		var file_list = dir_access.get_files()
 		for file in file_list:
 			file = path + "/" + file
@@ -309,6 +370,27 @@ func get_all_room_variation_tres(room_type: GameManager.RoomTypes):
 		return resources
 	else:
 		return null
+
+#----------------------------------------------------
+# This function is called whenever a node is clicked,
+# updating the next selectable path options
+#----------------------------------------------------
+func update_path_options(current_node):
+	if not current_node.room_type == GameManager.RoomTypes.Boss:
+		for node in current_node.get_parent().map_nodes:
+			node.is_path_option = false
+			node.update_sprite()
+		for node in current_node.forward_connected_nodes:
+			node.is_path_option = true
+			node.update_sprite()
+
+func hide_map():
+	hide()
+	$"MapCamera".enabled = false
+
+func show_map():
+	show()
+	$"MapCamera".enabled = true
 
 #------------------ Debug Functions ------------------
 func print_column_data():

@@ -13,6 +13,7 @@ var MapGridHeight = 6
 
 enum RoomTypes {
 	Combat,
+	Boss,
 	Event,
 	Rest,
 	Shop
@@ -31,5 +32,5 @@ func start_run():
 	Map = load("res://scenes/map.tscn").instantiate()
 
 func encounter_complete():
-	Map.show()
+	Map.show_map()
 	Map.map_lock = false
