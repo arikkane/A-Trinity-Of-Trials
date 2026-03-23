@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cwofn183cwrlm"]
 
-[ext_resource type="Script" uid="uid://btpkl7g00k2bx" path="res://scenes/class_selection.gd" id="1_ib4vr"]
+[ext_resource type="Script" uid="uid://btpkl7g00k2bx" path="res://code/class_selection.gd" id="1_ib4vr"]
 
 [node name="ClassSelection" type="Control" unique_id=1056758104]
 layout_mode = 3
