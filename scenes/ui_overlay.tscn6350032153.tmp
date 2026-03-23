@@ -12,17 +12,19 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5mppo"]
 
-[node name="UIOverlay" type="CanvasLayer" unique_id=209031180]
+[node name="UIOverlay" type="Control" unique_id=920398537]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_5mppo")
 
 [node name="Background" type="TextureRect" parent="." unique_id=860190741]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 80.0
 texture = SubResource("CanvasTexture_vywth")
 
 [node name="DisplayDeckButtonContainer" type="Control" parent="." unique_id=1832546471]
-layout_mode = 3
 anchors_preset = 0
 offset_left = 1422.0
 offset_top = 10.0
@@ -45,7 +47,6 @@ offset_bottom = 80.0
 text = "Deck"
 
 [node name="GoldContainer" type="Control" parent="." unique_id=2030111284]
-layout_mode = 3
 anchors_preset = 0
 offset_left = 532.0
 offset_top = 17.0
@@ -69,7 +70,6 @@ text = "Gold
 "
 
 [node name="MapButtonContainer" type="Control" parent="." unique_id=147870855]
-layout_mode = 3
 anchors_preset = 0
 offset_left = 1622.0
 offset_top = 10.0

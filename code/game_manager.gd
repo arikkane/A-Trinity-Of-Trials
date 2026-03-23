@@ -7,6 +7,7 @@ var PlayerGold = 50
 var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
 var Deck: Control
+var DeckDisplayUI: Node2D
 
 var Map: Node2D
 var MapGridWidth = 8
