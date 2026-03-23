@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://iuun7igjk4wa"]
 
 [ext_resource type="Script" uid="uid://cg7rv78x0ygg8" path="res://code/map_node.gd" id="1_whnn0"]
-[ext_resource type="Texture2D" uid="uid://cj8irmthta3vv" path="res://sprites/map/battle_icon.png" id="2_whnn0"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hs614"]
+load_path = "res://.godot/imported/temp_map_icon.png-ba83dfcccc17d51441067cc030230fd2.ctex"
 
 [node name="MapNode" type="Control" unique_id=749028550]
 layout_mode = 3
@@ -10,6 +12,6 @@ script = ExtResource("1_whnn0")
 
 [node name="NodeTexture" type="TextureRect" parent="." unique_id=1202764258]
 layout_mode = 0
-offset_right = 48.0
+offset_right = 64.0
 offset_bottom = 64.0
-texture = ExtResource("2_whnn0")
+texture = SubResource("CompressedTexture2D_hs614")

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b3ttyq210ndtj" path="res://code/map.gd" id="1_gldc4"]
 [ext_resource type="Script" uid="uid://by7l1whvmmsgf" path="res://code/map_camera.gd" id="3_gldc4"]
 
-[node name="Map" type="Node2D" unique_id=1837181497]
+[node name="Map" type="Node" unique_id=485005483]
 script = ExtResource("1_gldc4")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1783313100]
