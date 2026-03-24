@@ -15,10 +15,14 @@ func update_cards():
 	elif card_rows.size() > row_count:
 		remove_rows((card_rows.size())-row_count)
 	for i in range(GameManager.Deck.full_deck.size()):
-		var current_card = GameManager.Deck.full_deck[i].duplicate()
+		var current_card = GameManager.Deck.full_deck[i]
 		current_card.useable = false
 		card_rows[floor(i/5)].add_child(current_card)
+		current_card.init_debug_label()
+		current_card.update_debug_label()
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)
+		print_card(current_card)
+		
 
 func add_rows(count):
 	for i in range(count):
@@ -32,3 +36,34 @@ func add_rows(count):
 func remove_rows(count):
 	for i in range(card_rows.size()-1, count, -1):
 		card_rows.erase(card_rows.back())
+
+func connect_filter_menu_signals():
+	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterType".item_selected.connect(_on_filter_type_selected)
+	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterBy".item_selected.connect(_on_filter_by_selected)
+
+func connect_sort_menu_signals():
+	$"DeckContainer/FilterAndSortMenu/SortMenu/SortType".item_selected.connect(_on_sort_type_selected)
+	$"DeckContainer/FilterAndSortMenu/SortMenu/SortBy".item_selected.connect(_on_sort_by_selected)
+
+func _on_filter_type_selected(index):
+	print("filter type selected: " + $"DeckContainer/FilterAndSortMenu/FilterMenu/FilterType".get_item_text(index))
+
+func _on_filter_by_selected(index):
+	print("filter by selected: " + $"DeckContainer/FilterAndSortMenu/FilterMenu/FilterBy".get_item_text(index))
+
+func _on_sort_type_selected(index):
+	print("sort type selected: " + $"DeckContainer/FilterAndSortMenu/SortMenu/SortType".get_item_text(index))
+
+func _on_sort_by_selected(index):
+	print("sort by selected: " + $"DeckContainer/FilterAndSortMenu/SortMenu/SortBy".get_item_text(index))
+
+#--------------------------------Debug Functions---------------------------------------
+func print_card(card):
+	print("ID: " + str(card.card_id))
+	print("Type: " + str(card.type))
+	if card.type == "Damage":
+		print("Damage: " + str(card.damage))
+	elif card.type == "Utility":
+		print("Block: " + str(card.block))
+		print("Heal: " + str(card.heal))
+	print("Description: " + str(card.description))

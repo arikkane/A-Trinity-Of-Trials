@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bymxufpbsm4nc"]
 
 [ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
+[ext_resource type="Script" uid="uid://ck8rt5vodxbji" path="res://code/filter_menus.gd" id="3_g66cj"]
+[ext_resource type="Script" uid="uid://bwpljmvw0qhlb" path="res://code/sort_menu.gd" id="3_jianb"]
 
 [node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
 layer = 5
@@ -24,10 +26,76 @@ offset_bottom = 1080.0
 layout_mode = 0
 offset_right = 1040.0
 offset_bottom = 60.0
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="FilterMenu" type="HBoxContainer" parent="DeckContainer/FilterAndSortMenu" unique_id=2021582366]
+layout_mode = 2
+theme_override_constants/separation = 35
+script = ExtResource("3_g66cj")
+
+[node name="FilterType" type="OptionButton" parent="DeckContainer/FilterAndSortMenu/FilterMenu" unique_id=1271037805]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Card Type"
+popup/item_0/id = 0
+
+[node name="Label" type="RichTextLabel" parent="DeckContainer/FilterAndSortMenu/FilterMenu/FilterType" unique_id=277906863]
+layout_mode = 0
+offset_left = -50.0
+offset_top = 20.0
+offset_bottom = 60.0
+text = "Filter"
+
+[node name="FilterBy" type="OptionButton" parent="DeckContainer/FilterAndSortMenu/FilterMenu" unique_id=1825422366]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Damage"
+popup/item_0/id = 0
+popup/item_1/text = "Utility"
+popup/item_1/id = 1
+
+[node name="Label" type="RichTextLabel" parent="DeckContainer/FilterAndSortMenu/FilterMenu/FilterBy" unique_id=797306314]
+layout_mode = 0
+offset_left = -25.0
+offset_top = 20.0
+offset_right = 15.0
+offset_bottom = 60.0
+text = "By"
+
+[node name="SortMenu" type="HBoxContainer" parent="DeckContainer/FilterAndSortMenu" unique_id=119863535]
+layout_mode = 2
+theme_override_constants/separation = 35
+script = ExtResource("3_jianb")
+
+[node name="SortType" type="OptionButton" parent="DeckContainer/FilterAndSortMenu/SortMenu" unique_id=1693425587]
+layout_mode = 2
+selected = 0
+item_count = 1
+popup/item_0/text = "Aquired"
+popup/item_0/id = 0
+
+[node name="Label" type="RichTextLabel" parent="DeckContainer/FilterAndSortMenu/SortMenu/SortType" unique_id=742231997]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 20.0
+offset_bottom = 60.0
+text = "Sort"
+
+[node name="SortBy" type="OptionButton" parent="DeckContainer/FilterAndSortMenu/SortMenu" unique_id=150447773]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_0/id = 0
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
 
 [node name="DeckScrollContainer" type="ScrollContainer" parent="DeckContainer" unique_id=1398989580]
 layout_mode = 0
-offset_top = 60.0
+offset_top = 100.0
 offset_right = 1080.0
 offset_bottom = 980.0
 

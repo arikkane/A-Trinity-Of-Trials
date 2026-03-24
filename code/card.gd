@@ -73,7 +73,7 @@ func update_debug_label():
 	elif type == "Utility":
 		label_text += "\nBlock: " + str(block) + "\nHeal: " + str(heal)
 	label_text += "\nDescription: " + str(description)
-	debug_label.clear()
+	#debug_label.clear()
 	#sets the font color
 	debug_label.push_color(Color("Black"))
 	#sets the font size
