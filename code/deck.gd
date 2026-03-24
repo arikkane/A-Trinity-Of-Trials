@@ -16,7 +16,7 @@ func display_full_deck():
 #initalize cards function, should be called when run is started
 func init_cards():
 	#generates placeholder cards for the initial prototype
-	for i in range(20):
+	for i in range(19):
 		full_deck.append(card_scene.instantiate())
 		full_deck.back().card_id = i
 	for i in range(10):
@@ -27,7 +27,7 @@ func init_cards():
 		full_deck[i+10].type = "Utility"
 		full_deck[i+10].block = 4
 		full_deck[i+10].description = "Applies " + str(full_deck[i].block) + " block to the user"
-	for i in range(5):
+	for i in range(4):
 		full_deck[i+15].type = "Utility"
 		full_deck[i+15].heal = 2
 		full_deck[i+15].description = "Heals the user for " + str(full_deck[i].heal) + " health"

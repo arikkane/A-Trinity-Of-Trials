@@ -59,11 +59,11 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("CanvasTexture_vqe6e")
 
-[node name="ButtonLabel" type="RichTextLabel" parent="GoldContainer" unique_id=869779248]
+[node name="Label" type="RichTextLabel" parent="GoldContainer" unique_id=869779248]
 layout_mode = 0
-offset_left = 45.0
+offset_left = 50.0
 offset_top = 10.0
-offset_right = 85.0
+offset_right = 90.0
 offset_bottom = 50.0
 text = "Gold
 "

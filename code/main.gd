@@ -11,7 +11,9 @@ func _ready() -> void:
 	GameManager.init_player_variables(100,6)
 	#change the filepath in this function call to change which scene loads when you start the game
 	GameManager.start_run()
+	$"UIOverlay".update_gold()
 	add_child(GameManager.Map)
+	add_child(GameManager.DeckDisplayUI)
 	#SceneManager.change_scene("res://scenes/map.tscn")
 	#test_scene_change()
 

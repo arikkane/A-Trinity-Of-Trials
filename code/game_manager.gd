@@ -7,7 +7,7 @@ var PlayerGold = 50
 var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
 var Deck: Control
-var DeckDisplayUI: Node2D
+var DeckDisplayUI: CanvasLayer
 
 var Map: Node2D
 var MapGridWidth = 8
@@ -31,7 +31,11 @@ func init_player_variables(maxhp,cdpt):
 	Deck.init_cards()
 
 func start_run():
+	DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
+	DeckDisplayUI.update_cards()
+	DeckDisplayUI.hide()
 	Map = load("res://scenes/map.tscn").instantiate()
+	
 
 func encounter_complete():
 	Map.show_map()

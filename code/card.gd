@@ -13,7 +13,8 @@ var heal = 0
 var description = null
 #flag for if the card is in the players hand
 var in_hand = false
-var debug_label = null
+var debug_label: RichTextLabel
+var useable = true
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -35,7 +36,7 @@ func play(target):
 # drag input currenly debugging
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if useable and event is InputEventMouseButton and event.pressed:
 		print("Clicked. Combat is:", combat)
 		play(combat.enemy)
 

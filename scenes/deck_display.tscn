@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bymxufpbsm4nc"]
+
+[ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
+
+[node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
+layer = 5
+script = ExtResource("1_3kh8g")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1421998904]
+offset_top = 80.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.25490198)
+
+[node name="DeckContainer" type="Control" parent="." unique_id=1961722636]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 1480.0
+offset_bottom = 1080.0
+
+[node name="FilterAndSortMenu" type="HBoxContainer" parent="DeckContainer" unique_id=1796703299]
+layout_mode = 0
+offset_right = 1040.0
+offset_bottom = 60.0
+
+[node name="DeckScrollContainer" type="ScrollContainer" parent="DeckContainer" unique_id=1398989580]
+layout_mode = 0
+offset_top = 60.0
+offset_right = 1080.0
+offset_bottom = 980.0
+
+[node name="CardRowContainer" type="VBoxContainer" parent="DeckContainer/DeckScrollContainer" unique_id=333589987]
+layout_mode = 2
