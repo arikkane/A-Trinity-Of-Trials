@@ -3,10 +3,17 @@ extends CanvasLayer
 var card_rows: Array[Control]
 var card_horizontal_margin = 20
 var card_width = 192
+
+func show_deck():
+	show()
+	update_cards()
+
 func update_cards():
-	var row_count = ceil(GameManager.Deck.full_deck.size()/5)
+	var row_count = ceil(GameManager.Deck.full_deck.size()/5.0)
 	if card_rows.size() < row_count:
-		add_rows(row_count-card_rows.size()+1)
+		add_rows(row_count-card_rows.size())
+	elif card_rows.size() > row_count:
+		remove_rows((card_rows.size())-row_count)
 	for i in range(GameManager.Deck.full_deck.size()):
 		var current_card = GameManager.Deck.full_deck[i].duplicate()
 		current_card.useable = false
@@ -21,3 +28,7 @@ func add_rows(count):
 		card_rows.append(current_row)
 		$"DeckContainer/DeckScrollContainer/CardRowContainer".add_child(current_row)
 		current_row.position.y = 350*(card_rows.size()-1)
+
+func remove_rows(count):
+	for i in range(card_rows.size()-1, count, -1):
+		card_rows.erase(card_rows.back())

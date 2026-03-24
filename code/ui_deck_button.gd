@@ -6,4 +6,5 @@ func _gui_input(event: InputEvent):
 			if GameManager.DeckDisplayUI.visible:
 				GameManager.DeckDisplayUI.hide()
 			else:
-				GameManager.DeckDisplayUI.show()
+				GameManager.DeckDisplayUI.show_deck()
+				
