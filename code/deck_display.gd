@@ -3,13 +3,17 @@ extends CanvasLayer
 var card_rows: Array[Control]
 var card_horizontal_margin = 20
 var card_width = 192
+var card_type_filter = {
+	"Damage": true,
+	"Utility": true
+}
 
 func show_deck():
 	show()
 	update_cards()
 
 func update_cards():
-	var row_count = ceil(GameManager.Deck.full_deck.size()/5.0)
+	var row_count = get_row_count()
 	if card_rows.size() < row_count:
 		add_rows(row_count-card_rows.size())
 	elif card_rows.size() > row_count:
@@ -22,7 +26,13 @@ func update_cards():
 		current_card.update_debug_label()
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)
 		print_card(current_card)
-		
+
+func get_row_count() -> int:
+	var total = 0
+	for card in GameManager.Deck.full_deck.size():
+		if filter[card.card_type]:
+			total += 1
+	return ceil(total/5)
 
 func add_rows(count):
 	for i in range(count):
