@@ -7,6 +7,10 @@ var card_type_filter = {
 	"Damage": true,
 	"Utility": true
 }
+var filter_type;
+var filter_by;
+var sort_type;
+var sort_by;
 
 func show_deck():
 	show()
@@ -30,7 +34,7 @@ func update_cards():
 func get_row_count() -> int:
 	var total = 0
 	for card in GameManager.Deck.full_deck.size():
-		if filter[card.card_type]:
+		if card_type_filter[card.card_type]:
 			total += 1
 	return ceil(total/5)
 
@@ -48,14 +52,14 @@ func remove_rows(count):
 		card_rows.erase(card_rows.back())
 
 func connect_filter_menu_signals():
-	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterType".item_selected.connect(_on_filter_type_selected)
-	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterBy".item_selected.connect(_on_filter_by_selected)
+	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterType".item_selected.connect(_on_filter_selected)
+	$"DeckContainer/FilterAndSortMenu/FilterMenu/FilterBy".item_selected.connect(_on_filter_selected)
 
 func connect_sort_menu_signals():
 	$"DeckContainer/FilterAndSortMenu/SortMenu/SortType".item_selected.connect(_on_sort_type_selected)
 	$"DeckContainer/FilterAndSortMenu/SortMenu/SortBy".item_selected.connect(_on_sort_by_selected)
 
-func _on_filter_type_selected(index):
+func _on_filter_selected(index):
 	print("filter type selected: " + $"DeckContainer/FilterAndSortMenu/FilterMenu/FilterType".get_item_text(index))
 
 func _on_filter_by_selected(index):
