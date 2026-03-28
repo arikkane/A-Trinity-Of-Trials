@@ -36,7 +36,8 @@ func combat_start():
 	card_y = get_tree().root.get_visible_rect().size.y - card_height - bottom_margin
 	init_pile_transforms()
 	for i in range(GameManager.Deck.full_deck.size()):
-		$"DrawPile".card_array.append(GameManager.Deck.full_deck[i])
+		$"DrawPile".card_array.append(GameManager.Deck.full_deck[i].scene.instantiate())
+		$"DrawPile".card_array.back().card_data = GameManager.Deck.full_deck[i].duplicate()
 	$"DrawPile".card_array.shuffle()
 	$"DrawPile".display_cards()
 
@@ -142,8 +143,8 @@ func play_card(card, target):
 	# ----------------------
 	# Apply card effects
 	# ----------------------
-	if card.type == "Damage":
-		var damage = card.damage
+	if card.card_data.type == "Damage":
+		var damage = card.card_data.damage
 
 		# Mecha assive: bonus damage based on block
 		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
@@ -159,18 +160,18 @@ func play_card(card, target):
 		# mage passsive damage
 		if GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
 			damage = (damage + player.spell_power)
-	elif card.type == "Utility":
-		if card.block > 0:
-			player.gain_block(card.block)
+	elif card.card_data.type == "Utility":
+		if card.card_data.block > 0:
+			player.gain_block(card.card_data.block)
 			update_block_label()
 
-		if card.heal > 0:
-			player.heal(card.heal)
+		if card.card_data.heal > 0:
+			player.heal(card.card_data.heal)
 
 		# Draw cards if card has draw_amount
-		if card.draw_amount > 0:
+		if card.card_data.draw > 0:
 			# Cards drawn from this effect trigger Mage passive
-			draw_cards(card.draw_amount, true)
+			draw_cards(card.card_data.draw, true)
 
 	# Move played card to discard
 	move_to_discard(card)

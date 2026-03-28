@@ -54,20 +54,26 @@ func init_cards():
 			)
 			# Optional draw effect
 			if card_info.has("draw"):
-				card.draw_amount = int(card_info["draw"])
+				card.draw = int(card_info["draw"])
 			full_deck.append(card)
+	
+	#sets unique id's for now
+	for i in range(full_deck.size()):
+		full_deck[i].id = i
 
 # ----------------------------
 # Card creation helper
 # ----------------------------
 func create_card(card_type, damage, block, heal, card_name_str):
-	var card = card_scene.instantiate()
+	var card_data_resource = load("res://code/card_data.gd")
+	#does not load the scene for the card, card.scene.instantiate() should be loaded whenever the card ui is needed
+	var card = card_data_resource.new()
 
 	card.type = card_type
 	card.damage = damage
 	card.block = block
 	card.heal = heal
-	card.card_name = card_name_str
+	#card.card_name = card_name_str
 	card.name = card_name_str  # assign node name to avoid confusion
 
 	# Auto-generate description if none provided
@@ -79,7 +85,7 @@ func create_card(card_type, damage, block, heal, card_name_str):
 		card.description = "Heal " + str(heal)
 	else:
 		card.description = card_name_str
-
+	
 	return card
 
 # ----------------------------

@@ -20,4 +20,4 @@ func remove_card(card: Control):
 func display_cards():
 	print("In Draw Pile: ")
 	for i in range(card_array.size()):
-		print("  Card #" + str(i) + ": " + str(card_array[i].card_id))
+		print("  Card #" + str(i) + ": " + str(card_array[i].card_data.id))
