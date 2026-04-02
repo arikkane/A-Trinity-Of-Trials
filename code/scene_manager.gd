@@ -39,4 +39,4 @@ func print_all_scene_container_children():
 	for child in SceneContainer.get_children():
 		print(child.scene_file_path)
 	print("")
-	print("Changed scene to:", scene_path)
+	print("Changed scene to:", PrimaryScene.scene_file_path)

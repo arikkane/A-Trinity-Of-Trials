@@ -59,6 +59,7 @@ func init_cards():
 		var currentCard = card_data["cards"][deck_data[className][i]]
 		
 		var card = create_card(
+			currentCard.get("id", 0.0),
 			currentCard.get("type", "Damage"),
 			currentCard.get("damage", 0),
 			currentCard.get("block", 0),
@@ -80,11 +81,12 @@ func init_cards():
 # ----------------------------
 # Card creation helper
 # ----------------------------
-func create_card(card_type, damage, block, heal, card_name_str):
+func create_card(id, card_type, damage, block, heal, card_name_str):
 	var card_data_resource = load("res://code/card_data.gd")
 	#does not load the scene for the card, card.scene.instantiate() should be loaded whenever the card ui is needed
 	var card = card_data_resource.new()
-
+	
+	card.id = id
 	card.type = card_type
 	card.damage = damage
 	card.block = block

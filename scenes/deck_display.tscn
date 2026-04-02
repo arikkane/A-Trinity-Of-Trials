@@ -33,7 +33,7 @@ selected = 0
 item_count = 2
 popup/item_0/text = "ID"
 popup/item_0/id = 0
-popup/item_1/text = "Aquired"
+popup/item_1/text = "Name"
 popup/item_1/id = 1
 
 [node name="Label" type="RichTextLabel" parent="DeckContainer/SortMenu/SortType" unique_id=742231997]
@@ -46,6 +46,7 @@ text = "Sort"
 [node name="SortBy" type="OptionButton" parent="DeckContainer/SortMenu" unique_id=150447773]
 layout_mode = 2
 selected = 0
+allow_reselect = true
 item_count = 2
 popup/item_0/text = "Ascending"
 popup/item_0/id = 0
@@ -68,3 +69,6 @@ offset_bottom = 980.0
 
 [node name="CardRowContainer" type="VBoxContainer" parent="DeckContainer/DeckScrollContainer" unique_id=333589987]
 layout_mode = 2
+
+[connection signal="item_selected" from="DeckContainer/SortMenu/SortType" to="." method="_on_sort_type_selected"]
+[connection signal="item_selected" from="DeckContainer/SortMenu/SortBy" to="." method="_on_sort_by_selected"]
