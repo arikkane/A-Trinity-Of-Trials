@@ -72,7 +72,7 @@ func init_debug_label():
 	debug_label.position = Vector2(self.position.x+10, self.position.y+10)
 
 func update_debug_label():
-	var label_text = "ID: " + str(card_data.id) + "\nType: " + str(card_data.type)
+	var label_text = "ID: " + str(card_data.id) + "\nName: " + str(card_data.name) + "\nType: " + str(card_data.type)
 	if card_data.type == "Damage":
 		label_text += "\nDamage: " + str(card_data.damage)
 	elif card_data.type == "Utility":

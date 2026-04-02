@@ -12,6 +12,9 @@ var side_margin = 32
 var bottom_margin = 32
 var card_y = 0
 
+# All cards loaded from JSON
+var card_data = {}
+
 # Deck data loaded from JSON
 var deck_data = {}
 
@@ -27,6 +30,7 @@ func display_full_deck():
 # ----------------------------
 func init_cards():
 	full_deck.clear()
+	load_cards()
 	load_decks()
 	
 	var className = ""
@@ -42,24 +46,36 @@ func init_cards():
 		push_error("Class not found in JSON: " + className)
 		return
 
-	for card_info in deck_data[className]:
-		var count = int(card_info.get("count", 1))
-		for i in range(count):
-			var card = create_card(
-				card_info.get("type", "Damage"),
-				card_info.get("damage", 0),
-				card_info.get("block", 0),
-				card_info.get("heal", 0),
-				card_info.get("name", "Unnamed Card")
-			)
-			# Optional draw effect
-			if card_info.has("draw"):
-				card.draw = int(card_info["draw"])
-			full_deck.append(card)
-	
-	#sets unique id's for now
-	for i in range(full_deck.size()):
-		full_deck[i].id = i
+#Function for grabbing card info and putting it into the user's deck.
+	for i in len(deck_data[className]):
+		var count = int(len(deck_data[className]))
+		print("card no of " + className + ": " + str(i))
+		#deck_data[className][i] refers to the ID of a card in the current deck.
+		#card_data["cards"][deck_data[className][i]] refers to the card that the ID of the card in the deck is pointing to.
+		
+		print("card ID: " + str(deck_data[className][i]))
+		print(card_data["cards"][deck_data[className][i]].get("name", 0))
+		
+		var currentCard = card_data["cards"][deck_data[className][i]]
+		
+		var card = create_card(
+			currentCard.get("type", "Damage"),
+			currentCard.get("damage", 0),
+			currentCard.get("block", 0),
+			currentCard.get("heal", 0),
+			currentCard.get("name", "Unnamed Card")
+		)
+		
+		#Checks to see if the card is a draw boost
+		if currentCard.has("draw"):
+			card.draw = int(currentCard["draw"])
+		
+		#adds the card to the deck, sets its ID
+		full_deck.append(card)
+		full_deck[i].id = deck_data[className][i]
+		
+		
+
 
 # ----------------------------
 # Card creation helper
@@ -87,6 +103,23 @@ func create_card(card_type, damage, block, heal, card_name_str):
 		card.description = card_name_str
 	
 	return card
+
+# ----------------------------
+# Load CARDS from JSON file
+# ----------------------------
+func load_cards():
+	var file = FileAccess.open("res://data/cards.json", FileAccess.READ)
+	if not file:
+		push_error("Could not open cards.json")
+		return
+	
+	var text = file.get_as_text()
+	var parsed = JSON.parse_string(text)
+	
+	if typeof(parsed) == TYPE_DICTIONARY:
+		card_data = parsed
+	else:
+		push_error("JSON parse failed: " + str(parsed))
 
 # ----------------------------
 # Load decks from JSON file
