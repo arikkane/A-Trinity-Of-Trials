@@ -1,6 +1,6 @@
 extends TextureRect
 
-var card_array: Array[Control]
+var card_array: Array[Control] = []
 
 #sets size and position of sprite
 func set_transforms():
@@ -10,7 +10,7 @@ func set_transforms():
 
 func add_card(card:Control):
 	card_array.append(card)
-	add_child(card)
+	
 
 func remove_card(card: Control):
 	card_array.erase(card)
@@ -20,4 +20,4 @@ func remove_card(card: Control):
 func display_cards():
 	print("In Draw Pile: ")
 	for i in range(card_array.size()):
-		print("  Card #" + str(i) + ": " + str(card_array[i].card_id))
+		print("  Card #" + str(i) + ": " + str(card_array[i].card_data.id))
