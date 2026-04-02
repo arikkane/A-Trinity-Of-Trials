@@ -19,7 +19,6 @@ enum SortBy{
 
 func show_deck():
 	show()
-	update_cards()
 
 #-------------------------------------------------------------
 # This function should be called every time the deck display
@@ -41,7 +40,7 @@ func update_cards():
 		current_card.init_debug_label()
 		current_card.update_debug_label()
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)
-		print_card(current_card)
+		#print_card(current_card)
 
 func sort_deck() -> Array:
 	var full_deck = GameManager.Deck.full_deck.duplicate()

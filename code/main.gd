@@ -10,6 +10,6 @@ func _ready() -> void:
 	SceneManager.SceneContainer = $"SceneContainer"
 	GameManager.UIOverlay = $"UIOverlay"
 	$"UIOverlay".hide_ui()
-	GameManager.init_player_variables(100,6)
+	#GameManager.init_player_variables(100,6)
 	GameManager.Main = self
 	SceneManager.change_scene("res://scenes/ClassSelection.tscn")

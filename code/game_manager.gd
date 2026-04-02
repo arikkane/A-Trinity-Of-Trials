@@ -69,11 +69,11 @@ func start_run():
 	DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
+	Main.add_child(DeckDisplayUI)
 	Map = load("res://scenes/map.tscn").instantiate()
 	Main.add_child(Map)
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
-	Main.add_child(UIOverlay)
 	UIOverlay.show_ui()
 
 func encounter_complete():
