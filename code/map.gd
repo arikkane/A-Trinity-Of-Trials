@@ -229,7 +229,7 @@ func _on_map_node_clicked(node: Control):
 			GameManager.RoomTypes.Boss:
 				room_data = init_boss_room()
 		update_path_options(node)
-		SceneManager.change_scene(room_data.scene_path)
+		await SceneManager.change_scene(room_data.scene_path)
 		#loads the room data into the next room scene
 		SceneManager.load_room_data(room_data)
 		#prevents the user from clicking another map node while the current encounter hasn't finished

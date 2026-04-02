@@ -8,6 +8,7 @@ var PlayerGold = 50
 var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
 
+var Main: Node
 var UIOverlay: CanvasLayer
 
 var Deck: Control
@@ -46,8 +47,8 @@ func setup_class(player_class: PlayerClass) -> void:
 			init_player_variables(70, 6)
 		PlayerClass.CREATURE:
 			init_player_variables(100, 5)
-
 	print("Class set to:", current_class, "PlayerMaxHP:", PlayerMaxHP, "PlayerHP:", PlayerHP)
+	start_run()
 
 func init_player_variables(maxhp,cdpt):
 	print("In init_player_variables")
@@ -69,9 +70,11 @@ func start_run():
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
 	Map = load("res://scenes/map.tscn").instantiate()
+	Main.add_child(Map)
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
-	
+	Main.add_child(UIOverlay)
+	UIOverlay.show_ui()
 
 func encounter_complete():
 	Map.show_map()

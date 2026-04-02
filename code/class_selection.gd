@@ -30,6 +30,3 @@ func start_game(selected_class):
 
 	# Setup player + deck
 	GameManager.setup_class(selected_class)
-
-	# Change to combat scene
-	SceneManager.change_scene("res://scenes/combat.tscn")

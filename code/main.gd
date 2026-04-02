@@ -9,29 +9,7 @@ func _ready() -> void:
 	#initializes player variables, (max player hp, cards drawn per turn)\
 	SceneManager.SceneContainer = $"SceneContainer"
 	GameManager.UIOverlay = $"UIOverlay"
+	$"UIOverlay".hide_ui()
 	GameManager.init_player_variables(100,6)
-	#change the filepath in this function call to change which scene loads when you start the game
-	GameManager.start_run()
-	add_child(GameManager.Map)
-	add_child(GameManager.DeckDisplayUI)
-	#SceneManager.change_scene("res://scenes/map.tscn")
-	#test_scene_change()
-
-#test function for scene transitions, makes sure that combat reinitializes the draw pile properly
-func test_scene_change():
-	print("Changing scene in:")
-	print("3")
-	await get_tree().create_timer(1).timeout
-	print("2")
-	await get_tree().create_timer(1).timeout
-	print("1")
-	await get_tree().create_timer(1).timeout
-	SceneManager.change_scene("res://scenes/main_menu.tscn")
-	print("Changing scene in:")
-	print("3")
-	await get_tree().create_timer(1).timeout
-	print("2")
-	await get_tree().create_timer(1).timeout
-	print("1")
-	await get_tree().create_timer(1).timeout
-	SceneManager.change_scene("res://scenes/combat.tscn")
+	GameManager.Main = self
+	SceneManager.change_scene("res://scenes/ClassSelection.tscn")
