@@ -7,6 +7,7 @@ var card_width = 192
 #stores the current selection for both sort menus
 var sort_type;
 var sort_by;
+
 #enumerators that contain all the options for each menu, when a new option is added in the menu, it should also manually be added here
 enum SortType{
 	ID,
@@ -17,8 +18,9 @@ enum SortBy{
 	Descending
 }
 
-func show_deck():
-	show()
+func _ready():
+	sort_type = SortType.ID
+	sort_by = SortBy.Ascending
 
 #-------------------------------------------------------------
 # This function should be called every time the deck display
@@ -26,6 +28,7 @@ func show_deck():
 # any changes that were made to the overall deck.
 #-------------------------------------------------------------
 func update_cards():
+	#gets the amount of card rows based on the amount of cards in the deck
 	var row_count = ceil(GameManager.Deck.full_deck.size()/5)
 	var sorted_deck = sort_deck()
 	if card_rows.size() < row_count:
@@ -42,6 +45,10 @@ func update_cards():
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)
 		#print_card(current_card)
 
+#--------------------------------------------------------------
+# This function gets a duplicate of the full deck and sorts it
+# based on the selected sort menu options
+#--------------------------------------------------------------
 func sort_deck() -> Array:
 	var full_deck = GameManager.Deck.full_deck.duplicate()
 	match sort_type:
@@ -59,12 +66,21 @@ func sort_deck() -> Array:
 					full_deck.sort_custom(func(a,b):return a.name > b.name)
 	return full_deck
 
+#----------------------------------------
+# This function clears the cards and rows
+# before each update to prevent cards 
+# being shown more than once
+#---------------------------------------- 
 func clear_rows():
 	for row in card_rows:
 		for child in row.get_children():
-			remove_child(child)
 			child.queue_free()
+		row.queue_free()
 
+#--------------------------------------------
+# This function creates {count} amount of new
+# row containers
+#--------------------------------------------
 func add_rows(count):
 	for i in range(count):
 		var current_row = Control.new()
@@ -74,10 +90,15 @@ func add_rows(count):
 		$"DeckContainer/DeckScrollContainer/CardRowContainer".add_child(current_row)
 		current_row.position.y = 350*(card_rows.size()-1)
 
+#-----------------------------------------------
+# This function removes {count} amount of row
+# containers from the end of the card_rows array
+#-----------------------------------------------
 func remove_rows(count):
 	for i in range(card_rows.size()-1, count, -1):
 		card_rows.erase(card_rows.back())
 
+#----------------------------Input Handling Functions----------------------------------
 func _on_sort_type_selected(index):
 	print("in _on_sort_type_selected")
 	sort_type = index

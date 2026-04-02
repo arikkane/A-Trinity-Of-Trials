@@ -118,3 +118,8 @@ offset_top = 10.0
 offset_right = 150.0
 offset_bottom = 50.0
 text = "Health"
+
+[connection signal="mouse_entered" from="DisplayDeckButtonContainer/DeckButton" to="DisplayDeckButtonContainer/DeckButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DisplayDeckButtonContainer/DeckButton" to="DisplayDeckButtonContainer/DeckButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MapButtonContainer/MapButton" to="MapButtonContainer/MapButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MapButtonContainer/MapButton" to="MapButtonContainer/MapButton" method="_on_mouse_exited"]

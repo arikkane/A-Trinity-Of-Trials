@@ -8,5 +8,11 @@ func _gui_input(event: InputEvent):
 			if GameManager.DeckDisplayUI.visible:
 				GameManager.DeckDisplayUI.hide()
 			else:
-				GameManager.DeckDisplayUI.show_deck()
+				GameManager.DeckDisplayUI.show()
 				
+
+func _on_mouse_entered():
+	modulate = Color("#629fff")
+
+func _on_mouse_exited():
+	modulate = Color("#3082ff")
