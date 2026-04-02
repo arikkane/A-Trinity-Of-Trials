@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cwofn183cwrlm"]
+
+[ext_resource type="Script" uid="uid://btpkl7g00k2bx" path="res://code/class_selection.gd" id="1_ib4vr"]
+
+[node name="ClassSelection" type="Control" unique_id=1056758104]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 2.0
+offset_bottom = 2.0
+mouse_filter = 1
+script = ExtResource("1_ib4vr")
+
+[node name="Label" type="Label" parent="." unique_id=1210532506]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 246.0
+offset_right = 1294.0
+offset_bottom = 423.0
+theme_override_font_sizes/font_size = 46
+text = "TRIALS OF TRINITY"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1161150325]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 439.0
+offset_right = 1244.0
+offset_bottom = 549.0
+
+[node name="GUNDAM" type="Button" parent="VBoxContainer" unique_id=2005418040]
+layout_mode = 2
+text = "Mecha"
+
+[node name="MAGE" type="Button" parent="VBoxContainer" unique_id=690331988]
+layout_mode = 2
+text = "mage"
+
+[node name="CREATURE" type="Button" parent="VBoxContainer" unique_id=1143182388]
+layout_mode = 2
+text = "alien"
+
+[connection signal="pressed" from="VBoxContainer/GUNDAM" to="." method="_on_gundam_pressed"]
+[connection signal="pressed" from="VBoxContainer/MAGE" to="." method="_on_mage_pressed"]
+[connection signal="pressed" from="VBoxContainer/CREATURE" to="." method="_on_creature_pressed"]

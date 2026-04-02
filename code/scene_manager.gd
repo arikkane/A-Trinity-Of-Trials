@@ -13,6 +13,9 @@ func change_scene(scene_path):
 			children[i].combat_end()
 		children[i].queue_free()
 	
+	# Wait a frame so queue_free finishes before adding new scene
+	await get_tree().process_frame
+
 	var new_scene = load(scene_path).instantiate()
 	SceneContainer.add_child(new_scene)
 	PrimaryScene = new_scene
@@ -36,3 +39,4 @@ func print_all_scene_container_children():
 	for child in SceneContainer.get_children():
 		print(child.scene_file_path)
 	print("")
+	print("Changed scene to:", scene_path)
