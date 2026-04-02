@@ -6,6 +6,9 @@ var PlayerHP = 0
 var PlayerGold = 50
 var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
+
+var UIOverlay: CanvasLayer
+
 var Deck: Control
 var DeckDisplayUI: CanvasLayer
 
@@ -35,6 +38,8 @@ func start_run():
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
 	Map = load("res://scenes/map.tscn").instantiate()
+	UIOverlay.update_health()
+	UIOverlay.update_gold()
 	
 
 func encounter_complete():

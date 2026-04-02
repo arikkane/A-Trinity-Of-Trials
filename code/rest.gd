@@ -29,5 +29,6 @@ func _on_gold_button_pressed():
 	print("gold button pressed")
 	print("before PlayerGold = " + str(GameManager.PlayerGold))
 	GameManager.PlayerGold += randi_range(room_data.min_gold, room_data.max_gold)
+	GameManager.UIOverlay.update_gold()
 	print("after PlayerGold = " + str(GameManager.PlayerGold))
 	GameManager.encounter_complete()

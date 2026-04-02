@@ -14,6 +14,7 @@ var description = null
 #flag for if the card is in the players hand
 var in_hand = false
 var debug_label: RichTextLabel
+#flag that prevents cards from being used, this flag is primarily used in the deck display ui
 var useable = true
 
 func _ready():

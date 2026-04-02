@@ -12,6 +12,8 @@
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5mppo"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_wmgi7"]
+
 [node name="UIOverlay" type="CanvasLayer" unique_id=209031180]
 script = ExtResource("1_5mppo")
 
@@ -46,11 +48,14 @@ text = "Deck"
 
 [node name="GoldContainer" type="Control" parent="." unique_id=2030111284]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 532.0
-offset_top = 17.0
-offset_right = 572.0
-offset_bottom = 57.0
+anchor_left = 0.277
+anchor_top = 0.016
+anchor_right = 0.277
+anchor_bottom = 0.016
+offset_left = 0.15997314
+offset_top = -0.2800007
+offset_right = 40.159973
+offset_bottom = 39.72
 
 [node name="GoldIcon" type="TextureRect" parent="GoldContainer" unique_id=1620927714]
 modulate = Color(1, 0.70980394, 0.12941177, 1)
@@ -90,3 +95,26 @@ offset_top = 40.0
 offset_right = 40.0
 offset_bottom = 80.0
 text = "Map"
+
+[node name="HealthContainer" type="Control" parent="." unique_id=1415833108]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 17.0
+offset_right = 340.0
+offset_bottom = 57.0
+
+[node name="HealthIcon" type="TextureRect" parent="HealthContainer" unique_id=1150096354]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_wmgi7")
+
+[node name="Label" type="RichTextLabel" parent="HealthContainer" unique_id=1343989382]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 50.0
+text = "Health"
