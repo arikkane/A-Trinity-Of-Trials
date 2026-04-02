@@ -75,7 +75,6 @@ func clear_rows():
 	for row in card_rows:
 		for child in row.get_children():
 			child.queue_free()
-		row.queue_free()
 
 #--------------------------------------------
 # This function creates {count} amount of new
