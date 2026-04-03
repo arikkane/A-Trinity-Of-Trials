@@ -2,9 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b3p5dbytxkpq5" path="res://code/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b3p02bo3iinga" path="res://scenes/ui_overlay.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://c4tsbybtcf4rk" path="res://scenes/pause_menu.tscn" id="2_sugp2"]
 
 [node name="Main" type="Node" unique_id=1782964470]
 script = ExtResource("1_o5qli")
+
+[node name="PauseOverlay" type="CanvasLayer" parent="." unique_id=1633297899]
+
+[node name="PauseMenu" parent="PauseOverlay" unique_id=1088437579 instance=ExtResource("2_sugp2")]
 
 [node name="SceneContainer" type="Control" parent="." unique_id=1295325288]
 layout_mode = 3
