@@ -32,4 +32,4 @@ func start_game(selected_class):
 	GameManager.setup_class(selected_class)
 
 	# Change to combat scene
-	SceneManager.change_scene("res://scenes/combat.tscn")
+	BattleManager.start_battle(CombatData.Enemy.GOBLIN)

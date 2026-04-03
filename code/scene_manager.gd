@@ -14,7 +14,7 @@ func change_scene(scene_path: String) -> void:
 
 	var new_scene = load(scene_path).instantiate()
 	scene_container.add_child(new_scene)
-
+	
 	if scene_path == "res://scenes/main_menu.tscn":
 		get_node("/root/Main/UIOverlay").visible = false
 	else:

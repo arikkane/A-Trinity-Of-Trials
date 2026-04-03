@@ -25,13 +25,27 @@ func _ready() -> void:
 	enemy = $"Enemy"
 	
 	player_class = GameManager.PlayerClass
-	
+
+	initialize_combat()
+
+
+func initialize_combat() -> void:
+	#Fetches enemy details from the current_enemy variable before starting combat
+	#todo: run this multiple times depending on how many enemies are on the field
+	var currentEnemy = BattleManager.current_enemy
+	enemy.max_hp = CombatData.ENEMY_DETAILS[currentEnemy]["maxHp"]
+	enemy.hp = CombatData.ENEMY_DETAILS[currentEnemy]["hp"]
+	enemy.card_ids = CombatData.ENEMY_DETAILS[currentEnemy]["cards"]
+	print(enemy.card_ids)
+	enemy.parse_card_ids() #Convert the enemy's card IDs into actual cards. 
 	
 	combat_start()
 	start_player_turn()
 	update_mana_label()
 	update_block_label()
-#moves cards from the deck to the draw pile and shuffles it
+	#moves cards from the deck to the draw pile and shuffles it
+	print(enemy)
+
 func combat_start():
 	card_y = get_tree().root.get_visible_rect().size.y - card_height - bottom_margin
 	init_pile_transforms()
@@ -77,15 +91,49 @@ func end_player_turn():
 	print("Player turn ended")
 
 	enemy_turn()
-#initalize enemy function
+
+#Enemy playing a card function
+func enemy_play_card(enemy_card):
+	if not enemy.enemy_deck.is_empty():
+		#var enemy_card = enemy.enemy_deck.size
+		
+		# ----------------------
+		# Apply card effects. For the time being, mana is irrelevant to enemies
+		# ----------------------
+		if enemy_card.type == "Damage":
+			var damage = enemy_card.damage
+			player.take_damage(damage - player.block)
+		elif enemy_card.type == "Utility":
+			if enemy_card.block > 0:
+				enemy.gain_block(enemy_card.block)
+				update_block_label()
+			
+			if enemy_card.heal > 0:
+				enemy.heal(enemy_card.heal)
+		
+		enemy.enemy_deck.erase(enemy_card)
+		enemy.enemy_discard.append(enemy_card)
+		print("Played and moved " + enemy_card.name + " to enemy's discard pile")
+		
+	
+#Function for handling an enemy's turn
 func enemy_turn():
 	print("Enemy's turn")
-	var damage = 20
+	
+	#If the enemy deck is empty, shuffle it and put it back into the enemy's main deck, just like you would for the player
+	if enemy.enemy_deck.is_empty():
+		enemy.shuffle_deck()
+	
+	#For now, the enemy will pick a card randomly
+	#Once the combat system is more complete, I will make it so that the enemy can make intelligent decisions
+	var enemy_card = randi_range(1, enemy.enemy_deck.size()) - 1 #pick random card
+	print(enemy.enemy_deck.size())
+	enemy_play_card(enemy.enemy_deck[enemy_card])
+	
+	#With 25% probability, the enemy will play 2 cards in one turn.
+	if randf() < 0.25 and !enemy.enemy_deck.is_empty():
+		enemy_play_card(enemy.enemy_deck[randi_range(1, enemy.enemy_deck.size()) - 1])
 
-	if player.block > 0:
-		player.take_damage(damage - player.block)
-	else:
-		player.take_damage(damage)
 	end_enemy_turn()
 
 
@@ -129,7 +177,6 @@ func draw_cards(count = null, from_effect = false):
 # Play card function
 # ----------------------------
 func play_card(card, target):
-
 	if not player_turn:
 		return
 

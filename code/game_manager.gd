@@ -52,3 +52,13 @@ func init_player_variables(maxhp: int, cdpt: int) -> void:
 
 	# Rebuild deck every time class is set
 	Deck.init_cards()
+	
+
+# -- This felt like the most appropriate place to put this function. If it's not, we can move it elsewhere. --
+#func init_combat(enemy: CombatData.Enemy) -> void:
+#	print("Hi")
+#	
+#	#var combat_scene = get_node("/root/Main/SceneContainer")
+#	
+#	SceneManager.change_scene("res://scenes/combat.tscn")
+#	#combat_scene.initialize_combat(CombatData.ENEMY_DETAILS[enemy].name)

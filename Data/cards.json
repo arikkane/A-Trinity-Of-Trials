@@ -8,6 +8,11 @@
 	{"id": 6, "name": "Draw Boost", "type": "Utility", "damage": 0, "block": 0, "heal": 0, "draw": 2, "count": 6},
 	{"id": 7, "name": "Bite", "type": "Damage", "damage": 5, "block": 0, "heal": 0, "count": 8},
 	{"id": 8, "name": "Hide", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "count": 6},
-	{"id": 9, "name": "Regenerate", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6}
+	{"id": 9, "name": "Regenerate", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6},
+	{"id": 10, "name": "Super Heal Pulse", "type": "Utility", "damage": 0, "block": 0, "heal": 6},
+	{"id": 11, "name": "Block Breaker", "type": "Utility", "damage": 0, "block": 0, "heal": 0},
+	{"id": 12, "name": "Slice", "type": "Damage", "damage": 4, "block": 0, "heal": 0},
+	{"id": 13, "name": "Slash", "type": "Damage", "damage": 6, "block": 0, "heal": 0},
+	{"id": 14, "name": "Slash", "type": "Damage", "damage": 6, "block": 0, "heal": 0},
   ]
 }
