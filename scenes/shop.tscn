@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ceq2xqr6f721u"]
 
-[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="1_lx5au"]
 [ext_resource type="Script" uid="uid://dt171pjskiuso" path="res://code/shop.gd" id="1_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://bk6plqgsb4iyk" path="res://sprites/shop_background.png" id="2_xfvoa"]
 
 [node name="Shop" type="Node" unique_id=139382747]
 script = ExtResource("1_xfvoa")
@@ -9,11 +9,11 @@ script = ExtResource("1_xfvoa")
 [node name="TextureRect" type="TextureRect" parent="." unique_id=274205333]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_lx5au")
+texture = ExtResource("2_xfvoa")
 
 [node name="NextRoomButton" type="Button" parent="." unique_id=264806088]
-offset_left = 865.0
-offset_top = 431.0
-offset_right = 1062.0
-offset_bottom = 495.0
-text = "Next Room"
+offset_left = 1737.0
+offset_top = 976.0
+offset_right = 1836.0
+offset_bottom = 1033.0
+text = "Leave"
