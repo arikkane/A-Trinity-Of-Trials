@@ -8,6 +8,8 @@ func is_affordable():
 	can_afford = GameManager.PlayerGold >= card_price
 	if can_afford:
 		add_theme_color_override("default", "#00a300")
+	else
+		
 
 func generate_price(base_price):
 	card_price = randi_range(base_price-10, base_price+10)
