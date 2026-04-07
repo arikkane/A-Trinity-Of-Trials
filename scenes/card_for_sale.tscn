@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bd0rl20v3lda3"]
+
+[ext_resource type="Script" uid="uid://0g4r51k3gu0o" path="res://code/card_for_sale.gd" id="1_g8q0a"]
+[ext_resource type="Texture2D" uid="uid://bo2q86ol7q7l1" path="res://sprites/blank_card.png" id="1_n0sk8"]
+[ext_resource type="Texture2D" uid="uid://07mdxr4cje54" path="res://sprites/shop_pricetag.png" id="2_g8q0a"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g8q0a"]
+
+[node name="CardForSale" type="Control" unique_id=1275248366]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g8q0a")
+
+[node name="CardTexture" type="TextureRect" parent="." unique_id=1302207477]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_n0sk8")
+
+[node name="EnergyCost" type="RichTextLabel" parent="CardTexture" unique_id=2014733375]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 52.0
+offset_bottom = 31.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Cost: "
+
+[node name="Description" type="RichTextLabel" parent="CardTexture" unique_id=1081462091]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 134.0
+offset_right = 187.0
+offset_bottom = 283.0
+bbcode_enabled = true
+
+[node name="PricetagTexture" type="TextureRect" parent="." unique_id=460157405]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 293.0
+offset_right = 180.0
+offset_bottom = 385.0
+texture = ExtResource("2_g8q0a")
+
+[node name="PriceText" type="RichTextLabel" parent="PricetagTexture" unique_id=750724631]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 44.0
+offset_right = 167.0
+offset_bottom = 76.0
+theme_override_colors/default_color = Color(0, 0.6392157, 0, 1)
+theme_override_font_sizes/normal_font_size = 22
+bbcode_enabled = true
+text = "Price"
+
+[node name="TextureRect" type="TextureRect" parent="PricetagTexture" unique_id=1261823799]
+modulate = Color(1, 0.70980394, 0.12941177, 1)
+layout_mode = 0
+offset_left = 33.0
+offset_top = 47.0
+offset_right = 57.0
+offset_bottom = 71.0
+texture = SubResource("CanvasTexture_g8q0a")

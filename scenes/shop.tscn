@@ -6,7 +6,7 @@
 [node name="Shop" type="Node" unique_id=139382747]
 script = ExtResource("1_xfvoa")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=274205333]
+[node name="Background" type="TextureRect" parent="." unique_id=274205333]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_xfvoa")
@@ -17,3 +17,19 @@ offset_top = 976.0
 offset_right = 1836.0
 offset_bottom = 1033.0
 text = "Leave"
+
+[node name="TopShelfContainer" type="HBoxContainer" parent="." unique_id=1897879336]
+custom_minimum_size = Vector2(1142, 288)
+layout_direction = 2
+offset_left = 232.0
+offset_top = 124.0
+offset_right = 1374.0
+offset_bottom = 412.0
+
+[node name="BottomShelfContainer" type="HBoxContainer" parent="." unique_id=594199982]
+custom_minimum_size = Vector2(1142, 288)
+layout_direction = 2
+offset_left = 232.0
+offset_top = 572.0
+offset_right = 1374.0
+offset_bottom = 860.0
