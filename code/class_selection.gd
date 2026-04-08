@@ -30,3 +30,5 @@ func start_game(selected_class):
 
 	# Setup player + deck
 	GameManager.setup_class(selected_class)
+	#hide or free class ui
+	hide()

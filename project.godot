@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://1l86yrm0xd2j"
 SceneManager="*uid://be18llq7gax6j"
+EventBus="*uid://ceifmxevtln5f"
 
 [display]
 

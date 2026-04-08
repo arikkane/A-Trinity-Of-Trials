@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://bnpiqwd1rov5f"]
+
+[ext_resource type="Script" uid="uid://de5i6cxcs4vx7" path="res://code/event_data.gd" id="1_illfe"]
+
+[resource]
+script = ExtResource("1_illfe")
+description = "You find gold"
+reward = 20

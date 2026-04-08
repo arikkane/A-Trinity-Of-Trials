@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EventData" format=3 uid="uid://clvn1m4brrtq4"]
+
+[ext_resource type="Script" uid="uid://de5i6cxcs4vx7" path="res://code/event_data.gd" id="1_cqjnl"]
+
+[resource]
+script = ExtResource("1_cqjnl")
+description = "You got ambushed by goblins, take 15 dmg"
+damage = 15
+id = "test_event_2"
+gen_weight = 75.0
+scene_path = "res://scenes/test_event_variation.tscn"

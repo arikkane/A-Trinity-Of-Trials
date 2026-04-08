@@ -5,7 +5,7 @@ extends Node2D
 #variables and arrays that store the scenes and nodes for path generation
 var map_grid_column: PackedScene = preload("res://scenes/map_grid_column.tscn")
 var map_node: PackedScene = preload("res://scenes/map_node.tscn")
-var map_grid_columns: Array[Control]
+var map_grid_columns: Array[Control] = []
 var boss_node
 var map_texture: TextureRect
 
@@ -214,6 +214,7 @@ func generate_boss_node():
 # that is a valid path option is clicked on
 #-----------------------------------------------------------
 func _on_map_node_clicked(node: Control):
+	
 	#ensures that the player can't progress to the next room if they havent finished the current encounter
 	if not map_lock:
 		var room_data
@@ -229,11 +230,22 @@ func _on_map_node_clicked(node: Control):
 			GameManager.RoomTypes.Boss:
 				room_data = init_boss_room()
 		update_path_options(node)
-		await SceneManager.change_scene(room_data.scene_path)
-		#loads the room data into the next room scene
-		SceneManager.load_room_data(room_data)
-		#prevents the user from clicking another map node while the current encounter hasn't finished
+		EventBus.emit_signal("map_node_selected", node)
+		EventBus.emit_signal("room_entered", room_data)
+		match node.room_type:
+			GameManager.RoomTypes.Combat:
+				EventBus.emit_signal("combat_started", room_data)
+			GameManager.RoomTypes.Event:
+				EventBus.emit_signal("event_started", room_data)
+			GameManager.RoomTypes.Rest:
+				EventBus.emit_signal("rest_started", room_data)
+			GameManager.RoomTypes.Shop:
+				EventBus.emit_signal("shop_started", room_data)
+			GameManager.RoomTypes.Boss:
+				EventBus.emit_signal("boss_started", room_data)
 		map_lock = true
+		print("map_lock:", map_lock)
+		print("room_data:", room_data)
 		hide_map()
 
 #------------------------------------------------
