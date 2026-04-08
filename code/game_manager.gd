@@ -4,7 +4,7 @@ extends Node
 #This script is autoloaded via Project/Globals tab, and contains the player variables and deck node
 var PlayerMaxHP = 0
 var PlayerHP = 0
-var PlayerGold = 50
+var PlayerGold = 300
 var CardsDrawnPerTurn = 0
 var PlayerPosition = 0
 
