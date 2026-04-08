@@ -9,6 +9,7 @@ func _gui_input(event: InputEvent):
 				GameManager.DeckDisplayUI.hide()
 			else:
 				GameManager.DeckDisplayUI.show()
+				GameManager.DeckDisplayUI.update_cards()
 				
 
 func _on_mouse_entered():

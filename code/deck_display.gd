@@ -29,7 +29,7 @@ func _ready():
 #-------------------------------------------------------------
 func update_cards():
 	#gets the amount of card rows based on the amount of cards in the deck
-	var row_count = ceil(GameManager.Deck.full_deck.size()/5)
+	var row_count = ceil(float(GameManager.Deck.full_deck.size())/5)
 	var sorted_deck = sort_deck()
 	if card_rows.size() < row_count:
 		add_rows(row_count-card_rows.size())

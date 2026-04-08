@@ -27,6 +27,7 @@ func init_card_data():
 		var card_object = card_for_sale_scene.instantiate()
 		card_object.card_data = GameManager.Deck.create_card(card.id, card.type, card.damage, card.block, card.heal, card.name)
 		card_object.generate_price(GameManager.Deck.card_data["cards"][card_id].get("base_price", 60))
+		card_object.card_purchased.connect(_on_card_purchased)
 		cards.append(card_object)
 		if (i+1) <= (card_per_shelf):
 			$"TopShelfContainer".add_child(card_object)
@@ -45,6 +46,12 @@ func print_room_data():
 	print("Card Pool: " + room_data.card_pool)
 	print("Remove Card Cost: " + str(room_data.remove_card_cost))
 
+func _on_card_purchased():
+	for card in cards:
+		if not card.purchased:
+			card.check_if_affordable()
+
 func _on_button_pressed():
 	print("button pressed")
 	GameManager.encounter_complete()
+	
