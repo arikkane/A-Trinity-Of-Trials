@@ -14,10 +14,10 @@ offset_bottom = 40.0
 texture = ExtResource("2_xfvoa")
 
 [node name="NextRoomButton" type="Button" parent="." unique_id=264806088]
-offset_left = 1737.0
-offset_top = 976.0
-offset_right = 1836.0
-offset_bottom = 1033.0
+offset_left = 1581.0
+offset_top = 743.0
+offset_right = 1680.0
+offset_bottom = 800.0
 text = "Leave"
 
 [node name="TopShelfContainer" type="HBoxContainer" parent="." unique_id=1897879336]
@@ -52,7 +52,7 @@ offset_right = 171.0
 offset_bottom = 155.0
 text = "50"
 
-[node name="TextureRect" type="TextureRect" parent="RemoveCardButton" unique_id=1721461187]
+[node name="GoldIcon" type="TextureRect" parent="RemoveCardButton" unique_id=1721461187]
 modulate = Color(1, 0.70980394, 0.12941177, 1)
 layout_mode = 0
 offset_left = 57.0
@@ -60,3 +60,6 @@ offset_top = 115.0
 offset_right = 81.0
 offset_bottom = 139.0
 texture = SubResource("CanvasTexture_xfvoa")
+
+[connection signal="pressed" from="NextRoomButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="RemoveCardButton" to="." method="_on_remove_card_button_pressed"]

@@ -7,8 +7,9 @@ var card_width = 192
 #stores the current selection for both sort menus
 var sort_type;
 var sort_by;
-
+#flag for if the deck is displaying for the shops card removal system
 var remove_selecting = false
+signal pay_for_removal
 
 #enumerators that contain all the options for each menu, when a new option is added in the menu, it should also manually be added here
 enum SortType{
@@ -32,6 +33,7 @@ func _ready():
 func update_cards():
 	#gets the amount of card rows based on the amount of cards in the deck
 	var row_count = ceil(float(GameManager.Deck.full_deck.size())/5)
+	clear_rows()
 	var sorted_deck = sort_deck()
 	if card_rows.size() < row_count:
 		add_rows(row_count-card_rows.size())
@@ -99,18 +101,41 @@ func remove_rows(count):
 	for i in range(card_rows.size()-1, count, -1):
 		card_rows.erase(card_rows.back())
 
+#--------------------------------------------------
+# This function enables removing cards by selecting
+# them. This is used for card removal in the shop
+#--------------------------------------------------
+func init_card_removal():
+	show()
+	update_cards()
+	remove_selecting = true
+	$"RemoveCardUI".visible = true
+
+#------------------------------------------------
+# This function is called when a card is removed,
+# disabling the card removal functionality
+#------------------------------------------------
+func card_removed():
+	hide()
+	remove_selecting = false
+	pay_for_removal.emit()
+	$"RemoveCardUI".visible = false
+
 #----------------------------Input Handling Functions----------------------------------
 func _on_sort_type_selected(index):
-	print("in _on_sort_type_selected")
 	sort_type = index
 	clear_rows()
 	update_cards()
 
 func _on_sort_by_selected(index):
-	print("in _on_sort_by_selected")
 	sort_by = index
 	clear_rows()
 	update_cards()
+
+func _on_cancel_button_pressed():
+	$"RemoveCardUI".visible = false
+	remove_selecting = false
+	hide()
 
 #--------------------------------Debug Functions---------------------------------------
 func print_card(card):

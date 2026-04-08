@@ -8,9 +8,9 @@ var cards: Array[Control]
 var card_stock_size_x = 1142
 var card_separation = 0
 var can_afford_remove = true
+var remove_used = false
 
 func _ready():
-	$"NextRoomButton".pressed.connect(_on_button_pressed)
 	init_card_data()
 
 func init_room_data(data: ShopData):
@@ -43,12 +43,13 @@ func init_card_data():
 		card.update_labels()
 
 func check_if_remove_card_affordable():
-	if GameManager.PlayerGold >= room_data.remove_card_cost:
-		$"RemoveCardButton/Price".add_theme_color_override("default_color", "#00a300")
-		can_afford_remove = true
-	else:
-		$"RemoveCardButton/Price".add_theme_color_override("default_color", "#dd2400")
-		can_afford_remove = false
+	if not remove_used:
+		if GameManager.PlayerGold >= room_data.remove_card_cost:
+			$"RemoveCardButton/Price".add_theme_color_override("default_color", "#00a300")
+			can_afford_remove = true
+		else:
+			$"RemoveCardButton/Price".add_theme_color_override("default_color", "#dd2400")
+			can_afford_remove = false
 
 func print_room_data():
 	print("ID: " + room_data.id)
@@ -62,7 +63,22 @@ func _on_card_purchased():
 			card.check_if_affordable()
 			check_if_remove_card_affordable()
 
-func _on_button_pressed():
+func _on_remove_card_button_pressed():
+	if can_afford_remove and not remove_used:
+		GameManager.DeckDisplayUI.pay_for_removal.connect(_on_card_removed)
+		GameManager.DeckDisplayUI.init_card_removal()
+
+func _on_card_removed():
+	GameManager.PlayerGold -= room_data.remove_card_cost
+	GameManager.UIOverlay.update_gold()
+	GameManager.DeckDisplayUI.pay_for_removal.disconnect(_on_card_removed)
+	remove_used = true
+	$"RemoveCardButton/Price".visible = false
+	$"RemoveCardButton/GoldIcon".visible = false
+	$"RemoveCardButton".text = "SOLD OUT"
+	$"RemoveCardButton".disabled = true
+
+func _on_leave_button_pressed():
 	print("button pressed")
 	GameManager.encounter_complete()
 	

@@ -3,6 +3,7 @@ class_name CardData
 
 #all types
 @export var scene: PackedScene = load("res://scenes/card.tscn")
+@export var uid: int
 @export var id: int
 @export var name: String
 @export var type: String

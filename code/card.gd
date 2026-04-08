@@ -43,10 +43,13 @@ func play(target):
 # drag input currenly debugging
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if not deck_display_copy:
 			print("Clicked. Combat is:", combat)
 			play(combat.enemy)
+		elif deck_display_copy and GameManager.DeckDisplayUI.remove_selecting:
+			GameManager.Deck.remove_card(card_data.uid)
+			GameManager.DeckDisplayUI.card_removed()
 
 # CHECK IF DROPPED ON TARGET currenly debugging
 

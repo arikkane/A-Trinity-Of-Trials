@@ -86,6 +86,8 @@ func create_card(id, card_type, damage, block, heal, card_name_str):
 	#does not load the scene for the card, card.scene.instantiate() should be loaded whenever the card ui is needed
 	var card = card_data_resource.new()
 	
+	card.uid = ResourceUID.create_id()
+	ResourceUID.add_id(card.uid, "res://code/card_data.gd")
 	card.id = id
 	card.type = card_type
 	card.damage = damage
@@ -105,6 +107,11 @@ func create_card(id, card_type, damage, block, heal, card_name_str):
 		card.description = card_name_str
 	
 	return card
+
+func remove_card(uid: int):
+	for card in full_deck:
+		if card.uid == uid:
+			full_deck.erase(card)
 
 # ----------------------------
 # Load CARDS from JSON file
