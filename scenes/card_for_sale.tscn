@@ -21,15 +21,15 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_n0sk8")
 
-[node name="EnergyCost" type="RichTextLabel" parent="CardTexture" unique_id=2014733375]
+[node name="Type" type="RichTextLabel" parent="CardTexture" unique_id=2014733375]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 7.0
-offset_right = 52.0
-offset_bottom = 31.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 188.0
+offset_bottom = 29.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
-text = "Cost: "
+horizontal_alignment = 1
 
 [node name="Description" type="RichTextLabel" parent="CardTexture" unique_id=1081462091]
 layout_mode = 0
@@ -37,7 +37,9 @@ offset_left = 5.0
 offset_top = 134.0
 offset_right = 187.0
 offset_bottom = 283.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
+horizontal_alignment = 1
 
 [node name="PricetagTexture" type="TextureRect" parent="." unique_id=460157405]
 layout_mode = 0
@@ -56,7 +58,6 @@ offset_bottom = 76.0
 theme_override_colors/default_color = Color(0, 0.6392157, 0, 1)
 theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
-text = "Price"
 
 [node name="TextureRect" type="TextureRect" parent="PricetagTexture" unique_id=1261823799]
 modulate = Color(1, 0.70980394, 0.12941177, 1)
