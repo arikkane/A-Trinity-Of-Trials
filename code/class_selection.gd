@@ -30,5 +30,6 @@ func start_game(selected_class):
 
 	# Setup player + deck
 	GameManager.setup_class(selected_class)
-	#hide or free class ui
-	hide()
+
+	# Change to combat scene
+	BattleManager.start_battle([EnemyData.Enemy.SKELETON, EnemyData.Enemy.GOBLIN])

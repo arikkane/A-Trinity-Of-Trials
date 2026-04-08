@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ShopData" format=3 uid="uid://lio05e8vjdaf"]
+
+[ext_resource type="Script" path="res://code/shop_data.gd" id="1_puen6"]
+
+[resource]
+script = ExtResource("1_puen6")
+id = "shop"
+scene_path = "res://scenes/shop.tscn"

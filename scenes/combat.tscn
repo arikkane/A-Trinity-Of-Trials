@@ -20,6 +20,7 @@ texture = ExtResource("2_4gnb8")
 position = Vector2(160, 550)
 
 [node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
+visible = false
 position = Vector2(1600, 568)
 
 [node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
