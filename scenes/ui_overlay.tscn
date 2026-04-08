@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b3p02bo3iinga"]
 
-[ext_resource type="Script" uid="uid://c06l1sjik3kuu" path="res://code/ui_overlay.gd" id="1_5mppo"]
-[ext_resource type="Script" uid="uid://danfjhii1v3vc" path="res://code/ui_deck_button.gd" id="2_khxf3"]
-[ext_resource type="Script" uid="uid://bcfac5i8yh8f7" path="res://code/ui_map_button.gd" id="2_vywth"]
+[ext_resource type="Script" path="res://code/ui_overlay.gd" id="1_5mppo"]
+[ext_resource type="Script" path="res://code/ui_deck_button.gd" id="2_khxf3"]
+[ext_resource type="Script" path="res://code/ui_map_button.gd" id="2_vywth"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_vywth"]
 

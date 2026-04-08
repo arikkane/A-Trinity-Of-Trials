@@ -30,6 +30,3 @@ func start_game(selected_class):
 
 	# Setup player + deck
 	GameManager.setup_class(selected_class)
-
-	# Change to combat scene
-	BattleManager.start_battle([EnemyData.Enemy.SKELETON, EnemyData.Enemy.GOBLIN])
