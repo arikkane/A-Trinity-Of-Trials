@@ -7,6 +7,7 @@ var room_data
 var cards: Array[Control]
 var card_stock_size_x = 1142
 var card_separation = 0
+var can_afford_remove = true
 
 func _ready():
 	$"NextRoomButton".pressed.connect(_on_button_pressed)
@@ -15,6 +16,7 @@ func _ready():
 func init_room_data(data: ShopData):
 	room_data = data
 	print_room_data()
+	check_if_remove_card_affordable()
 
 func init_card_data():
 	var card_pool: Array[int]
@@ -40,6 +42,14 @@ func init_card_data():
 	for card in cards:
 		card.update_labels()
 
+func check_if_remove_card_affordable():
+	if GameManager.PlayerGold >= room_data.remove_card_cost:
+		$"RemoveCardButton/Price".add_theme_color_override("default_color", "#00a300")
+		can_afford_remove = true
+	else:
+		$"RemoveCardButton/Price".add_theme_color_override("default_color", "#dd2400")
+		can_afford_remove = false
+
 func print_room_data():
 	print("ID: " + room_data.id)
 	print("Gen Weight: " + str(room_data.gen_weight))
@@ -50,6 +60,7 @@ func _on_card_purchased():
 	for card in cards:
 		if not card.purchased:
 			card.check_if_affordable()
+			check_if_remove_card_affordable()
 
 func _on_button_pressed():
 	print("button pressed")

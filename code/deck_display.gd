@@ -8,6 +8,8 @@ var card_width = 192
 var sort_type;
 var sort_by;
 
+var remove_selecting = false
+
 #enumerators that contain all the options for each menu, when a new option is added in the menu, it should also manually be added here
 enum SortType{
 	ID,
@@ -39,7 +41,7 @@ func update_cards():
 		var current_card = sorted_deck[i].scene.instantiate()
 		current_card.card_data = sorted_deck[i]
 		card_rows[i/5].add_child(current_card)
-		current_card.useable = false
+		current_card.deck_display_copy = true
 		current_card.init_debug_label()
 		current_card.update_debug_label()
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)

@@ -20,7 +20,7 @@ var card_data: CardData
 var in_hand = false
 var debug_label: RichTextLabel
 #flag that prevents cards from being used, this flag is primarily used in the deck display ui
-var useable = true
+var deck_display_copy = false
 
 
 func _ready():
@@ -43,9 +43,10 @@ func play(target):
 # drag input currenly debugging
 
 func _gui_input(event):
-	if useable and event is InputEventMouseButton and event.pressed:
-		print("Clicked. Combat is:", combat)
-		play(combat.enemy)
+	if event is InputEventMouseButton and event.pressed:
+		if not deck_display_copy:
+			print("Clicked. Combat is:", combat)
+			play(combat.enemy)
 
 # CHECK IF DROPPED ON TARGET currenly debugging
 

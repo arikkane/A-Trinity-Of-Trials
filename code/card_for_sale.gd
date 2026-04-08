@@ -12,7 +12,7 @@ func check_if_affordable():
 		$"PricetagTexture/PriceText".add_theme_color_override("default_color", "#00a300")
 		can_afford = true
 	else:
-		$"PricetagTexture/PriceText".add_theme_color_override("default_color", "dd2400")
+		$"PricetagTexture/PriceText".add_theme_color_override("default_color", "#dd2400")
 		can_afford = false
 
 func generate_price(base_price):
