@@ -292,14 +292,17 @@ func check_enemies():
 			turn_order.remove_at(i)
 
 func check_victory():
-
 	if enemy_list.is_empty():
 		print("Victory!")
 		combat_end()
+		BattleManager.combat_finished(true)
 
-	if GameManager.PlayerHP <= 0:
+	elif GameManager.PlayerHP <= 0:
 		print("Defeat!")
 		combat_end()
+		BattleManager.combat_finished(false)
+		
+		
 
 # updates mana in screen
 func update_mana_label():
@@ -311,3 +314,14 @@ func update_block_label():
 
 func _on_end_turn_button_pressed() -> void:
 	end_player_turn()
+	
+func _on_win_test_button_pressed() -> void:
+	print("DEBUG: Forced victory")
+	combat_end()
+	BattleManager.combat_finished(true)
+
+
+func _on_win_button_down() -> void:
+	print("DEBUG: Forced victory")
+	combat_end()
+	BattleManager.combat_finished(true)

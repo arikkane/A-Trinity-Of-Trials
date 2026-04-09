@@ -3,6 +3,7 @@ extends Node
 # ----------------------------
 # Player variables
 # ----------------------------
+
 var PlayerMaxHP: int
 var PlayerHP: int
 var CardsDrawnPerTurn: int
@@ -15,6 +16,12 @@ var DeckDisplayUI: CanvasLayer
 var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
+
+var map_generated: bool = false
+var saved_map_paths: Array = []
+var saved_room_types: Array = []
+var map_selected_path: Array = []
+var map_available_nodes: Array = []
 
 enum PlayerClass {
 	GUNDAM,
@@ -67,16 +74,19 @@ func init_player_variables(maxhp: int, cdpt: int) -> void:
 	Deck.init_cards()
 	
 func start_run():
-	DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
+	if DeckDisplayUI == null:
+		DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
+		Main.add_child(DeckDisplayUI)
+
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
-	Main.add_child(DeckDisplayUI)
-	Map = load("res://scenes/map.tscn").instantiate()
-	Main.add_child(Map)
+
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
 
+	SceneManager.change_scene("res://scenes/map.tscn")
+
 func encounter_complete():
-	Map.show_map()
-	Map.map_lock = false
+	# Map scene will handle its own setup when reloaded
+	pass

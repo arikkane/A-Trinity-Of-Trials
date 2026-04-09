@@ -27,6 +27,5 @@ func _on_creature_pressed():
 
 func start_game(selected_class):
 	print("Selected class: ", selected_class)
-
 	# Setup player + deck
 	GameManager.setup_class(selected_class)

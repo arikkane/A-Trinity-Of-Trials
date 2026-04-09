@@ -1,26 +1,38 @@
 extends Node
 class_name EnemyData
 
-enum Enemy {
-	GOBLIN,
-	SKELETON
-}
-
-#---NOTICE---
-# When adding new enemies, ensure all fields are valid or problems may occur!!
-# Refer to cards.json when deciding what cards you would like to give to an enemy. 
-
-const ENEMY_DETAILS : Dictionary = {
-	Enemy.GOBLIN: {
+const ENEMY_DETAILS := {
+	"goblin_1": {
 		"name": "Goblin",
-		"hp": 5,
+		"hp": 70,
 		"maxHp": 100,
-		"cards": [12, 12, 12, 13, 13, 13, 8, 8],
+		"cards": [12, 12, 13, 8],
 		"sprite": "res://assets/Monsters/goblin_1.png"
-	}, 
-	Enemy.SKELETON: {
+	},
+	"goblin_2": {
+		"name": "Goblin",
+		"hp": 70,
+		"maxHp": 100,
+		"cards": [12, 12, 13, 8],
+		"sprite": "res://assets/Monsters/goblin_2.png"
+	},
+	"skeleton_1": {
 		"name": "Skeleton",
-		"hp": 5,
+		"hp": 70,
+		"maxHp": 100,
+		"cards": [7, 7, 7, 7],
+		"sprite": "res://assets/Monsters/skeleton_1.png"
+	},
+	"skeleton_2": {
+		"name": "Skeleton",
+		"hp": 100,
+		"maxHp": 100,
+		"cards": [7, 7, 7, 7],
+		"sprite": "res://assets/Monsters/skeleton_1.png"
+	},
+	"skeleton_3": {
+		"name": "Skeleton",
+		"hp": 100,
 		"maxHp": 100,
 		"cards": [7, 7, 7, 7],
 		"sprite": "res://assets/Monsters/skeleton_1.png"

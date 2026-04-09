@@ -56,4 +56,12 @@ offset_right = 151.0
 offset_bottom = 681.0
 text = "End Turn"
 
+[node name="Win" type="Button" parent="." unique_id=1503039123]
+offset_left = 77.0
+offset_top = 330.0
+offset_right = 237.0
+offset_bottom = 428.0
+text = "WIN TESTING"
+
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="button_down" from="Win" to="." method="_on_win_button_down"]
