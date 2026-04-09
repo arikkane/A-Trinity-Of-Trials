@@ -14,7 +14,6 @@ var card_y = 0
 var player
 var enemy #No idea what this even does, but when I removed it, card.gd started throwing errors.
 
-var enemy_list = [] #contains the current enemies
 var turn_order = [] #contains the turn order
 var player_class = null
 var player_turn = true
@@ -52,11 +51,11 @@ func initialize_combat() -> void:
 		enemy_child.init_enemy_sprite(EnemyData.ENEMY_DETAILS[currentEnemy[i]]["sprite"])
 		print("Enemy spawned: " + enemy_child.name + ", HP: " + str(enemy_child.hp) + ", Cards: " + str(enemy_child.card_ids))
 		add_child(enemy_child)
-		enemy_list.append(enemy_child)
+		BattleManager.enemy_list.append(enemy_child)
 		turn_order.append(enemy_child)
 
 	print("ENEMYLIST:")
-	print(enemy_list)
+	print(BattleManager.enemy_list)
 	#Initiate everything
 	combat_start()
 	start_player_turn()
@@ -209,7 +208,6 @@ func draw_cards(count = null, from_effect = false):
 				player.spell_power += 1
 				print("Mage gains +1 spell power! Current:", player.spell_power)
 
-
 # ----------------------------
 # Play card function
 # ----------------------------
@@ -234,9 +232,8 @@ func play_card(card, target):
 		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
 			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
 
-		#---REPLACE THIS IN THE FUTURE SO THE PLAYER CAN SELECT THE TARGET!! FOR NOW I'M JUST ASSUMING THE FIRST ENEMY IS THE ONE BEING TARGETED---
-		enemy_list[0].take_damage(damage)
-		print(enemy_list[0].hp)
+		target.take_damage(damage)
+		BattleManager.reset_selections()
 		#target.take_damage(damage)
 
 		# Alien passive: heal when dealing damage
@@ -282,9 +279,9 @@ func move_to_discard(card):
 
 #Purge killed enemies from the queues.
 func check_enemies():
-	for i in range(enemy_list.size() - 1, -1, -1): #iterate BACKWARD or else THERE WILL BE PROBLEMS!
-		if !is_instance_valid(enemy_list[i]):
-			enemy_list.remove_at(i)
+	for i in range(BattleManager.enemy_list.size() - 1, -1, -1): #iterate BACKWARD or else THERE WILL BE PROBLEMS!
+		if !is_instance_valid(BattleManager.enemy_list[i]):
+			BattleManager.enemy_list.remove_at(i)
 	
 	#Do the same for the turn order
 	for i in range(turn_order.size() - 1, -1, -1):
@@ -292,8 +289,7 @@ func check_enemies():
 			turn_order.remove_at(i)
 
 func check_victory():
-
-	if enemy_list.is_empty():
+	if BattleManager.enemy_list.is_empty():
 		print("Victory!")
 		combat_end()
 
@@ -309,5 +305,11 @@ func update_block_label():
 
 #end turn
 
+#show the "you must deselect a card or attack an enemy!" tip
+func show_card_tip():
+	AudioManager.play_sfx(preload("res://assets/Sounds/buzzer1.wav"))
+	$"GUIText".show_card_tip()
+
 func _on_end_turn_button_pressed() -> void:
+	AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
 	end_player_turn()

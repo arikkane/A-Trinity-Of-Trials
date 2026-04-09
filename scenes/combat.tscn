@@ -7,6 +7,46 @@
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
+[ext_resource type="Script" uid="uid://cav5cpt0njxsy" path="res://scenes/combatgui.gd" id="8_4gnb8"]
+[ext_resource type="AudioStream" uid="uid://63fw3mqcxtge" path="res://assets/Sounds/select1.wav" id="8_8we11"]
+[ext_resource type="AudioStream" uid="uid://65myrgenl1b2" path="res://assets/Sounds/select2.wav" id="9_hrcy2"]
+
+[sub_resource type="Animation" id="Animation_sa5k0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardNotice:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8we11"]
+resource_name = "cardnotice"
+length = 3.4666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardNotice:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.53333336, 1.57, 3.1666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.99978286, 0.26040283, 0.20119143, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hrcy2"]
+_data = {
+&"RESET": SubResource("Animation_sa5k0"),
+&"cardnotice": SubResource("Animation_8we11")
+}
 
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
@@ -55,5 +95,33 @@ offset_top = 623.0
 offset_right = 151.0
 offset_bottom = 681.0
 text = "End Turn"
+
+[node name="sfx_select" type="AudioStreamPlayer2D" parent="." unique_id=1878488216]
+stream = ExtResource("8_8we11")
+
+[node name="sfx_select2" type="AudioStreamPlayer2D" parent="." unique_id=354403053]
+stream = ExtResource("9_hrcy2")
+
+[node name="GUIText" type="CanvasLayer" parent="." unique_id=16061795]
+script = ExtResource("8_4gnb8")
+
+[node name="CardNotice" type="Label" parent="GUIText" unique_id=902398859]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -451.5
+offset_top = -19.5
+offset_right = 451.5
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "Deselect your card or pick an enemy before selecting another card!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUIText" unique_id=544513998]
+libraries/ = SubResource("AnimationLibrary_hrcy2")
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

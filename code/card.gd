@@ -16,9 +16,11 @@ var card_data: CardData
 #var heal = 0
 #var description = null
 #var draw_amount: int = 0
+
 #flag for if the card is in the players hand
 var in_hand = false
 var debug_label = null
+var selected = false
 
 
 func _ready():
@@ -32,18 +34,51 @@ var drag_offset = Vector2.ZERO
 func play(target):
 	if not combat:
 		return
-
+	
 	# Always go through combat
 	combat.play_card(self, target)
 
 
+#Function that handles selecting cards.
+func select_card():
+	if BattleManager.isInBattle == true:
+		#If card is selected, deselect.
+		if selected == true:
+			AudioManager.play_sfx(preload("res://assets/Sounds/select3.wav"))
+			selected = false
+			BattleManager.reset_selections()
+			self.position.y = self.position.y + 70
+			return
+		
+		#If another card is selected, do nothing. Make sure the user deselects before picking another card.
+		if selected == false && !BattleManager.selected_card == null:
+			
+			combat.show_card_tip()
+			return
+		
+		#If neither of the above criteria is true, play the card.
+		if card_data.type == "Damage":
+			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+			#If there's only one enemy left, just play the card without initiating the selection sequence.
+			if BattleManager.enemy_list.size() == 1:
+				play(BattleManager.enemy_list[0])
+				return
+				
+			BattleManager.selected_card = self
+			BattleManager.selecting_target = true
+			self.position.y = self.position.y - 70
+			print("Selected card: " + str(self))
+			selected = true
+		elif card_data.type == "Utility": #if the card is utility, just play it
+			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+			play(combat.enemy)
 
 # drag input currenly debugging
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
+		select_card()
 		print("Clicked. Combat is:", combat)
-		play(combat.enemy)
 
 # CHECK IF DROPPED ON TARGET currenly debugging
 

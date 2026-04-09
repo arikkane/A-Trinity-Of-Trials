@@ -21,6 +21,7 @@ GameManager="*uid://1l86yrm0xd2j"
 SceneManager="*uid://be18llq7gax6j"
 BattleManager="*uid://bjrttynuxuopl"
 JsonLoader="*uid://s3x2jub4lwbl"
+AudioManager="*uid://bfdfhirbegqi1"
 
 [display]
 

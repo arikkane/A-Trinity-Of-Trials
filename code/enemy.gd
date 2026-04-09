@@ -42,11 +42,13 @@ func init_enemy_sprite(enemysprite):
 		x+= 800
 	
 	#base y = 568
+	$"Sprite2D".texture = load(enemysprite)
 	var sprite_height = $"Sprite2D".texture.get_height()
 	var sprite_width = $"Sprite2D".texture.get_width()
-	$"Sprite2D".texture = load(enemysprite)
-	$"Sprite2D".position = Vector2(x, 568)
+	$"Sprite2D".position = Vector2(x, (568 - sprite_height))
+	$"Sprite2D".position.y = 568 - sprite_height
 	init_health_bar()
+	
 
 #call this whenever health is changed
 func update_health_bar():
@@ -107,4 +109,16 @@ func heal(amount: int) -> void:
 #When this is called, the node will destroy itself and all of its component.
 func die():
 	print("Enemy " + enemy_name + "  defeated!")
+	BattleManager.enemy_list.erase(self)
 	queue_free()
+
+#The enemy checks to see if it has been clicked.
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			#If the battle manager has selected a card and is looking for a target, play the selected card on this enemy.
+			if BattleManager.selecting_target == true:
+				BattleManager.selected_enemy = self
+				AudioManager.play_sfx(preload("res://assets/Sounds/select2.wav"))
+				get_parent().play_card(BattleManager.selected_card, self)
+				print("enemy clicked")
