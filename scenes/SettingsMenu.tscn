@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c6pci2jee5lsw"]
+
+[ext_resource type="Script" uid="uid://cxhrc1aaguyx2" path="res://code/settings_menu.gd" id="1_yelko"]
+[ext_resource type="Texture2D" uid="uid://dmm2mnqnannkt" path="res://assets/UI&Charactors/Battleground4.png" id="2_1yw23"]
+
+[node name="SettingsMenu" type="Control" unique_id=756797098]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yelko")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2034574684]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1076.0
+
+[node name="Battleground4" type="Sprite2D" parent="." unique_id=829074306]
+position = Vector2(966, 536)
+texture = ExtResource("2_1yw23")

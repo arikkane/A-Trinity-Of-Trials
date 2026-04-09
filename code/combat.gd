@@ -81,7 +81,6 @@ func end_player_turn():
 func enemy_turn():
 	print("Enemy's turn")
 	var damage = 20
-
 	if player.block > 0:
 		player.take_damage(damage - player.block)
 	else:
