@@ -3,17 +3,64 @@
 [ext_resource type="Script" uid="uid://cmwjykk1lypvx" path="res://code/test_event_variation.gd" id="1_pu0on"]
 [ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_cfmwn"]
 
-[node name="TestEventVariation" type="Node" unique_id=139382747]
+[node name="TestEventVariation" type="Control" unique_id=767838022]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_pu0on")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=274205333]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_cfmwn")
 
-[node name="NextRoomButton" type="Button" parent="." unique_id=264806088]
-offset_left = 865.0
-offset_top = 431.0
-offset_right = 1062.0
-offset_bottom = 495.0
+[node name="IntroPanel" type="Control" parent="." unique_id=1622583247]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IntroLabel" type="Label" parent="IntroPanel" unique_id=1823729093]
+layout_mode = 0
+offset_left = 1299.0
+offset_top = 293.0
+offset_right = 1905.0
+offset_bottom = 486.0
+
+[node name="Proceed" type="Button" parent="IntroPanel" unique_id=1918900744]
+layout_mode = 0
+offset_left = 1350.0
+offset_top = 423.0
+offset_right = 1552.0
+offset_bottom = 471.0
+text = "Proceed "
+
+[node name="GoAround" type="Button" parent="IntroPanel" unique_id=607947084]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1637.0
+offset_top = 426.0
+offset_right = 1834.0
+offset_bottom = 474.0
+text = "Go Around"
+
+[node name="EventPanel" type="Control" parent="." unique_id=903214285]
+anchors_preset = 0
+offset_left = 19.0
+offset_top = 4.0
+offset_right = 59.0
+offset_bottom = 44.0
+
+[node name="NextRoomButton" type="Button" parent="EventPanel" unique_id=264806088]
+layout_mode = 0
+offset_left = 1463.0
+offset_top = 497.0
+offset_right = 1660.0
+offset_bottom = 561.0
 text = "Next Room"
+
+[node name="DescriptionLabel" type="Label" parent="EventPanel" unique_id=2058090884]
+layout_mode = 0
+offset_left = 1316.0
+offset_top = 286.0
+offset_right = 1834.0
+offset_bottom = 387.0

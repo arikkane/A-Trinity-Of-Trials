@@ -6,3 +6,6 @@
 script = ExtResource("1_illfe")
 description = "You find gold"
 reward = 20
+id = "treasure_1"
+gen_weight = 50.0
+scene_path = "res://scenes/test_event_variation.tscn"

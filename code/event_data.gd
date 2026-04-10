@@ -1,7 +1,7 @@
 extends RoomData
 class_name EventData
 
-enum EventType { TREASURE, ENEMY_AMBUSH, TRAP, CHOICE_CARD }
+enum EventType { TREASURE, HEAL, TRAP, CHOICE_CARD }
 
 # Basic info
 
