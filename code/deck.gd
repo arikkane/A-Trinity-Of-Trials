@@ -3,7 +3,7 @@ extends Control
 # Holds all cards in the player's deck
 var full_deck: Array = []
 
-var card_scene: PackedScene = preload("res://scenes/card.tscn")
+@onready var card_scene: PackedScene = preload("res://scenes/card.tscn")
 
 # Card layout variables
 var card_width = 192
@@ -17,6 +17,7 @@ var card_data = {}
 
 # Deck data loaded from JSON
 var deck_data = {}
+ 
 
 # ----------------------------
 # Debug function

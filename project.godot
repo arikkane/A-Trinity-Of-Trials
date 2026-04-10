@@ -23,6 +23,7 @@ EventManager="*uid://dc5emqklivhxv"
 BattleManager="*uid://bjrttynuxuopl"
 JsonLoader="*uid://s3x2jub4lwbl"
 EventBus="*uid://ceifmxevtln5f"
+AudioManager="*uid://bfdfhirbegqi1"
 
 [display]
 

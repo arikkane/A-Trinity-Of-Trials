@@ -8,6 +8,13 @@ var current_enemies: Array = []
 var current_room_data = null
 var in_combat: bool = false
 
+var enemy_list: Array = [] #contains the actual current enemies in battle. Replace this with current_room_data somehow?
+
+#Replace these with signals?
+var selected_enemy = null
+var selecting_target = false
+var selected_card = null
+
 # -----------------------------
 # Signals
 # -----------------------------
@@ -44,13 +51,18 @@ func _on_combat_node_selected(room_data) -> void:
 		push_error("BattleManager: selected combat room has no enemies.")
 		return
 
-	in_combat = true
 	current_room_data = room_data
 	current_enemies = enemies.duplicate()
 
-	print("BattleManager: starting combat with enemies: ", current_enemies)
+	start_combat(enemies)
 
-	emit_signal("combat_started", room_data)
+#NOTE: If called from outside of the map, make sure you assign an array of enemies to the enemy_data value. (ex. ["skeleton_1", "skeleton_2"])
+func start_combat(enemy_data):
+	in_combat = true
+	print("BattleManager: starting combat with enemies: ", current_enemies)
+	
+	print(enemy_data)
+	emit_signal("combat_started", enemy_data)
 	SceneManager.change_scene("res://scenes/combat.tscn")
 
 # -----------------------------
@@ -83,3 +95,9 @@ func reset_encounter() -> void:
 	current_enemies.clear()
 	current_room_data = null
 	in_combat = false
+
+#reset selections
+func reset_selections():
+	selected_enemy = null
+	selecting_target = false
+	selected_card = null

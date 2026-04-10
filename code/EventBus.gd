@@ -9,3 +9,5 @@ signal event_started(data)
 signal rest_started(data)
 signal shop_started(data)
 signal boss_started(data)
+
+signal card_selected(card)

@@ -108,3 +108,14 @@ func heal(amount: int) -> void:
 func die():
 	print("Enemy " + enemy_name + "  defeated!")
 	queue_free()
+
+#Selecting an enemy to attack by clicking on it.
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			#If the battle manager has selected a card and is looking for a target, play the selected card on this enemy.
+			if BattleManager.selecting_target == true:
+				BattleManager.selected_enemy = self
+				AudioManager.play_sfx(preload("res://assets/Sounds/select2.wav"))
+				get_parent().play_card(BattleManager.selected_card, self)
+				print("enemy clicked")
