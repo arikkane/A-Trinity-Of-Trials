@@ -126,5 +126,23 @@ horizontal_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GUIText" unique_id=644700908]
 libraries/ = SubResource("AnimationLibrary_hrcy2")
 
+[node name="TextContainer" type="Panel" parent="GUIText" unique_id=779373150]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -387.5
+offset_right = 387.5
+offset_bottom = 184.0
+grow_horizontal = 2
+
+[node name="Info" type="Label" parent="GUIText/TextContainer" unique_id=680085526]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 17.0
+offset_right = 751.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 24
+text = "Information"
+
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_down" from="Win" to="." method="_on_win_button_down"]

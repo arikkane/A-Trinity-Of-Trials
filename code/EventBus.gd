@@ -10,4 +10,6 @@ signal rest_started(data)
 signal shop_started(data)
 signal boss_started(data)
 
+signal player_turn_ended
+signal enemy_turn_ended
 signal card_selected(card)

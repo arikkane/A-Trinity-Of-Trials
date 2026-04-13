@@ -1,8 +1,16 @@
 extends CanvasLayer
 
+@onready var dtext = $"TextContainer/Info"
+
 func ready_():
 	$"CardNotice".hide()
 
 func show_card_tip():
 	$"CardNotice".show()
 	$"AnimationPlayer".play("CardSelectionNotice")
+
+#timer: the amount to wait after the text is done displaying
+func show_text(display_text, timer):
+	dtext.text = display_text
+	await get_tree().create_timer(timer).timeout #is this bad coding practice?
+	return

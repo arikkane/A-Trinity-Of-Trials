@@ -10,7 +10,8 @@ var in_combat: bool = false
 
 var enemy_list: Array = [] #contains the actual current enemies in battle. Replace this with current_room_data somehow?
 
-#Replace these with signals?
+#old code from before the signal system was in place. replace these with signals?
+#NOTE: DONT REMOVE THIS UNLESS A REPLACEMENT IS IMPLEMENTED!
 var selected_enemy = null
 var selecting_target = false
 var selected_card = null
@@ -20,6 +21,9 @@ var selected_card = null
 # -----------------------------
 signal combat_started(room_data)
 signal combat_ended(victory: bool)
+
+signal player_turn_ended
+signal enemy_turn_ended
 
 # -----------------------------
 # Called on startup

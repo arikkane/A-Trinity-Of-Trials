@@ -2,9 +2,14 @@ extends Control
 
 var card_array: Array[Control]
 
+
+
 func add_card(card:Control):
 	card_array.append(card)
 	add_child(card)
+	BattleManager.enemy_turn_ended.connect(card._on_enemy_turn_ended)
+	BattleManager.player_turn_ended.connect(card._on_player_turn_ended)
+	#card._on_turn_ended.connect(BattleManager.player_turn_ended)
 	update_card_positions()
 
 func remove_card(card:Control):

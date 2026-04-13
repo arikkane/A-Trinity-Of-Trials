@@ -42,10 +42,12 @@ func init_enemy_sprite(enemysprite):
 		x+= 800
 	
 	#base y = 568
+	
+	$"Sprite2D".texture = load(enemysprite)
 	var sprite_height = $"Sprite2D".texture.get_height()
 	var sprite_width = $"Sprite2D".texture.get_width()
-	$"Sprite2D".texture = load(enemysprite)
-	$"Sprite2D".position = Vector2(x, 568)
+	$"Sprite2D/Area2D/CollisionShape2D".shape.set_size(Vector2(sprite_width, sprite_height))
+	$"Sprite2D".position = Vector2(x, 720-sprite_height)
 	init_health_bar()
 
 #call this whenever health is changed

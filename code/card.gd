@@ -25,6 +25,7 @@ signal card_selected(card)
 
 #flag that checks to see if card is selected
 var selected = false
+var selectable = true
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -42,40 +43,98 @@ func play(target):
 	# Always go through combat
 	combat.play_card(self, target)
 
-#Function that handles selecting cards.
+#Called from hand_container.gd
+func _on_player_turn_ended():
+	set_selectable(false)
+
+#Also called from hand_container.gd
+func _on_enemy_turn_ended():
+	set_selectable(true)
+
+#please always let this be true or false
+func set_selectable(value):
+	if value == true:
+		selectable = true
+		modulate = Color(1,1,1,1)
+	elif value == false:
+		selectable = false
+		modulate = Color(0.5,0.5,0.5,1)
+	else:
+		selectable = true
+		modulate = Color(1,1,1,1)
+
+#Function that handles selecting the card.
 func select_card():
 	if BattleManager.in_combat == true:
-		#If card is selected, deselect.
-		if selected == true:
-			AudioManager.play_sfx(preload("res://assets/Sounds/select3.wav"))
-			selected = false
-			BattleManager.reset_selections()
-			self.position.y = self.position.y + 70
-			return
-		
-		#If another card is selected, do nothing. Make sure the user deselects before picking another card.
-		if selected == false && !BattleManager.selected_card == null:
-			combat.show_card_tip()
-			return
-		
-		#If neither of the above criteria is true, play the card.
-		if card_data.type == "Damage":
-			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
-			
-			#If there's only one enemy left, just play the card without initiating the selection sequence.
-			if BattleManager.enemy_list.size() == 1:
-				play(BattleManager.enemy_list[0])
+		if selectable == true:
+			#If card is selected, deselect.
+			if selected == true:
+				AudioManager.play_sfx(preload("res://assets/Sounds/select3.wav"))
+				selected = false
+				BattleManager.reset_selections()
+				self.position.y = self.position.y + 70
 				return
-				
-			BattleManager.selected_card = self
-			BattleManager.selecting_target = true
-			self.position.y = self.position.y - 70
 			
-			print("Selected card: " + str(self))
-			selected = true
-		elif card_data.type == "Utility": #if the card is utility, just play it
-			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
-			play(combat.enemy)
+			#If another card is selected, do nothing. Make sure the user deselects before picking another card.
+			if selected == false && !BattleManager.selected_card == null:
+				combat.show_card_tip()
+				return
+			
+			#If neither of the above criteria is true, play the card.
+			if card_data.type == "Damage":
+				AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+				
+				#If there's only one enemy left, just play the card without initiating the selection sequence.
+				if BattleManager.enemy_list.size() == 1:
+					play(BattleManager.enemy_list[0])
+					return
+					
+				BattleManager.selected_card = self
+				BattleManager.selecting_target = true
+				self.position.y = self.position.y - 70
+				
+				print("Selected card: " + str(self))
+				selected = true
+			elif card_data.type == "Utility": #if the card is utility, just play it
+				AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+				play(combat.enemy)
+		else:
+			AudioManager.play_sfx(preload("res://assets/Sounds/buzzer1.wav"))
+
+#Function that handles selecting cards.
+#func select_card():
+#	if BattleManager.in_combat == true:
+#		#If card is selected, deselect.
+#		if selected == true:
+#			AudioManager.play_sfx(preload("res://assets/Sounds/select3.wav"))
+#			selected = false
+#			BattleManager.reset_selections()
+#			self.position.y = self.position.y + 70
+#			return
+#		
+#		#If another card is selected, do nothing. Make sure the user deselects before picking another card.
+#		if selected == false && !BattleManager.selected_card == null:
+#			combat.show_card_tip()
+#			return
+#		
+#		#If neither of the above criteria is true, play the card.
+#		if card_data.type == "Damage":
+#			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+#			
+#			#If there's only one enemy left, just play the card without initiating the selection sequence.
+#			if BattleManager.enemy_list.size() == 1:
+#				play(BattleManager.enemy_list[0])
+#				return
+#				
+#			BattleManager.selected_card = self
+#			BattleManager.selecting_target = true
+#			self.position.y = self.position.y - 70
+#			
+#			print("Selected card: " + str(self))
+#			selected = true
+#		elif card_data.type == "Utility": #if the card is utility, just play it
+#			AudioManager.play_sfx(preload("res://assets/Sounds/select1.wav"))
+#			play(combat.enemy)
 
 func _gui_input(event):
 	if useable and event is InputEventMouseButton and event.pressed:

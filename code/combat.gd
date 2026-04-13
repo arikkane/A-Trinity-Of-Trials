@@ -2,6 +2,9 @@ extends Node
 
 #combat node holds all the related nodes necessary for the combat encounter
 
+@onready var gui_text = $"GUIText"
+signal player_turn_ended
+
 #variables used to set the transform for all the cards/piles
 var card_width = 192
 var card_height = 288
@@ -43,6 +46,7 @@ func initialize_combat() -> void:
 		var enemy_child = enemy_scene.instantiate()
 		
 		#Now initiate all the enemy's stats
+		enemy_child.name = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["name"]
 		enemy_child.max_hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["maxHp"]
 		enemy_child.hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["hp"]
 		enemy_child.card_ids = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["cards"]
@@ -93,6 +97,7 @@ func start_player_turn():
 	player_turn = true
 	player_mana = max_mana
 	player.block = 0
+	$"EndTurnButton".show()
 	update_mana_label()
 	draw_cards()
 	update_block_label()
@@ -105,6 +110,7 @@ func end_player_turn():
 	if not player_turn:
 		return
 
+	BattleManager.player_turn_ended.emit()
 	player_turn = false
 	print("Player turn ended")
 
@@ -122,6 +128,7 @@ func turn_logic():
 		print(turn_order)
 		enemy_turn(turn_order[0])
 	else: #otherwise, assume it's the player's turn
+		BattleManager.enemy_turn_ended.emit()
 		start_player_turn()
 
 #Enemy playing a card function
@@ -136,18 +143,23 @@ func enemy_play_card(enemy_user, enemy_card):
 		# ----------------------
 		if enemy_card.type == "Damage":
 			var damage = enemy_card.damage
+			await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 1)
 			player.take_damage(damage - player.block)
+			await show_text("Player takes " + str(damage - player.block) + " damage!", 1)
+			
 		elif enemy_card.type == "Utility":
 			if enemy_card.block > 0:
 				enemy_user.gain_block(enemy_card.block)
-				update_block_label()
+				await show_text("" + enemy_user.enemy_name + " gains block!", 1)
 			
 			if enemy_card.heal > 0:
 				enemy_user.heal(enemy_card.heal)
+				await show_text("" + enemy_user.enemy_name + " heals for " + str(enemy_card.heal) + " HP!", 1)
 		
 		enemy_user.enemy_deck.erase(enemy_card)
 		enemy_user.enemy_discard.append(enemy_card)
 		print("Played and moved " + enemy_card.name + " to enemy's discard pile")
+		return
 		
 	
 #Function for handling an enemy's turn
@@ -164,11 +176,12 @@ func enemy_turn(enemy_user):
 	#Once the combat system is more complete, I will make it so that the enemy can make intelligent decisions
 	var enemy_card = randi_range(1, enemy_user.enemy_deck.size()) - 1 #pick random card
 	print(enemy_user.enemy_deck.size())
-	enemy_play_card(enemy_user, enemy_user.enemy_deck[enemy_card])
+	
+	await enemy_play_card(enemy_user, enemy_user.enemy_deck[enemy_card])
 	
 	#With 25% probability, the enemy will play 2 cards in one turn.
 	if randf() < 0.25 and !enemy_user.enemy_deck.is_empty():
-		enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
+		await enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
 	
 	end_enemy_turn()
 
@@ -234,12 +247,13 @@ func play_card(card, target):
 			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
 
 		target.take_damage(damage)
+		show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
 		BattleManager.reset_selections()
 
 		# Alien passive: heal when dealing damage
 		if GameManager.current_class == GameManager.PlayerClass.CREATURE:
+			show_text("Player heals " + str(damage) + " HP!", 1)
 			player.heal(damage)
-			print("Alien heals for", damage)
 			
 		# mage passsive damage
 		if GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
@@ -250,6 +264,7 @@ func play_card(card, target):
 			update_block_label()
 
 		if card.card_data.heal > 0:
+			show_text("Player heals" + str(card.card_data.heal) + " HP!", 1)
 			player.heal(card.card_data.heal)
 
 		# Draw cards if card has draw_amount
@@ -290,6 +305,7 @@ func check_enemies():
 
 func check_victory():
 	if BattleManager.enemy_list.is_empty():
+		show_text("Winner!", 1)
 		print("Victory!")
 		combat_end()
 		BattleManager.combat_finished(true)
@@ -307,13 +323,19 @@ func update_mana_label():
 func update_block_label():
 	$BlockValue.text = "Block" + str(player.block)
 
+#Display text on screen to the user
+func show_text(text, timer):
+	await gui_text.show_text(text, timer)
+	return
+
 #show the "you must deselect a card or attack an enemy!" tip
 func show_card_tip():
 	AudioManager.play_sfx(preload("res://assets/Sounds/buzzer1.wav"))
-	$"GUIText".show_card_tip()
+	gui_text.show_card_tip()
 
 #end turn
 func _on_end_turn_button_pressed() -> void:
+	$"EndTurnButton".hide()
 	end_player_turn()
 	
 func _on_win_test_button_pressed() -> void:
