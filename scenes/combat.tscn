@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
-[ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
+[ext_resource type="Script" path="res://code/gui_text.gd" id="8_4gnb8"]
 
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"

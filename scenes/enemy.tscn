@@ -5,13 +5,12 @@
 [ext_resource type="Script" path="res://code/enemyarea2d.gd" id="3_4ra3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
-size = Vector2(34.75, 39)
+size = Vector2(138, 156)
 
 [node name="Enemy" type="Node2D" unique_id=1076380734]
 script = ExtResource("1_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292957994]
-scale = Vector2(4, 4)
 texture = ExtResource("1_7p1mj")
 centered = false
 
@@ -19,7 +18,7 @@ centered = false
 script = ExtResource("3_4ra3w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D" unique_id=1477754011]
-position = Vector2(17.375, 19.5)
+position = Vector2(69, 78)
 shape = SubResource("RectangleShape2D_5uy6h")
 
 [node name="EnemyDataUI" type="Control" parent="." unique_id=2136906322]
