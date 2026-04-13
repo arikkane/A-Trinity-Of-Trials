@@ -135,8 +135,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -387.5
+offset_top = 80.0
 offset_right = 387.5
-offset_bottom = 184.0
+offset_bottom = 264.0
 grow_horizontal = 2
 
 [node name="Info" type="Label" parent="GUIText/TextContainer" unique_id=680085526]
