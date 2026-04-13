@@ -44,7 +44,7 @@ func setup_menu_ui():
 	
 	play_button.grab_focus()
 	
-	8
+
 #function that switches to the initial combat scene of the game
 func _on_play_button_pressed():
 	get_tree().change_scene_to_file(game_scene_path)
