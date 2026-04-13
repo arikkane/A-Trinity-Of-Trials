@@ -1,0 +1,13 @@
+{
+  "cards": [
+	{"id": 1, "class": 0, "name": "Laser Shot", "type": "Damage", "damage": 6, "block": 0, "heal": 0, "count": 10, "base_price": 60},
+	{"id": 2, "class": 0, "name": "Shield Up", "type": "Utility", "damage": 0, "block": 5, "heal": 0, "count": 6, "base_price": 60},
+	{"id": 3, "class": 0, "name": "Repair", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 4, "base_price": 80},
+	{"id": 4, "class": 1, "name": "Fireball", "type": "Damage", "damage": 7, "block": 0, "heal": 0, "count": 8, "base_price": 60},
+	{"id": 5, "class": 1, "name": "Heal Pulse", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6, "base_price": 60},
+	{"id": 6, "class": 1, "name": "Draw Boost", "type": "Utility", "damage": 0, "block": 0, "heal": 0, "draw": 2, "count": 6, "base_price": 80},
+	{"id": 7, "class": 2, "name": "Bite", "type": "Damage", "damage": 5, "block": 0, "heal": 0, "count": 8, "base_price": 60},
+	{"id": 8, "class": 2, "name": "Hide", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "count": 6, "base_price": 60},
+	{"id": 9, "class": 2, "name": "Regenerate", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "count": 6, "base_price": 80}
+  ]
+}

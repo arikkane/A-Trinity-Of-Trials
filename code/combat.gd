@@ -13,7 +13,7 @@ var card_y = 0
 
 var player
 var enemy
-
+var player_class = null
 var player_turn = true
 var max_mana = 5
 var player_mana = 3
@@ -23,6 +23,10 @@ var max_hand = 6 #Temporary variable that contains how many cards the player can
 func _ready() -> void:
 	player = $"Player"
 	enemy = $"Enemy"
+	
+	player_class = GameManager.PlayerClass
+	
+	
 	combat_start()
 	start_player_turn()
 	update_mana_label()
@@ -32,7 +36,8 @@ func combat_start():
 	card_y = get_tree().root.get_visible_rect().size.y - card_height - bottom_margin
 	init_pile_transforms()
 	for i in range(GameManager.Deck.full_deck.size()):
-		$"DrawPile".card_array.append(GameManager.Deck.full_deck[i])
+		$"DrawPile".card_array.append(GameManager.Deck.full_deck[i].scene.instantiate())
+		$"DrawPile".card_array.back().card_data = GameManager.Deck.full_deck[i].duplicate()
 	$"DrawPile".card_array.shuffle()
 	$"DrawPile".display_cards()
 
@@ -87,28 +92,91 @@ func enemy_turn():
 func end_enemy_turn():
 	start_player_turn()
 
-# Drawing cards:
+# Drawing cards and class passives:
 #draws cards from the draw pile at the start of every turn
-func draw_cards():
-	for i in range(GameManager.CardsDrawnPerTurn):
+# ----------------------------
+# Draw cards function
+# ----------------------------
+func draw_cards(count = null, from_effect = false):
+	if count == null:
+		count = GameManager.CardsDrawnPerTurn
 
-		# If draw pile empty, reshuffle discard
+	for i in range(count):
+		# Reshuffle if draw pile empty
 		if $"DrawPile".card_array.size() == 0:
 			reshuffle_discard_into_draw()
-
 		if $"DrawPile".card_array.size() == 0:
 			return
 
 		var current_card = $"DrawPile".card_array.back()
-		
+
 		if $"HandContainer".card_array.size() < max_hand:
-			print("Hand size:");
-			print($"HandContainer".card_array.size());
 			$"DrawPile".remove_card(current_card)
 			$"HandContainer".add_card(current_card)
 			current_card.combat = self
 			current_card.update_debug_label()
 
+			# ----------------------
+			# Mage passive: buffs on drawn cards from effects
+			# ----------------------
+			if from_effect and GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
+				player.spell_power += 1
+				print("Mage gains +1 spell power! Current:", player.spell_power)
+
+
+# ----------------------------
+# Play card function
+# ----------------------------
+func play_card(card, target):
+
+	if not player_turn:
+		return
+
+	if player_mana <= 0:
+		print("Not enough mana")
+		return
+
+	player_mana -= 1
+	update_mana_label()
+
+	# ----------------------
+	# Apply card effects
+	# ----------------------
+	if card.card_data.type == "Damage":
+		var damage = card.card_data.damage
+
+		# Mecha assive: bonus damage based on block
+		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
+			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
+
+		target.take_damage(damage)
+
+		# Alien passive: heal when dealing damage
+		if GameManager.current_class == GameManager.PlayerClass.CREATURE:
+			player.heal(damage)
+			print("Alien heals for", damage)
+			
+		# mage passsive damage
+		if GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
+			damage = (damage + player.spell_power)
+	elif card.card_data.type == "Utility":
+		if card.card_data.block > 0:
+			player.gain_block(card.card_data.block)
+			update_block_label()
+
+		if card.card_data.heal > 0:
+			player.heal(card.card_data.heal)
+
+		# Draw cards if card has draw_amount
+		if card.card_data.draw > 0:
+			# Cards drawn from this effect trigger Mage passive
+			draw_cards(card.card_data.draw, true)
+
+	# Move played card to discard
+	move_to_discard(card)
+
+	# Check victory conditions
+	check_victory()
 
 func reshuffle_discard_into_draw():
 	while $"DiscardPile".card_array.size() > 0:
@@ -123,32 +191,6 @@ func move_to_discard(card):
 	$"DiscardPile".add_card(card)
 
 
-func play_card(card, target):
-
-	if not player_turn:
-		return
-
-	if player_mana <= 0:
-		print("Not enough mana")
-		return
-
-	player_mana -= 1
-	update_mana_label()
-	# Apply effects
-	if card.type == "Damage":
-		target.take_damage(card.damage)
-
-	elif card.type == "Utility":
-		if card.block > 0:
-			player.gain_block(card.block)
-			update_block_label()
-
-		if card.heal > 0:
-			player.heal(card.heal)
-
-	move_to_discard(card)
-
-	check_victory()
 
 
 func check_victory():

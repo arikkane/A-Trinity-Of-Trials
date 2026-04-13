@@ -1,5 +1,7 @@
 extends Camera2D
 
+#This script allows the user to click and drag to scroll horizontally through the map, without moving the camera past the horizontal borders
+
 var dragging = false
 
 func _ready() -> void:

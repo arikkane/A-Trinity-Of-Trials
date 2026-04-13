@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv777ghyce6pb"
-path="res://.godot/imported/temp_map_icon.png-ba83dfcccc17d51441067cc030230fd2.ctex"
+uid="uid://07mdxr4cje54"
+path="res://.godot/imported/shop_pricetag.png-9d08bd8438a5ebcf41a2e321a43b72b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/temp_map_icon.png"
-dest_files=["res://.godot/imported/temp_map_icon.png-ba83dfcccc17d51441067cc030230fd2.ctex"]
+source_file="res://sprites/shop_pricetag.png"
+dest_files=["res://.godot/imported/shop_pricetag.png-9d08bd8438a5ebcf41a2e321a43b72b9.ctex"]
 
 [params]
 

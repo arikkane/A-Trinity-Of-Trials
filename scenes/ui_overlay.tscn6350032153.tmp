@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://b3p02bo3iinga"]
+
+[ext_resource type="Script" uid="uid://c06l1sjik3kuu" path="res://code/ui_overlay.gd" id="1_5mppo"]
+[ext_resource type="Script" uid="uid://danfjhii1v3vc" path="res://code/ui_deck_button.gd" id="2_khxf3"]
+[ext_resource type="Script" uid="uid://bcfac5i8yh8f7" path="res://code/ui_map_button.gd" id="2_vywth"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vywth"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_khxf3"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vqe6e"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5mppo"]
+
+[node name="UIOverlay" type="Control" unique_id=920398537]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5mppo")
+
+[node name="Background" type="TextureRect" parent="." unique_id=860190741]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 80.0
+texture = SubResource("CanvasTexture_vywth")
+
+[node name="DisplayDeckButtonContainer" type="Control" parent="." unique_id=1832546471]
+anchors_preset = 0
+offset_left = 1422.0
+offset_top = 10.0
+offset_right = 1462.0
+offset_bottom = 50.0
+
+[node name="DeckButton" type="TextureRect" parent="DisplayDeckButtonContainer" unique_id=485104558]
+modulate = Color(0.1882353, 0.50980395, 1, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_khxf3")
+script = ExtResource("2_khxf3")
+
+[node name="ButtonLabel" type="RichTextLabel" parent="DisplayDeckButtonContainer" unique_id=1840407303]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+text = "Deck"
+
+[node name="GoldContainer" type="Control" parent="." unique_id=2030111284]
+anchors_preset = 0
+offset_left = 532.0
+offset_top = 17.0
+offset_right = 572.0
+offset_bottom = 57.0
+
+[node name="GoldIcon" type="TextureRect" parent="GoldContainer" unique_id=1620927714]
+modulate = Color(1, 0.70980394, 0.12941177, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_vqe6e")
+
+[node name="ButtonLabel" type="RichTextLabel" parent="GoldContainer" unique_id=869779248]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 10.0
+offset_right = 85.0
+offset_bottom = 50.0
+text = "Gold
+"
+
+[node name="MapButtonContainer" type="Control" parent="." unique_id=147870855]
+anchors_preset = 0
+offset_left = 1622.0
+offset_top = 10.0
+offset_right = 1662.0
+offset_bottom = 50.0
+
+[node name="MapButton" type="TextureRect" parent="MapButtonContainer" unique_id=1613619165]
+modulate = Color(0.37324938, 0.20132867, 1.4439226e-07, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_5mppo")
+script = ExtResource("2_vywth")
+
+[node name="ButtonLabel" type="RichTextLabel" parent="MapButtonContainer" unique_id=843418345]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+text = "Map"

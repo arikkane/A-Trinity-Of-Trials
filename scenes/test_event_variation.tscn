@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cthy83hw1jr7u"]
+
+[ext_resource type="Script" uid="uid://cmwjykk1lypvx" path="res://code/test_event_variation.gd" id="1_pu0on"]
+[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_cfmwn"]
+
+[node name="TestEventVariation" type="Node" unique_id=139382747]
+script = ExtResource("1_pu0on")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=274205333]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_cfmwn")
+
+[node name="NextRoomButton" type="Button" parent="." unique_id=264806088]
+offset_left = 865.0
+offset_top = 431.0
+offset_right = 1062.0
+offset_bottom = 495.0
+text = "Next Room"

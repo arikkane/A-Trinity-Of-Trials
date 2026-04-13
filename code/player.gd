@@ -1,41 +1,42 @@
+# Player2D.gd
 extends Node2D
 
-#likely how the player node will function is that it will be initialized in the initial game node and
-#then get passed through a SceneLoader script that will handle transitions between rooms
+# Player UI and HP display
+var spell_power: int = 0
+var block: int = 0
 
-#player starts with 0 block value
-var block = 0
 func _ready() -> void:
+	await get_tree().process_frame  # wait one frame for GameManager to be ready
 	init_health_bar()
 
-func init_health_bar():
+func init_health_bar() -> void:
 	$"CharacterDataUI/HealthBar".max_value = GameManager.PlayerMaxHP
 	update_health_bar()
 
-#call this whenever health is changed
-func update_health_bar():
+func update_health_bar() -> void:
 	$"CharacterDataUI/HealthBar".value = GameManager.PlayerHP
+	$"CharacterDataUI/HPLabel".text = str(GameManager.PlayerHP) + " / " + str(GameManager.PlayerMaxHP)
 
-func take_damage(amount):
+
+func take_damage(amount: int) -> void:
 	var remaining_damage = amount - block
 	block = max(0, block - amount)
-	
+
 	if remaining_damage > 0:
 		GameManager.PlayerHP -= remaining_damage
-		
 		update_health_bar()
-		
+
 	if GameManager.PlayerHP <= 0:
 		die()
 
-func gain_block(amount):
+func gain_block(amount: int) -> void:
 	block += amount
 	print("Player gained ", amount, " block. Total block: ", block)
 
-func heal(amount):
+func heal(amount: int) -> void:
 	GameManager.PlayerHP = min(GameManager.PlayerHP + amount, GameManager.PlayerMaxHP)
 	update_health_bar()
 
-func die():
+func die() -> void:
 	print("You have been defeated")
-#need to add restart function
+	# Add restart or game over logic here

@@ -3,17 +3,25 @@ extends Control
 #should have attributes for damage, blocking, healing, etc.
 #will also hold the logic for dragging and dropping
 
-var card_id = 0
 var combat
+var card_data: CardData
+
+#depreciating below as this data will be stored in card_data
 #Damage, Utility, or Power
-var type = null
-var damage = 0
-var block = 0
-var heal = 0
-var description = null
+#var card_id = 0
+#var type: String = ""
+#var card_name: String = ""
+#var damage = 0
+#var block = 0
+#var heal = 0
+#var description = null
+#var draw_amount: int = 0
 #flag for if the card is in the players hand
 var in_hand = false
-var debug_label = null
+var debug_label: RichTextLabel
+#flag that prevents cards from being used, this flag is primarily used in the deck display ui
+var deck_display_copy = false
+
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -35,9 +43,13 @@ func play(target):
 # drag input currenly debugging
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		print("Clicked. Combat is:", combat)
-		play(combat.enemy)
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if not deck_display_copy:
+			print("Clicked. Combat is:", combat)
+			play(combat.enemy)
+		elif deck_display_copy and GameManager.DeckDisplayUI.remove_selecting:
+			GameManager.Deck.remove_card(card_data.uid)
+			GameManager.DeckDisplayUI.card_removed()
 
 # CHECK IF DROPPED ON TARGET currenly debugging
 
@@ -66,12 +78,12 @@ func init_debug_label():
 	debug_label.position = Vector2(self.position.x+10, self.position.y+10)
 
 func update_debug_label():
-	var label_text = "ID: " + str(card_id) + "\nType: " + str(type)
-	if type == "Damage":
-		label_text += "\nDamage: " + str(damage)
-	elif type == "Utility":
-		label_text += "\nBlock: " + str(block) + "\nHeal: " + str(heal)
-	label_text += "\nDescription: " + str(description)
+	var label_text = "ID: " + str(card_data.id) + "\nName: " + str(card_data.name) + "\nType: " + str(card_data.type)
+	if card_data.type == "Damage":
+		label_text += "\nDamage: " + str(card_data.damage)
+	elif card_data.type == "Utility":
+		label_text += "\nBlock: " + str(card_data.block) + "\nHeal: " + str(card_data.heal)
+	label_text += "\nDescription: " + str(card_data.description)
 	debug_label.clear()
 	#sets the font color
 	debug_label.push_color(Color("Black"))

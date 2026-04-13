@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://ceq2xqr6f721u"]
+
+[ext_resource type="Script" uid="uid://dt171pjskiuso" path="res://code/shop.gd" id="1_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://bk6plqgsb4iyk" path="res://sprites/shop_background.png" id="2_xfvoa"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xfvoa"]
+
+[node name="Shop" type="Node" unique_id=139382747]
+script = ExtResource("1_xfvoa")
+
+[node name="Background" type="TextureRect" parent="." unique_id=274205333]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_xfvoa")
+
+[node name="NextRoomButton" type="Button" parent="." unique_id=264806088]
+offset_left = 1581.0
+offset_top = 743.0
+offset_right = 1680.0
+offset_bottom = 800.0
+text = "Leave"
+
+[node name="TopShelfContainer" type="HBoxContainer" parent="." unique_id=1897879336]
+custom_minimum_size = Vector2(1142, 288)
+layout_direction = 2
+offset_left = 232.0
+offset_top = 124.0
+offset_right = 1374.0
+offset_bottom = 412.0
+
+[node name="BottomShelfContainer" type="HBoxContainer" parent="." unique_id=594199982]
+custom_minimum_size = Vector2(1142, 288)
+layout_direction = 2
+offset_left = 232.0
+offset_top = 572.0
+offset_right = 1374.0
+offset_bottom = 860.0
+
+[node name="RemoveCardButton" type="Button" parent="." unique_id=1259870885]
+offset_left = 1541.0
+offset_top = 534.0
+offset_right = 1720.0
+offset_bottom = 637.0
+text = "Remove Card
+ from Deck"
+
+[node name="Price" type="RichTextLabel" parent="RemoveCardButton" unique_id=1978351891]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 115.0
+offset_right = 171.0
+offset_bottom = 155.0
+text = "50"
+
+[node name="GoldIcon" type="TextureRect" parent="RemoveCardButton" unique_id=1721461187]
+modulate = Color(1, 0.70980394, 0.12941177, 1)
+layout_mode = 0
+offset_left = 57.0
+offset_top = 115.0
+offset_right = 81.0
+offset_bottom = 139.0
+texture = SubResource("CanvasTexture_xfvoa")
+
+[connection signal="pressed" from="NextRoomButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="RemoveCardButton" to="." method="_on_remove_card_button_pressed"]

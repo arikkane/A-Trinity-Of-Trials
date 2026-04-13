@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://bymxufpbsm4nc"]
+
+[ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
+
+[node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
+layer = 5
+script = ExtResource("1_3kh8g")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1421998904]
+offset_top = 80.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.13128209, 0.14388949, 0.22189644, 0.65882355)
+
+[node name="DeckContainer" type="Control" parent="." unique_id=1961722636]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 1480.0
+offset_bottom = 1009.0
+
+[node name="ColorRect" type="ColorRect" parent="DeckContainer" unique_id=151035112]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.23529412)
+
+[node name="SortMenu" type="HBoxContainer" parent="DeckContainer" unique_id=1796703299]
+layout_mode = 0
+offset_top = 12.0
+offset_right = 1040.0
+offset_bottom = 72.0
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="SortType" type="OptionButton" parent="DeckContainer/SortMenu" unique_id=1693425587]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "ID"
+popup/item_0/id = 0
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+
+[node name="Label" type="RichTextLabel" parent="DeckContainer/SortMenu/SortType" unique_id=742231997]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 20.0
+offset_bottom = 60.0
+text = "Sort"
+
+[node name="SortBy" type="OptionButton" parent="DeckContainer/SortMenu" unique_id=150447773]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_0/id = 0
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
+
+[node name="Label" type="RichTextLabel" parent="DeckContainer/SortMenu/SortBy" unique_id=2008681399]
+layout_mode = 0
+offset_left = -30.0
+offset_top = 20.0
+offset_right = 10.0
+offset_bottom = 60.0
+text = "By"
+
+[node name="DeckScrollContainer" type="ScrollContainer" parent="DeckContainer" unique_id=1398989580]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 1080.0
+offset_bottom = 895.0
+
+[node name="CardRowContainer" type="VBoxContainer" parent="DeckContainer/DeckScrollContainer" unique_id=333589987]
+layout_mode = 2
+
+[node name="RemoveCardUI" type="Control" parent="." unique_id=1404620786]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 998.0
+offset_right = 1480.0
+offset_bottom = 1078.0
+
+[node name="RemoveLabel" type="RichTextLabel" parent="RemoveCardUI" unique_id=1550694957]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 15.0
+offset_right = 505.0
+offset_bottom = 77.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Select card to remove"
+
+[node name="Cancel" type="Button" parent="RemoveCardUI" unique_id=1087253895]
+layout_mode = 0
+offset_left = 602.0
+offset_top = 15.0
+offset_right = 746.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 24
+text = "Cancel
+"
+
+[connection signal="item_selected" from="DeckContainer/SortMenu/SortType" to="." method="_on_sort_type_selected"]
+[connection signal="item_selected" from="DeckContainer/SortMenu/SortBy" to="." method="_on_sort_by_selected"]
+[connection signal="pressed" from="RemoveCardUI/Cancel" to="." method="_on_cancel_button_pressed"]

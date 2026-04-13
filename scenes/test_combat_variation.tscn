@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d22tq7xrlpp8c"]
+
+[ext_resource type="Script" uid="uid://0tepkrsah3fx" path="res://code/test_combat_variation.gd" id="1_yxgyh"]
+[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_wuqew"]
+
+[node name="TestCombatVariation" type="Node" unique_id=141408111]
+script = ExtResource("1_yxgyh")
+
+[node name="Background" type="TextureRect" parent="." unique_id=327077337]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_wuqew")
+
+[node name="NextRoomButton" type="Button" parent="." unique_id=1666931766]
+offset_left = 865.0
+offset_top = 431.0
+offset_right = 1062.0
+offset_bottom = 495.0
+text = "Next Room"

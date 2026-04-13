@@ -1,16 +1,125 @@
 [gd_scene format=3 uid="uid://b3p02bo3iinga"]
 
-[ext_resource type="Texture2D" uid="uid://dtwd3bsourw48" path="res://sprites/UIOverlayBackground.png" id="1_5mppo"]
+[ext_resource type="Script" uid="uid://c06l1sjik3kuu" path="res://code/ui_overlay.gd" id="1_5mppo"]
+[ext_resource type="Script" uid="uid://danfjhii1v3vc" path="res://code/ui_deck_button.gd" id="2_khxf3"]
+[ext_resource type="Script" uid="uid://bcfac5i8yh8f7" path="res://code/ui_map_button.gd" id="2_vywth"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vywth"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_khxf3"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vqe6e"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5mppo"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wmgi7"]
 
 [node name="UIOverlay" type="CanvasLayer" unique_id=209031180]
+script = ExtResource("1_5mppo")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=860190741]
+[node name="Background" type="TextureRect" parent="." unique_id=860190741]
+modulate = Color(0, 0, 0, 1)
+offset_right = 1920.0
+offset_bottom = 80.0
+texture = SubResource("CanvasTexture_vywth")
+
+[node name="DisplayDeckButtonContainer" type="Control" parent="." unique_id=1832546471]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1422.0
+offset_top = 10.0
+offset_right = 1462.0
+offset_bottom = 50.0
+
+[node name="DeckButton" type="TextureRect" parent="DisplayDeckButtonContainer" unique_id=485104558]
+modulate = Color(0.1882353, 0.50980395, 1, 1)
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_5mppo")
+texture = SubResource("CanvasTexture_khxf3")
+script = ExtResource("2_khxf3")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=770671719]
-offset_left = 860.0
-offset_right = 960.0
-offset_bottom = 60.0
-text = "UI Overlay"
+[node name="ButtonLabel" type="RichTextLabel" parent="DisplayDeckButtonContainer" unique_id=1840407303]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+text = "Deck"
+
+[node name="GoldContainer" type="Control" parent="." unique_id=2030111284]
+layout_mode = 3
+anchor_left = 0.277
+anchor_top = 0.016
+anchor_right = 0.277
+anchor_bottom = 0.016
+offset_left = 0.15997314
+offset_top = -0.2800007
+offset_right = 40.159973
+offset_bottom = 39.72
+
+[node name="GoldIcon" type="TextureRect" parent="GoldContainer" unique_id=1620927714]
+modulate = Color(1, 0.70980394, 0.12941177, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_vqe6e")
+
+[node name="Label" type="RichTextLabel" parent="GoldContainer" unique_id=869779248]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 90.0
+offset_bottom = 50.0
+text = "Gold
+"
+
+[node name="MapButtonContainer" type="Control" parent="." unique_id=147870855]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1622.0
+offset_top = 10.0
+offset_right = 1662.0
+offset_bottom = 50.0
+
+[node name="MapButton" type="TextureRect" parent="MapButtonContainer" unique_id=1613619165]
+modulate = Color(0.37324938, 0.20132867, 1.4439226e-07, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_5mppo")
+script = ExtResource("2_vywth")
+
+[node name="ButtonLabel" type="RichTextLabel" parent="MapButtonContainer" unique_id=843418345]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 80.0
+text = "Map"
+
+[node name="HealthContainer" type="Control" parent="." unique_id=1415833108]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 17.0
+offset_right = 340.0
+offset_bottom = 57.0
+
+[node name="HealthIcon" type="TextureRect" parent="HealthContainer" unique_id=1150096354]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_wmgi7")
+
+[node name="Label" type="RichTextLabel" parent="HealthContainer" unique_id=1343989382]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 10.0
+offset_right = 150.0
+offset_bottom = 50.0
+text = "Health"
+
+[connection signal="mouse_entered" from="DisplayDeckButtonContainer/DeckButton" to="DisplayDeckButtonContainer/DeckButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="DisplayDeckButtonContainer/DeckButton" to="DisplayDeckButtonContainer/DeckButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="MapButtonContainer/MapButton" to="MapButtonContainer/MapButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MapButtonContainer/MapButton" to="MapButtonContainer/MapButton" method="_on_mouse_exited"]
