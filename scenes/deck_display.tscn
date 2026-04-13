@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0trrmacukhwa"]
 
-[ext_resource type="Script" path="res://code/deck_display.gd" id="1_3kh8g"]
+[ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
 
 [node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
 layer = 5

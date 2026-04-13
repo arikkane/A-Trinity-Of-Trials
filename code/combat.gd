@@ -88,6 +88,7 @@ func combat_end():
 #sets the position and size of the draw and discard pile
 func init_pile_transforms():
 	$"DrawPile".set_transforms()
+	$"HandContainer".set_transforms()
 	$"DiscardPile".set_transforms()
 
 

@@ -29,7 +29,7 @@ var selectable = true
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	custom_minimum_size = Vector2(150, 220)  # give the card real size
+	custom_minimum_size = Vector2(192, 288)  # give the card real size
 	init_debug_label()
 
 # Dragging
