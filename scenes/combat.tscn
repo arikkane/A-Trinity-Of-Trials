@@ -9,6 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
 [ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
 
+[sub_resource type="SystemFont" id="SystemFont_4gnb8"]
+
+[sub_resource type="Theme" id="Theme_4gnb8"]
+Button/fonts/font = SubResource("SystemFont_4gnb8")
+
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"
 length = 3.5
@@ -103,6 +108,7 @@ offset_left = 77.0
 offset_top = 330.0
 offset_right = 237.0
 offset_bottom = 428.0
+theme = SubResource("Theme_4gnb8")
 text = "WIN TESTING"
 
 [node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]

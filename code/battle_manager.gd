@@ -87,7 +87,8 @@ func combat_finished(victory: bool) -> void:
 		# to read any saved progress you may be tracking elsewhere.
 		current_enemies.clear()
 		current_room_data = null
-		SceneManager.change_scene("res://scenes/map.tscn")
+		GameManager.Map.show_map()
+		GameManager.Map.map_lock = false
 	else:
 		reset_encounter()
 		SceneManager.change_scene("res://scenes/ClassSelection.tscn")

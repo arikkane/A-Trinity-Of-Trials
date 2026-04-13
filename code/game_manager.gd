@@ -13,6 +13,7 @@ var PlayerGold = 10
 var Main: Node
 var UIOverlay: CanvasLayer
 var DeckDisplayUI: CanvasLayer
+var MapScene: PackedScene = preload("res://scenes/map.tscn")
 var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
@@ -84,8 +85,9 @@ func start_run():
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
-
-	SceneManager.change_scene("res://scenes/map.tscn")
+	Map = MapScene.instantiate()
+	Main.add_child(Map)
+	Map.show_map()
 
 func encounter_complete():
 	# Map scene will handle its own setup when reloaded

@@ -15,5 +15,5 @@ func _ready() -> void:
 	GameManager.UIOverlay = $"UIOverlay"
 	$"UIOverlay".hide_ui()
 	GameManager.Main = self
-
+	
 	SceneManager.change_scene("res://scenes/ClassSelection.tscn")
