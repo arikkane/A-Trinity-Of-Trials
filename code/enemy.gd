@@ -6,6 +6,9 @@ extends Node2D
 #Are we really loading the entire card deck into the contents of Enemy? Yes, yes we are.
 var card_data = JsonLoader.load_cards()
 
+@onready var sprite = $Sprite2D
+
+#--ENEMY VARIABLES--
 var enemy_name = "Enemy"
 var id #The enemy's LOCAL ID, not it's global one. for example, if it was the 2nd enemy in the battle it'd have id 2
 var max_hp = 100
@@ -14,7 +17,12 @@ var block = 0
 var card_ids: Array = Array() #simply used to store the card ids until they can be converted into proper cards then put into enemy_deck
 var enemy_deck: Array = []
 var enemy_discard: Array = []
-	
+
+#Relating to the enemy sprite itself and its animations
+var normal_color: Color = Color(1, 1, 1)
+var glow_color: Color = Color(1.5, 1.5, 1.5, 1.0) * 1.5
+@onready var tween: Tween = null
+
 
 func _ready() -> void:
 	#init_health_bar()
@@ -73,7 +81,7 @@ func parse_card_ids():
 		print("Parsing card ID " + str(card_ids[i]) + " of enemy...")
 		
 		#NOTE: This is essentially a mini-version of the function found in deck.gd.
-		#Should the deck.gd card creation function be made global to clear up space?
+		#Should the deck.gd card creation function be made global to clear up space? [ANSWER: no, not enough time.]
 		
 		var card_data_resource = load("res://code/card_data.gd")
 	
@@ -82,7 +90,6 @@ func parse_card_ids():
 		card.damage = card_data["cards"][card_ids[i]].get("damage", 0)
 		card.block = card_data["cards"][card_ids[i]].get("block", 0)
 		card.heal = card_data["cards"][card_ids[i]].get("heal", 0)
-		#card.card_name = card_name_str
 		card.name = card_data["cards"][card_ids[i]].get("name", "Unnamed Card")  # assign node name to avoid confusion
 		
 		enemy_deck.append(card) #add the newly-compiled card to the enemy deck
@@ -111,13 +118,43 @@ func die():
 	print("Enemy " + enemy_name + "  defeated!")
 	queue_free()
 
+#Resetting sprite after tweening animation ends
+func reset_color():
+	if tween:
+		tween.kill()
+	sprite.modulate = normal_color
+
 #Selecting an enemy to attack by clicking on it.
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			#If the battle manager has selected a card and is looking for a target, play the selected card on this enemy.
 			if BattleManager.selecting_target == true:
+				reset_color()
 				BattleManager.selected_enemy = self
 				AudioManager.play_sfx(preload("res://assets/Sounds/select2.wav"))
 				get_parent().play_card(BattleManager.selected_card, self)
 				print("enemy clicked")
+	#elif event is InputEventMouseMotion:
+	#	if BattleManager.selecting_target == true:
+	#		print("selecting")
+	#		reset_color()
+	#		tween = create_tween()
+	#		tween.tween_property(sprite, "modulate", glow_color, 0.2)
+	#elif event is InputEventMouseButton and not event.pressed:
+	#	if BattleManager.selecting_target == true:
+	#		reset_color()
+
+#Causes an enemy to glow when the player hovers over a target.
+func _on_area_2d_mouse_entered() -> void:
+	if BattleManager.selecting_target == true:
+		if tween:
+			tween.kill()
+		tween = create_tween()
+		tween.tween_property(sprite, "modulate", glow_color, 0.2)
+
+func _on_area_2d_mouse_exited() -> void:
+	if BattleManager.selecting_target == true:
+		if tween:
+			tween.kill()
+		reset_color()

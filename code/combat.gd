@@ -46,7 +46,7 @@ func initialize_combat() -> void:
 		var enemy_child = enemy_scene.instantiate()
 		
 		#Now initiate all the enemy's stats
-		enemy_child.name = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["name"]
+		enemy_child.enemy_name = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["name"]
 		enemy_child.max_hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["maxHp"]
 		enemy_child.hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["hp"]
 		enemy_child.card_ids = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["cards"]
@@ -112,6 +112,8 @@ func end_player_turn():
 		return
 
 	BattleManager.player_turn_ended.emit()
+	BattleManager.reset_selections()
+	
 	player_turn = false
 	print("Player turn ended")
 
@@ -145,8 +147,8 @@ func enemy_play_card(enemy_user, enemy_card):
 		if enemy_card.type == "Damage":
 			var damage = enemy_card.damage
 			await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 1)
-			player.take_damage(damage - player.block)
-			await show_text("Player takes " + str(damage - player.block) + " damage!", 1)
+			player.take_damage(damage)
+			await show_text("Player takes " + str(damage) + " damage!", 1)
 			
 		elif enemy_card.type == "Utility":
 			if enemy_card.block > 0:

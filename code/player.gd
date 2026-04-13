@@ -20,7 +20,10 @@ func update_health_bar() -> void:
 
 func take_damage(amount: int) -> void:
 	var remaining_damage = amount - block
+	print("remaining damage:" + str(remaining_damage))
 	block = max(0, block - amount)
+	print("player block: " + str(block))
+	get_parent().update_block_label()
 
 	if remaining_damage > 0:
 		GameManager.PlayerHP -= remaining_damage

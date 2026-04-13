@@ -30,6 +30,7 @@ var selectable = true
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	custom_minimum_size = Vector2(192, 288)  # give the card real size
+	print(self.position.y)
 	init_debug_label()
 
 # Dragging
@@ -45,6 +46,7 @@ func play(target):
 
 #Called from hand_container.gd
 func _on_player_turn_ended():
+	reset_selection()
 	set_selectable(false)
 
 #Also called from hand_container.gd
@@ -63,6 +65,12 @@ func set_selectable(value):
 		selectable = true
 		modulate = Color(1,1,1,1)
 
+#resets a card to the non-selected state
+func reset_selection():
+	if selected == true:
+		selected = false
+	self.position.y = 0
+
 #Function that handles selecting the card.
 func select_card():
 	if BattleManager.in_combat == true:
@@ -70,9 +78,8 @@ func select_card():
 			#If card is selected, deselect.
 			if selected == true:
 				AudioManager.play_sfx(preload("res://assets/Sounds/select3.wav"))
-				selected = false
+				reset_selection()
 				BattleManager.reset_selections()
-				self.position.y = self.position.y + 70
 				return
 			
 			#If another card is selected, do nothing. Make sure the user deselects before picking another card.
