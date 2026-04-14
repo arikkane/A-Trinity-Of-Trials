@@ -126,6 +126,7 @@ func heal(amount: int) -> void:
 
 #When this is called, the node will destroy itself and all of its component.
 func die():
+	#get_parent().disable_input()
 	#await play_death_animation()
 	#death_anim_done.emit()
 	print("Enemy " + enemy_name + "  defeated!")
@@ -159,6 +160,7 @@ func play_death_animation():
 	tween.tween_property(sprite, "modulate", dead, 0.8)
 	await tween.finished
 	tween.kill()
+	death_anim_done.emit()
 	return
 
 func play_damage_animation():

@@ -331,6 +331,8 @@ func check_enemies():
 func _on_enemy_death(enemy):
 	BattleManager.enemy_list.erase(enemy)
 	turn_order.erase(enemy)
+	#enable_input()
+	#check_victory()
 	
 	#just in case the enemy entity somehow still exists
 	if enemy:
