@@ -119,3 +119,9 @@ func play_sfx_path(sound: AudioStream) -> void:
 
 func set_sfx_volume(volume_db: float) -> void:
 	sfx_volume = volume_db
+	
+
+func set_master_volume(value: float) -> void:
+	music_volume = linear_to_db(value)
+	var bus_index = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_volume_db(bus_index, music_volume)

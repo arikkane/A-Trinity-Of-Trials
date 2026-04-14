@@ -6,7 +6,7 @@
 [sub_resource type="GDScript" id="GDScript_vue75"]
 script/source = "extends Node
 
-@export var game_scene_path : String = \"res://scenes/main.tscn\"
+@export var game_scene_path : String = \"res://scenes/ClassSelection.tscn\"
 @export var settings_scene_path : String = \"res://scenes/SettingsMenu.tscn\"
 
 
@@ -47,15 +47,17 @@ func setup_menu_ui():
 
 #function that switches to the initial combat scene of the game
 func _on_play_button_pressed():
-	get_tree().change_scene_to_file(game_scene_path)
+	##get_tree().change_scene_to_file(game_scene_path)
+	SceneManager.change_scene(game_scene_path)
 	
 #fucntion that switches to the settings scene
 func _on_settings_button_pressed():
-	var settings_scene = load(\"res://scenes/SettingsMenu.tscn\").instantiate()
-	settings_scene.return_path = \"res://scenes.main_menu.tscn\"
-	get_tree().root.add_child(settings_scene)
-	self.queue_free()
+	#var settings_scene = load(\"res://scenes/SettingsMenu.tscn\").instantiate()
+	#settings_scene.return_path = \"res://scenes.main_menu.tscn\"
+	#get_tree().root.add_child(settings_scene)
+	#self.queue_free()
 	#get_tree().change_scene_to_file(settings_scene_path)
+	SceneManager.change_scene(settings_scene_path)
 	
 #function that closes the program
 func _on_exit_button_pressed():

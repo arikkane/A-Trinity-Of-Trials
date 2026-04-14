@@ -119,7 +119,12 @@ func setup_colorblind_filter():
 	update_mode(BlindMode.NORMAL)
 	
 func update_mode(index: int):
-	filter_UI.material.set_shader_parameter("mode",index)
+	if index == BlindMode.NORMAL:
+		filter_UI.visible = false
+	else:
+		filter_UI.visible = true
+		filter_UI.material.set_shader_parameter("mode",index)
+	save_settings()
 
 #toggles window to be either fullscreen or windowed mode
 func fullscreen_toggle(button_pressed: bool):
@@ -136,18 +141,21 @@ func resolution_toggle(index: int):
 
 #volume control function that edits volume according to decibels
 func master_volume_control(value: float):
-	var bus_index = AudioServer.get_bus_index("Master")
-	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
+	AudioManager.set_master_volume(value)
 	volume_label.text = str(round(value*100)) +"%"
 	
 	
 	
 func _on_back_button_clicked():
-	if ResourceLoader.exists(return_path):
-		get_tree().change_scene_to_file(return_path)
-		self.queue_free()
+	#if ResourceLoader.exists(return_path):
+		#get_tree().change_scene_to_file(return_path)
+		#self.queue_free()
+	#else:
+		#get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	if SceneManager.previous_path != "":
+		SceneManager.change_scene(SceneManager.previous_path)
 	else:
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		SceneManager.change_scene("res://scenes/main_menu.tscn")
 		
 #saves current settings to a config file
 func save_settings():
@@ -187,8 +195,7 @@ func load_settings():
 	
 	#apply audio settings
 	var volume = config.get_value("audio","master_volume", .8)
-	var bus_idx = AudioServer.get_bus_index("Master")
-	AudioServer.set_bus_volume_db(bus_idx, linear_to_db(volume))
+	AudioManager.set_master_volume(volume)
 	
 	#apply color blind mode settings
 	var colorblind_mode = config.get_value("video","colorblind_mode", 0)
