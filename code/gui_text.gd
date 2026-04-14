@@ -4,6 +4,15 @@ extends CanvasLayer
 
 func ready_():
 	$"CardNotice".hide()
+	$"PickEnemyNotice".hide()
+
+func card_selected_notice(display):
+	if display == true:
+		$"PickEnemyNotice".show()
+	elif display == false:
+		$"PickEnemyNotice".hide()
+	else:
+		$"PickEnemyNotice".hide()
 
 func show_card_tip():
 	$"CardNotice".show()

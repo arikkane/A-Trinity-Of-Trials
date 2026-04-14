@@ -114,6 +114,22 @@ text = "WIN TESTING"
 [node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]
 script = ExtResource("8_4gnb8")
 
+[node name="PickEnemyNotice" type="Label" parent="GUIText" unique_id=774852374]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -111.0
+offset_right = 166.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "Click an enemy to attack"
+
 [node name="CardNotice" type="Label" parent="GUIText" unique_id=2125429700]
 visible = false
 modulate = Color(1, 0.2807066, 0.19560689, 1)

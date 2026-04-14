@@ -6,7 +6,8 @@ extends Node2D
 #Are we really loading the entire card deck into the contents of Enemy? Yes, yes we are.
 var card_data = JsonLoader.load_cards()
 
-@onready var sprite = $Sprite2D
+#the enemy sprite itself. Use this for animating the sprite, not for the sprite itself
+@onready var sprite = $"Sprite2D"
 
 #--ENEMY VARIABLES--
 var enemy_name = "Enemy"
@@ -18,10 +19,16 @@ var card_ids: Array = Array() #simply used to store the card ids until they can 
 var enemy_deck: Array = []
 var enemy_discard: Array = []
 
-#Relating to the enemy sprite itself and its animations
+#Relating to sprite animation tweens
+@onready var tween: Tween = null
 var normal_color: Color = Color(1, 1, 1)
 var glow_color: Color = Color(1.5, 1.5, 1.5, 1.0) * 1.5
-@onready var tween: Tween = null
+var damaged_color: Color = Color(0.921, 0.0, 0.037, 1.0) * 1.5
+var healing_color: Color = Color(0.0, 0.961, 0.451, 1.0) * 1.5
+var blocking_color: Color = Color(0.0, 0.46, 0.775, 1.0) * 1.5
+var dead: Color = Color(1.0, 1.0, 1.0, 0.0)
+signal death_anim_done #Signals to combat.gd that the enemy death animation is done.
+signal enemy_died(enemy)
 
 
 func _ready() -> void:
@@ -69,7 +76,9 @@ func take_damage(amount):
 	
 	if remaining_damage > 0:
 		hp -= remaining_damage
-		
+	
+	if hp > 0:
+		play_damage_animation()
 	update_health_bar()
 	
 	if hp <= 0:
@@ -106,23 +115,74 @@ func shuffle_deck() -> void:
 
 func gain_block(amount: int) -> void:
 	block += amount
+	play_block_animation()
 	print("Enemy  gained ", amount, " block. Total block: ", block)
 
 func heal(amount: int) -> void:
 	hp = min(hp + amount, max_hp)
+	play_healing_animation()
 	print("Enemy healed ", amount, " HP. Total HP: ", hp)
 	update_health_bar()
 
 #When this is called, the node will destroy itself and all of its component.
 func die():
+	#await play_death_animation()
+	#death_anim_done.emit()
 	print("Enemy " + enemy_name + "  defeated!")
+	emit_signal("enemy_died", self)
 	queue_free()
+
+#for if the player somehow presses end turn before the damn death animation is finished
+func force_kill():
+	queue_free()
+
+#---ANIMATION HANDLING---
 
 #Resetting sprite after tweening animation ends
 func reset_color():
 	if tween:
 		tween.kill()
 	sprite.modulate = normal_color
+
+func play_attacking_animation():
+	if tween:
+		tween.kill()
+	AudioManager.play_sfx("notice")
+	sprite.modulate = glow_color
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.1)
+
+func play_death_animation():
+	reset_color()
+	sprite.modulate = normal_color
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", dead, 0.8)
+	await tween.finished
+	tween.kill()
+	return
+
+func play_damage_animation():
+	reset_color()
+	sprite.modulate = damaged_color
+	AudioManager.play_sfx("swordblow")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.25)
+
+func play_healing_animation():
+	reset_color()
+	sprite.modulate = healing_color
+	AudioManager.play_sfx("heal")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.5)
+
+func play_block_animation():
+	reset_color()
+	sprite.modulate = blocking_color
+	AudioManager.play_sfx("scrape")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.3)
+
+#---INPUT HANDLING--
 
 #Selecting an enemy to attack by clicking on it.
 func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
@@ -132,29 +192,21 @@ func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			if BattleManager.selecting_target == true:
 				reset_color()
 				BattleManager.selected_enemy = self
-				AudioManager.play_sfx(preload("res://assets/Sounds/select2.wav"))
+				AudioManager.play_sfx("select2")
 				get_parent().play_card(BattleManager.selected_card, self)
 				print("enemy clicked")
-	#elif event is InputEventMouseMotion:
-	#	if BattleManager.selecting_target == true:
-	#		print("selecting")
-	#		reset_color()
-	#		tween = create_tween()
-	#		tween.tween_property(sprite, "modulate", glow_color, 0.2)
-	#elif event is InputEventMouseButton and not event.pressed:
-	#	if BattleManager.selecting_target == true:
-	#		reset_color()
 
 #Causes an enemy to glow when the player hovers over a target.
 func _on_area_2d_mouse_entered() -> void:
-	if BattleManager.selecting_target == true:
+	if BattleManager.selecting_target == true and hp != 0:
 		if tween:
 			tween.kill()
 		tween = create_tween()
 		tween.tween_property(sprite, "modulate", glow_color, 0.2)
 
+#And then causes it to stop glowing after the mouse is no longer hovering over it
 func _on_area_2d_mouse_exited() -> void:
-	if BattleManager.selecting_target == true:
+	if BattleManager.selecting_target == true and hp != 0:
 		if tween:
 			tween.kill()
 		reset_color()

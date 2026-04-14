@@ -1,7 +1,7 @@
 {
   "cards": [
 	{"id": 0, "name": "Test", "type": "Damage", "damage": 6, "block": 0, "heal": 0},
-	{"id": 1, "name": "Laser Shot", "type": "Damage", "damage": 6, "block": 0, "heal": 0},
+	{"id": 1, "name": "Laser Shot", "type": "Damage", "damage": 30, "block": 0, "heal": 0},
 	{"id": 2, "name": "Shield Up", "type": "Utility", "damage": 0, "block": 5, "heal": 0},
 	{"id": 3, "name": "Repair", "type": "Utility", "damage": 0, "block": 0, "heal": 3},
 	{"id": 4, "name": "Fireball", "type": "Damage", "damage": 7, "block": 0, "heal": 0},

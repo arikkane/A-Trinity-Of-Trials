@@ -18,6 +18,8 @@ func add_card(card:Control):
 	card_array.append(card)
 	$"HBoxContainer".add_child(card)
 	card.visible = true
+	BattleManager.enable_input.connect(card._on_input_enabled)
+	BattleManager.disable_input.connect(card._on_input_disabled)
 	BattleManager.enemy_turn_ended.connect(card._on_enemy_turn_ended)
 	BattleManager.player_turn_ended.connect(card._on_player_turn_ended)
 	#card._on_turn_ended.connect(BattleManager.player_turn_ended)

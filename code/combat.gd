@@ -53,6 +53,7 @@ func initialize_combat() -> void:
 		enemy_child.id = i
 		enemy_child.parse_card_ids() #Convert the enemy's card IDs into actual cards.
 		enemy_child.init_enemy_sprite(EnemyData.ENEMY_DETAILS[currentEnemy[i]]["sprite"])
+		enemy_child.enemy_died.connect(_on_enemy_death)
 		print("Enemy spawned: " + enemy_child.name + ", HP: " + str(enemy_child.hp) + ", Cards: " + str(enemy_child.card_ids))
 		add_child(enemy_child)
 		BattleManager.enemy_list.append(enemy_child)
@@ -111,6 +112,7 @@ func end_player_turn():
 	if not player_turn:
 		return
 
+	#emit the signal to end the player's turn, and also reset selections
 	BattleManager.player_turn_ended.emit()
 	BattleManager.reset_selections()
 	
@@ -146,14 +148,18 @@ func enemy_play_card(enemy_user, enemy_card):
 		# ----------------------
 		if enemy_card.type == "Damage":
 			var damage = enemy_card.damage
+			enemy_user.play_attacking_animation()
 			await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 1)
 			player.take_damage(damage)
-			await show_text("Player takes " + str(damage) + " damage!", 1)
+			if player.block > 0:
+				await show_text("Player's block negated all damage!\nPlayer took no damage!", 1)
+			else:
+				await show_text("Player takes " + str(damage) + " damage!", 1)
 			
 		elif enemy_card.type == "Utility":
 			if enemy_card.block > 0:
 				enemy_user.gain_block(enemy_card.block)
-				await show_text("" + enemy_user.enemy_name + " gains block!", 1)
+				await show_text("" + enemy_user.enemy_name + " gains " + str(enemy_card.block) + " block!", 1)
 			
 			if enemy_card.heal > 0:
 				enemy_user.heal(enemy_card.heal)
@@ -169,7 +175,9 @@ func enemy_play_card(enemy_user, enemy_card):
 func enemy_turn(enemy_user):
 	#enemy_user: represents which enemy is taking the turn. THIS SHOULD ALWAYS BE AN INSTANCE OF THE "Enemy" NODE 
 	
-	print("Enemy's turn")
+	
+	print("Enemy Turn: " + str(enemy_user))
+	print(turn_order)
 	
 	#If the enemy deck is empty, shuffle it and put it back into the enemy's main deck, just like you would for the player
 	if enemy_user.enemy_deck.is_empty():
@@ -216,6 +224,8 @@ func draw_cards(count = null, from_effect = false):
 			$"HandContainer".add_card(current_card)
 			current_card.combat = self
 			current_card.update_debug_label()
+			if GameManager.PlayerHP >= GameManager.PlayerMaxHP and current_card.card_data.type == "Utility" and current_card.card_data.block == 0:
+				current_card.set_selectable(false)
 
 			# ----------------------
 			# Mage passive: buffs on drawn cards from effects
@@ -229,6 +239,7 @@ func draw_cards(count = null, from_effect = false):
 # Play card function
 # ----------------------------
 func play_card(card, target):
+	gui_text.card_selected_notice(false)
 	if not player_turn:
 		return
 
@@ -248,11 +259,20 @@ func play_card(card, target):
 		# Mecha assive: bonus damage based on block
 		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
 			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
-
-		target.take_damage(damage)
-		show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
+		
+		#if (target.hp - min(0,(damage - target.block))) <= 0:
+		if (target.hp - damage) < 0:
+			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!\n" + target.enemy_name + " was defeated!", 1)
+		else:
+			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
 		BattleManager.reset_selections()
-
+		target.take_damage(damage)
+		
+		#if target.hp < 0 and is_instance_valid(target):
+		#	disable_input()
+		#	await target.death_anim_done
+		#	enable_input()
+		
 		# Alien passive: heal when dealing damage
 		if GameManager.current_class == GameManager.PlayerClass.CREATURE:
 			show_text("Player heals " + str(damage) + " HP!", 1)
@@ -263,11 +283,12 @@ func play_card(card, target):
 			damage = (damage + player.spell_power)
 	elif card.card_data.type == "Utility":
 		if card.card_data.block > 0:
+			show_text("Player gains " + str(card.card_data.block) + " block!", 1)
 			player.gain_block(card.card_data.block)
 			update_block_label()
 
 		if card.card_data.heal > 0:
-			show_text("Player heals" + str(card.card_data.heal) + " HP!", 1)
+			show_text("Player heals " + str(card.card_data.heal) + " HP!", 1)
 			player.heal(card.card_data.heal)
 
 		# Draw cards if card has draw_amount
@@ -306,6 +327,15 @@ func check_enemies():
 		if !is_instance_valid(turn_order[i]):
 			turn_order.remove_at(i)
 
+#called when an enemy dies
+func _on_enemy_death(enemy):
+	BattleManager.enemy_list.erase(enemy)
+	turn_order.erase(enemy)
+	
+	#just in case the enemy entity somehow still exists
+	if enemy:
+		enemy.queue_free()
+
 func check_victory():
 	if BattleManager.enemy_list.is_empty():
 		show_text("Winner!", 1)
@@ -333,12 +363,23 @@ func show_text(text, timer):
 
 #show the "you must deselect a card or attack an enemy!" tip
 func show_card_tip():
-	AudioManager.play_sfx(preload("res://assets/Sounds/buzzer1.wav"))
+	AudioManager.play_sfx("buzzer")
 	gui_text.show_card_tip()
+
+func disable_input():
+	$"EndTurnButton".hide()
+	BattleManager.disable_input.emit()
+
+func enable_input():
+	BattleManager.enable_input.emit()
+	$"EndTurnButton".show()
 
 #end turn
 func _on_end_turn_button_pressed() -> void:
 	$"EndTurnButton".hide()
+	#for i in range(BattleManager.enemy_list.size() - 1, -1, -1): #iterate BACKWARD or else THERE WILL BE PROBLEMS!
+	#	if (BattleManager.enemy_list[i].hp <= 0):
+	#		BattleManager.enemy_list[i].force_kill()
 	end_player_turn()
 	
 func _on_win_test_button_pressed() -> void:

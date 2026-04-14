@@ -24,6 +24,8 @@ signal combat_ended(victory: bool)
 
 signal player_turn_ended
 signal enemy_turn_ended
+signal enable_input
+signal disable_input
 
 # -----------------------------
 # Called on startup
