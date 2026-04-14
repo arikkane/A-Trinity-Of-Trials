@@ -15,7 +15,7 @@ var remove_used = false
 
 func _ready():
 	init_card_data()
-
+	AudioManager.play_music_track("shop")
 #----------------------------------------------------------
 # This function places the reference to the ShopData object
 # into the designated variable

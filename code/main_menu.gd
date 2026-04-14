@@ -6,6 +6,7 @@ func _ready() -> void:
 	setup_menu_ui()
 	
 	
+	
 func setup_menu_ui():
 	#creates the container to hold all the buttons
 	var menu_container = VBoxContainer.new()

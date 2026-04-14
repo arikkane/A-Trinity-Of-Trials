@@ -1,22 +1,32 @@
-
 extends Node
 
 #This script is autoloaded via Project/Globals tab, and contains the player variables and deck node
-var PlayerMaxHP = 0
-var PlayerHP = 0
-var PlayerGold = 300
-var CardsDrawnPerTurn = 0
-var PlayerPosition = 0
 
+#=======
+# ----------------------------
+# Player variables
+# ----------------------------
+
+
+var PlayerMaxHP: int
+var PlayerHP: int
+var CardsDrawnPerTurn: int
+var Deck: Control = null
+var PlayerPosition = 0
+var PlayerGold = 10
 var Main: Node
 var UIOverlay: CanvasLayer
-
-var Deck: Control
 var DeckDisplayUI: CanvasLayer
-
+var MapScene: PackedScene = preload("res://scenes/map.tscn")
 var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
+
+var map_generated: bool = false
+var saved_map_paths: Array = []
+var saved_room_types: Array = []
+var map_selected_path: Array = []
+var map_available_nodes: Array = []
 
 enum PlayerClass {
 	GUNDAM,
@@ -47,11 +57,14 @@ func setup_class(player_class: PlayerClass) -> void:
 			init_player_variables(70, 6)
 		PlayerClass.CREATURE:
 			init_player_variables(100, 5)
+
 	print("Class set to:", current_class, "PlayerMaxHP:", PlayerMaxHP, "PlayerHP:", PlayerHP)
 	start_run()
 
-func init_player_variables(maxhp,cdpt):
-	print("In init_player_variables")
+# ----------------------------
+# Initialize variables for the selected class
+# ----------------------------
+func init_player_variables(maxhp: int, cdpt: int) -> void:
 
 	PlayerMaxHP = maxhp
 	PlayerHP = maxhp
@@ -64,18 +77,22 @@ func init_player_variables(maxhp,cdpt):
 
 	# Rebuild deck every time class is set
 	Deck.init_cards()
-
+	
 func start_run():
-	DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
+	if DeckDisplayUI == null:
+		DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
+		Main.add_child(DeckDisplayUI)
+
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
-	Main.add_child(DeckDisplayUI)
-	Map = load("res://scenes/map.tscn").instantiate()
-	Main.add_child(Map)
+
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
+	Map = MapScene.instantiate()
+	Main.add_child(Map)
+	Map.show_map()
 
 func encounter_complete():
-	Map.show_map()
-	Map.map_lock = false
+	# Map scene will handle its own setup when reloaded
+	pass

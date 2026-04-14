@@ -3,7 +3,7 @@ extends Control
 # Called when scene loads
 func _ready():
 	print("_ready running")
-	
+	AudioManager.play_music_track("main_menu")
 # ----------------------------
 # BUTTON PRESSED FUNCTIONS
 # ----------------------------
@@ -27,6 +27,5 @@ func _on_creature_pressed():
 
 func start_game(selected_class):
 	print("Selected class: ", selected_class)
-
 	# Setup player + deck
 	GameManager.setup_class(selected_class)

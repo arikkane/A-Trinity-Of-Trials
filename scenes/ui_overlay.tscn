@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://c06l1sjik3kuu" path="res://code/ui_overlay.gd" id="1_5mppo"]
 [ext_resource type="Script" uid="uid://danfjhii1v3vc" path="res://code/ui_deck_button.gd" id="2_khxf3"]
 [ext_resource type="Script" uid="uid://bcfac5i8yh8f7" path="res://code/ui_map_button.gd" id="2_vywth"]
+[ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="3_wmgi7"]
+[ext_resource type="Theme" uid="uid://jirvpfro2db3" path="res://assets/Themes&Styles/LabelFont.tres" id="5_231b4"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_vywth"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_231b4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_khxf3"]
 
@@ -21,7 +23,7 @@ script = ExtResource("1_5mppo")
 modulate = Color(0, 0, 0, 1)
 offset_right = 1920.0
 offset_bottom = 80.0
-texture = SubResource("CanvasTexture_vywth")
+texture = SubResource("CanvasTexture_231b4")
 
 [node name="DisplayDeckButtonContainer" type="Control" parent="." unique_id=1832546471]
 layout_mode = 3
@@ -41,9 +43,11 @@ script = ExtResource("2_khxf3")
 
 [node name="ButtonLabel" type="RichTextLabel" parent="DisplayDeckButtonContainer" unique_id=1840407303]
 layout_mode = 0
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 80.0
+offset_left = 2.0
+offset_top = 44.0
+offset_right = 42.0
+offset_bottom = 84.0
+theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Deck"
 
 [node name="GoldContainer" type="Control" parent="." unique_id=2030111284]
@@ -70,6 +74,7 @@ offset_left = 50.0
 offset_top = 10.0
 offset_right = 90.0
 offset_bottom = 50.0
+theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Gold
 "
 
@@ -91,9 +96,11 @@ script = ExtResource("2_vywth")
 
 [node name="ButtonLabel" type="RichTextLabel" parent="MapButtonContainer" unique_id=843418345]
 layout_mode = 0
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 80.0
+offset_left = 8.0
+offset_top = 43.0
+offset_right = 48.0
+offset_bottom = 83.0
+theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Map"
 
 [node name="HealthContainer" type="Control" parent="." unique_id=1415833108]
@@ -117,6 +124,8 @@ offset_left = 50.0
 offset_top = 10.0
 offset_right = 150.0
 offset_bottom = 50.0
+theme = ExtResource("5_231b4")
+theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Health"
 
 [connection signal="mouse_entered" from="DisplayDeckButtonContainer/DeckButton" to="DisplayDeckButtonContainer/DeckButton" method="_on_mouse_entered"]

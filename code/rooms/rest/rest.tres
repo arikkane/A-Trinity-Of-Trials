@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RestData" format=3 uid="uid://hp6gpyot6wjq"]
+
+[ext_resource type="Script" path="res://code/rest_data.gd" id="1_pyoxx"]
+
+[resource]
+script = ExtResource("1_pyoxx")
+id = "rest"
+scene_path = "res://scenes/rest.tscn"
