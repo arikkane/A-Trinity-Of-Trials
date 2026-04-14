@@ -27,7 +27,7 @@ var max_hand = 6 #Temporary variable that contains how many cards the player can
 
 func _ready() -> void:
 	player = $"Player"
-	
+	AudioManager.play_music_track("combat")
 	player_class = GameManager.PlayerClass
 
 	initialize_combat()

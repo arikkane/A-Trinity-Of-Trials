@@ -26,7 +26,7 @@ var used_event_encounters: Dictionary = {}
 
 func _ready() -> void:
 	map_texture = $"TextureRect"
-
+	AudioManager.play_music_track("map")
 	column_width = (map_texture.size.x - 319) / GameManager.MapGridWidth
 	column_height = 704
 	column_vertical_offset = 192

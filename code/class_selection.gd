@@ -3,7 +3,7 @@ extends Control
 # Called when scene loads
 func _ready():
 	print("_ready running")
-	
+	AudioManager.play_music_track("main_menu")
 # ----------------------------
 # BUTTON PRESSED FUNCTIONS
 # ----------------------------

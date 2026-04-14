@@ -7,7 +7,9 @@ func _ready() -> void:
 	if not EventBus.is_connected("event_started", Callable(self, "_on_event_started")):
 		EventBus.connect("event_started", Callable(self, "_on_event_started"))
 
+
 func _on_event_started(data: EventData) -> void:
+	AudioManager.play_music_track("event")
 	if in_event:
 		print("EventManager: already in event.")
 		return

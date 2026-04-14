@@ -85,14 +85,13 @@ func combat_finished(victory: bool) -> void:
 	emit_signal("combat_ended", victory)
 
 	if victory:
-		# Do not fully wipe the encounter until after the map has a chance
-		# to read any saved progress you may be tracking elsewhere.
 		current_enemies.clear()
 		current_room_data = null
-		GameManager.Map.show_map()
-		GameManager.Map.map_lock = false
+		AudioManager.play_music_track("map")
+		SceneManager.change_scene("res://scenes/map.tscn")
 	else:
 		reset_encounter()
+		AudioManager.play_music_track("main_menu")
 		SceneManager.change_scene("res://scenes/ClassSelection.tscn")
 
 # -----------------------------
