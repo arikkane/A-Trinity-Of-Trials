@@ -17,10 +17,10 @@ var hp = 70
 var block = 0
 
 #==HEAD==
-var damage = 20
+#var damage = 20
 var double = false
 var effects = {}
-var actions: Array  = [doublepower,attack,apply_poison,apply_debuff,gain_block]
+var actions: Array  = [doublepower,apply_poison,apply_debuff,gain_block]
 #===
 
 var card_ids: Array = Array() #simply used to store the card ids until they can be converted into proper cards then put into enemy_deck
@@ -147,8 +147,8 @@ func die():
 func doublepower():
 	double = true
 	if(double):
-		attack()
-		damage = 2*damage
+		#attack()
+		#damage = 2*damage
 		double = false
 	else:
 		return
@@ -188,7 +188,7 @@ func effects_status():
 			effects.erase("poison")
 	if effects.has("debuff"):
 		var i = effects["debuff"]
-		damage = damage/2
+		#damage = damage/2
 		i["duration"] -= 1
 		if i["duration"] <=0:
 			effects.erase("debuff")

@@ -193,6 +193,8 @@ func enemy_turn(enemy_user):
 	#With 25% probability, the enemy will play 2 cards in one turn.
 	if randf() < 0.25 and !enemy_user.enemy_deck.is_empty():
 		await enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
+	
+	end_enemy_turn()
 
 
 #Once the enemy's turn is over, go back to the turn logic.

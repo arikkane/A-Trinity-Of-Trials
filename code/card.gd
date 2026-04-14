@@ -123,16 +123,19 @@ func select_card():
 			AudioManager.play_sfx("cancel")
 
 func _gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if not deck_display_copy:
-			print("Clicked. Combat is:", combat)
-			play(combat.enemy)
-		elif deck_display_copy and GameManager.DeckDisplayUI.remove_selecting:
-			GameManager.Deck.remove_card(card_data.uid)
-			GameManager.DeckDisplayUI.card_removed()
+	if useable and event is InputEventMouseButton and event.pressed:
+		print("Clicked. Combat is:", combat)
+		select_card()
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		#if not deck_display_copy:
+		#	print("Clicked. Combat is:", combat)
+		#	play(combat.enemy)
+		#elif deck_display_copy and GameManager.DeckDisplayUI.remove_selecting:
+		#	GameManager.Deck.remove_card(card_data.uid)
+		#	GameManager.DeckDisplayUI.card_removed()
 
-# CHECK IF DROPPED ON TARGET currenly debugging
 
+#deprecated functionality, remove this before the final submission.
 func check_drop_target():
 	if combat and combat.enemy:
 		var enemy_pos = combat.enemy.get_global_position()
