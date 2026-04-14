@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
-[ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
-
-[sub_resource type="SystemFont" id="SystemFont_4gnb8"]
-
-[sub_resource type="Theme" id="Theme_4gnb8"]
-Button/fonts/font = SubResource("SystemFont_4gnb8")
+[ext_resource type="Script" path="res://code/gui_text.gd" id="8_4gnb8"]
+[ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="8_gvie1"]
+[ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="9_0qyji"]
+[ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="9_hmy61"]
+[ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="10_0qyji"]
+[ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="11_xkyey"]
 
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"
@@ -101,14 +101,23 @@ offset_left = 24.0
 offset_top = 623.0
 offset_right = 151.0
 offset_bottom = 681.0
+theme = ExtResource("8_gvie1")
+theme_override_fonts/font = ExtResource("9_0qyji")
+theme_override_styles/normal = ExtResource("9_hmy61")
+theme_override_styles/pressed = ExtResource("10_0qyji")
+theme_override_styles/hover = ExtResource("11_xkyey")
 text = "End Turn"
 
 [node name="Win" type="Button" parent="." unique_id=1503039123]
 offset_left = 77.0
 offset_top = 330.0
-offset_right = 237.0
+offset_right = 249.0
 offset_bottom = 428.0
-theme = SubResource("Theme_4gnb8")
+theme = ExtResource("8_gvie1")
+theme_override_fonts/font = ExtResource("9_0qyji")
+theme_override_styles/normal = ExtResource("9_hmy61")
+theme_override_styles/pressed = ExtResource("10_0qyji")
+theme_override_styles/hover = ExtResource("11_xkyey")
 text = "WIN TESTING"
 
 [node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]
@@ -168,6 +177,7 @@ offset_left = 22.5
 offset_top = 17.0
 offset_right = 751.0
 offset_bottom = 162.0
+theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_font_sizes/font_size = 24
 text = "Information"
 

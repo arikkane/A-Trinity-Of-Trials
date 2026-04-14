@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://jirvpfro2db3"]
+
+[ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="1_woljv"]
+
+[resource]
+Button/colors/font_outline_color = Color(0.16470589, 0.24313726, 0.32941177, 1)
+Button/constants/outline_size = 4
+Button/fonts/font = ExtResource("1_woljv")
+Label/colors/font_outline_color = Color(0.26383978, 0, 0.0061530233, 1)
+Label/constants/outline_size = 4
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_woljv")
+ProgressBar/colors/font_outline_color = Color(0.41748276, 0, 0.034458224, 1)
+ProgressBar/constants/outline_size = 4
+ProgressBar/font_sizes/font_size = 18
+ProgressBar/fonts/font = ExtResource("1_woljv")
