@@ -31,8 +31,15 @@ func update_health_bar() -> void:
 
 
 func take_damage(amount: int) -> void:
+	var play_break_sound = false
+		
 	var remaining_damage = amount - block
 	print("remaining damage:" + str(remaining_damage))
+	
+	#if user's block is broken, play the crumble sound
+	if (remaining_damage > 0 and block > 0):
+		play_break_sound = true
+
 	block = max(0, block - amount)
 	print("player block: " + str(block))
 	get_parent().update_block_label()
@@ -40,8 +47,12 @@ func take_damage(amount: int) -> void:
 
 	if remaining_damage > 0:
 		GameManager.PlayerHP -= remaining_damage
+		if play_break_sound == true:
+			AudioManager.play_sfx("crumble")
 		play_damage_animation()
 		update_health_bar()
+	else:
+		play_block_animation()
 
 	if GameManager.PlayerHP <= 0:
 		die()
