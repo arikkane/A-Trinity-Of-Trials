@@ -134,9 +134,9 @@ func heal(amount: int) -> void:
 
 #When this is called, the node will destroy itself and all of its component.
 func die():
-	#get_parent().disable_input()
-	#await play_death_animation()
-	#death_anim_done.emit()
+	get_parent().disable_input()
+	await play_death_animation()
+	death_anim_done.emit()
 	print("Enemy " + enemy_name + "  defeated!")
 	emit_signal("enemy_died", self)
 	queue_free()

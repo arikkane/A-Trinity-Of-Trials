@@ -120,7 +120,7 @@ func select_card():
 				AudioManager.play_sfx("select")
 				play(combat.enemy)
 		else:
-			AudioManager.play_sfx("cancel")
+			AudioManager.play_sfx("buzzer")
 
 func _gui_input(event):
 	if useable and event is InputEventMouseButton and event.pressed:
