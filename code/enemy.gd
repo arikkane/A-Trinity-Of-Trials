@@ -3,20 +3,75 @@ extends Node2D
 #currently the sprites used for the enemies are smaller, so the sprite scale is increased. This as well as all
 #child nodes will need to be adjusted once we have the final sprites
 
+#Are we really loading the entire card deck into the contents of Enemy? Yes, yes we are.
+var card_data = JsonLoader.load_cards()
+
+#the enemy sprite itself. Use this for animating the sprite, not for the sprite itself
+@onready var sprite = $"Sprite2D"
+
+#--ENEMY VARIABLES--
+var enemy_name = "Enemy"
+var id #The enemy's LOCAL ID, not it's global one. for example, if it was the 2nd enemy in the battle it'd have id 2
 var max_hp = 100
 var hp = 70
 var block = 0
+
+#==HEAD==
 var damage = 20
 var double = false
 var effects = {}
 var actions: Array  = [doublepower,attack,apply_poison,apply_debuff,gain_block]
+#===
+
+var card_ids: Array = Array() #simply used to store the card ids until they can be converted into proper cards then put into enemy_deck
+var enemy_deck: Array = []
+var enemy_discard: Array = []
+
+#Relating to sprite animation tweens
+@onready var tween: Tween = null
+var normal_color: Color = Color(1, 1, 1)
+var glow_color: Color = Color(1.5, 1.5, 1.5, 1.0) * 1.5
+var damaged_color: Color = Color(0.921, 0.0, 0.037, 1.0) * 1.5
+var healing_color: Color = Color(0.0, 0.961, 0.451, 1.0) * 1.5
+var blocking_color: Color = Color(0.0, 0.46, 0.775, 1.0) * 1.5
+var dead: Color = Color(1.0, 1.0, 1.0, 0.0)
+signal death_anim_done #Signals to combat.gd that the enemy death animation is done.
+signal enemy_died(enemy)
+
 
 func _ready() -> void:
-	init_health_bar()
+	#init_health_bar()
+	print("Enemy has been spawned.")
+	
 
+#Initiate position of health bar
 func init_health_bar():
 	$"EnemyDataUI/HealthBar".max_value = max_hp
+	$"EnemyDataUI/HealthBar".position.x = $"Sprite2D".position.x
+	$"EnemyDataUI/HealthBar".position.y = $"Sprite2D".position.y
 	update_health_bar()
+
+#THIS NEEDS FIXING!
+func init_enemy_sprite(enemysprite):
+	#adjust X position based on enemy ID
+	var x = 1100
+	if id == 0:
+		x += 200
+	elif id == 1:
+		x+= 400
+	elif id == 2:
+		x+= 600
+	elif id == 3:
+		x+= 800
+	
+	#base y = 568
+	
+	$"Sprite2D".texture = load(enemysprite)
+	var sprite_height = $"Sprite2D".texture.get_height()
+	var sprite_width = $"Sprite2D".texture.get_width()
+	$"Sprite2D/Area2D/CollisionShape2D".shape.set_size(Vector2(sprite_width, sprite_height))
+	$"Sprite2D".position = Vector2(x, 720-sprite_height)
+	init_health_bar()
 
 #call this whenever health is changed
 func update_health_bar():
@@ -29,17 +84,65 @@ func take_damage(amount):
 	
 	if remaining_damage > 0:
 		hp -= remaining_damage
-		
+	
+	if hp > 0:
+		play_damage_animation()
 	update_health_bar()
 	
 	if hp <= 0:
 		die()
+
+#Grabs the card IDs assigned to the enemy and turns them into a proper "deck"
+func parse_card_ids():
+	for i in len(card_ids):
+		print("Parsing card ID " + str(card_ids[i]) + " of enemy...")
 		
-func gain_block(amount):
+		#NOTE: This is essentially a mini-version of the function found in deck.gd.
+		#Should the deck.gd card creation function be made global to clear up space? [ANSWER: no, not enough time.]
+		
+		var card_data_resource = load("res://code/card_data.gd")
+	
+		var card = card_data_resource.new()
+		card.type = card_data["cards"][card_ids[i]].get("type", "Utility")
+		card.damage = card_data["cards"][card_ids[i]].get("damage", 0)
+		card.block = card_data["cards"][card_ids[i]].get("block", 0)
+		card.heal = card_data["cards"][card_ids[i]].get("heal", 0)
+		card.name = card_data["cards"][card_ids[i]].get("name", "Unnamed Card")  # assign node name to avoid confusion
+		
+		enemy_deck.append(card) #add the newly-compiled card to the enemy deck
+
+
+	print("placeholder")
+
+#shuffles discard pile, and moves it back into the enemy deck
+func shuffle_deck() -> void:
+	enemy_discard.shuffle()
+	enemy_deck.append_array(enemy_discard)
+	enemy_discard.clear()
+
+
+func gain_block(amount: int) -> void:
 	block += amount
+	play_block_animation()
+	print("Enemy  gained ", amount, " block. Total block: ", block)
+
+func heal(amount: int) -> void:
+	hp = min(hp + amount, max_hp)
+	play_healing_animation()
+	print("Enemy healed ", amount, " HP. Total HP: ", hp)
+	update_health_bar()
+
+#When this is called, the node will destroy itself and all of its component.
 func die():
-	print("Enemy defeated!")
+	#get_parent().disable_input()
+	#await play_death_animation()
+	#death_anim_done.emit()
+	print("Enemy " + enemy_name + "  defeated!")
+	emit_signal("enemy_died", self)
 	queue_free()
+
+#===HEAD===
+
 #doubles the users power for 1 turn and then attacks
 func doublepower():
 	double = true
@@ -50,8 +153,8 @@ func doublepower():
 	else:
 		return
 #enemy performs an attack with a random integer range from 0-20
-func attack():
-	damage = randi_range(0,20)
+#func attack():
+#	damage = randi_range(0,20)
 
 #adds "poison" to the dictionary of effects which can be used to tick hp down
 #for a duration of turns in combat
@@ -90,3 +193,84 @@ func effects_status():
 		if i["duration"] <=0:
 			effects.erase("debuff")
 		
+#=======
+
+#for if the player somehow presses end turn before the damn death animation is finished
+func force_kill():
+	queue_free()
+
+#---ANIMATION HANDLING---
+
+#Resetting sprite after tweening animation ends
+func reset_color():
+	if tween:
+		tween.kill()
+	sprite.modulate = normal_color
+
+func play_attacking_animation():
+	if tween:
+		tween.kill()
+	AudioManager.play_sfx("notice")
+	sprite.modulate = glow_color
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.1)
+
+func play_death_animation():
+	reset_color()
+	sprite.modulate = normal_color
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", dead, 0.8)
+	await tween.finished
+	tween.kill()
+	death_anim_done.emit()
+	return
+
+func play_damage_animation():
+	reset_color()
+	sprite.modulate = damaged_color
+	AudioManager.play_sfx("swordblow")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.25)
+
+func play_healing_animation():
+	reset_color()
+	sprite.modulate = healing_color
+	AudioManager.play_sfx("heal")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.5)
+
+func play_block_animation():
+	reset_color()
+	sprite.modulate = blocking_color
+	AudioManager.play_sfx("scrape")
+	tween = create_tween()
+	tween.tween_property(sprite, "modulate", normal_color, 0.3)
+
+#---INPUT HANDLING--
+
+#Selecting an enemy to attack by clicking on it.
+func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			#If the battle manager has selected a card and is looking for a target, play the selected card on this enemy.
+			if BattleManager.selecting_target == true:
+				reset_color()
+				BattleManager.selected_enemy = self
+				AudioManager.play_sfx("select2")
+				get_parent().play_card(BattleManager.selected_card, self)
+				print("enemy clicked")
+
+#Causes an enemy to glow when the player hovers over a target.
+func _on_area_2d_mouse_entered() -> void:
+	if BattleManager.selecting_target == true and hp != 0:
+		if tween:
+			tween.kill()
+		tween = create_tween()
+		tween.tween_property(sprite, "modulate", glow_color, 0.2)
+
+#And then causes it to stop glowing after the mouse is no longer hovering over it
+func _on_area_2d_mouse_exited() -> void:
+	if BattleManager.selecting_target == true and hp != 0:
+		if tween:
+			tween.kill()
+		reset_color()

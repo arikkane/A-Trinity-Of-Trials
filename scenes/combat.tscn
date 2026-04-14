@@ -7,6 +7,49 @@
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
+[ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
+
+[sub_resource type="SystemFont" id="SystemFont_4gnb8"]
+
+[sub_resource type="Theme" id="Theme_4gnb8"]
+Button/fonts/font = SubResource("SystemFont_4gnb8")
+
+[sub_resource type="Animation" id="Animation_sa5k0"]
+resource_name = "CardSelectionNotice\\"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardNotice:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.58, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.2807066, 0.19560689, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8we11"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardNotice:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.2807066, 0.19560689, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hrcy2"]
+_data = {
+&"CardSelectionNotice": SubResource("Animation_sa5k0"),
+&"RESET": SubResource("Animation_8we11")
+}
 
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
@@ -20,6 +63,7 @@ texture = ExtResource("2_4gnb8")
 position = Vector2(160, 550)
 
 [node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
+visible = false
 position = Vector2(1600, 568)
 
 [node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
@@ -35,6 +79,10 @@ offset_right = 1837.0
 offset_bottom = 1039.0
 
 [node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
+offset_left = 294.0
+offset_top = 759.0
+offset_right = 1553.0
+offset_bottom = 1038.0
 
 [node name="ManaLabel" type="Label" parent="." unique_id=2140329730]
 offset_left = 315.0
@@ -55,4 +103,73 @@ offset_right = 151.0
 offset_bottom = 681.0
 text = "End Turn"
 
+[node name="Win" type="Button" parent="." unique_id=1503039123]
+offset_left = 77.0
+offset_top = 330.0
+offset_right = 237.0
+offset_bottom = 428.0
+theme = SubResource("Theme_4gnb8")
+text = "WIN TESTING"
+
+[node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]
+script = ExtResource("8_4gnb8")
+
+[node name="PickEnemyNotice" type="Label" parent="GUIText" unique_id=774852374]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -111.0
+offset_right = 166.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "Click an enemy to attack"
+
+[node name="CardNotice" type="Label" parent="GUIText" unique_id=2125429700]
+visible = false
+modulate = Color(1, 0.2807066, 0.19560689, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -449.0
+offset_top = -140.0
+offset_right = 454.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "Deselect your card or pick an enemy before selecting another card!
+"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUIText" unique_id=644700908]
+libraries/ = SubResource("AnimationLibrary_hrcy2")
+
+[node name="TextContainer" type="Panel" parent="GUIText" unique_id=779373150]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -387.5
+offset_top = 80.0
+offset_right = 387.5
+offset_bottom = 264.0
+grow_horizontal = 2
+
+[node name="Info" type="Label" parent="GUIText/TextContainer" unique_id=680085526]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 17.0
+offset_right = 751.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 24
+text = "Information"
+
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="button_down" from="Win" to="." method="_on_win_button_down"]

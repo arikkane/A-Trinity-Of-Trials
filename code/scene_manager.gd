@@ -1,42 +1,50 @@
 extends Node
 
-#This script is autoloaded via project settings Globals tab, contains the functionality for scene transitioning
-var SceneContainer
-var PrimaryScene
+# Autoloaded SceneManager
 
-func change_scene(scene_path):
-	print("changing scene to: " + scene_path)
-	var children = SceneContainer.get_children()
-	
-	for i in range(children.size()-1,-1,-1):
-		if children[i].scene_file_path == "res://scenes/combat.tscn":
-			children[i].combat_end()
-		children[i].queue_free()
-	
-	# Wait a frame so queue_free finishes before adding new scene
-	await get_tree().process_frame
+var SceneContainer: Node = null
+var CurrentScene: Node = null
 
+# ----------------------------
+# Change main scene (menus only)
+# ----------------------------
+func change_scene(scene_path: String):
+	print("Changing scene to:", scene_path)
+	print("⚠️ SCENE CHANGE CALLED:", scene_path)
+	
+	print_stack()
+	if SceneContainer == null:
+		push_error("SceneContainer is not set!")
+		return
+
+	# Remove ONLY the current scene
+	if CurrentScene != null:
+		CurrentScene.queue_free()
+		await get_tree().process_frame
+
+	# Load new scene
 	var new_scene = load(scene_path).instantiate()
 	SceneContainer.add_child(new_scene)
-	PrimaryScene = new_scene
-	
-	print_all_scene_container_children()
-	
-	#makes the overlay invisible if the main menu scene is loaded
-	if scene_path == "res://scenes/main_menu.tscn":
-		get_node("/root/Main/UIOverlay").visible = false
-	else:
-		get_node("/root/Main/UIOverlay").visible = true
+	CurrentScene = new_scene
 
-#passes the room data resource for the loaded room into the scene
-func load_room_data(data: RoomData):
-	print("in load_room_data")
-	PrimaryScene.init_room_data(data)
+	print_current_scene()
 
-#------------------------Debug Function---------------------
-func print_all_scene_container_children():
-	print("\nCurrent scenes in scene container:")
-	for child in SceneContainer.get_children():
-		print(child.scene_file_path)
-	print("")
-	print("Changed scene to:", PrimaryScene.scene_file_path)
+# ----------------------------
+# OPTIONAL: overlay scene (like combat, pause, etc.)
+# ----------------------------
+func add_overlay(scene_path: String) -> Node:
+	print("Adding overlay:", scene_path)
+
+	var scene = load(scene_path).instantiate()
+	SceneContainer.add_child(scene)
+	return scene
+
+func remove_overlay(scene: Node):
+	if scene:
+		scene.queue_free()
+
+# ----------------------------
+# Debug
+# ----------------------------
+func print_current_scene():
+	print("Current Scene:", CurrentScene)

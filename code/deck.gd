@@ -3,7 +3,7 @@ extends Control
 # Holds all cards in the player's deck
 var full_deck: Array = []
 
-var card_scene: PackedScene = preload("res://scenes/card.tscn")
+@onready var card_scene: PackedScene = preload("res://scenes/card.tscn")
 
 # Card layout variables
 var card_width = 192
@@ -17,6 +17,7 @@ var card_data = {}
 
 # Deck data loaded from JSON
 var deck_data = {}
+ 
 
 # ----------------------------
 # Debug function
@@ -48,7 +49,7 @@ func init_cards():
 
 #Function for grabbing card info and putting it into the user's deck.
 	for i in len(deck_data[className]):
-		var count = int(len(deck_data[className]))
+		var _count = int(len(deck_data[className]))
 		print("card no of " + className + ": " + str(i))
 		#deck_data[className][i] refers to the ID of a card in the current deck.
 		#card_data["cards"][deck_data[className][i]] refers to the card that the ID of the card in the deck is pointing to.
@@ -59,7 +60,6 @@ func init_cards():
 		var currentCard = card_data["cards"][deck_data[className][i]]
 		
 		var card = create_card(
-			currentCard.get("id", 0.0),
 			currentCard.get("type", "Damage"),
 			currentCard.get("damage", 0),
 			currentCard.get("block", 0),
@@ -81,14 +81,10 @@ func init_cards():
 # ----------------------------
 # Card creation helper
 # ----------------------------
-func create_card(id, card_type, damage, block, heal, card_name_str):
+func create_card(card_type, damage, block, heal, card_name_str):
 	var card_data_resource = load("res://code/card_data.gd")
 	#does not load the scene for the card, card.scene.instantiate() should be loaded whenever the card ui is needed
 	var card = card_data_resource.new()
-	
-	#creates a unique id for the card_data resource instance
-	card.uid = ResourceUID.create_id()
-	ResourceUID.add_id(card.uid, "res://code/card_data.gd")
 	
 	card.id = id
 	card.type = card_type
@@ -116,35 +112,13 @@ func remove_card(uid: int):
 			full_deck.erase(card)
 
 # ----------------------------
-# Load CARDS from JSON file
+# Load CARDS from JSON file (loads all existing cards within the game)
 # ----------------------------
 func load_cards():
-	var file = FileAccess.open("res://data/cards.json", FileAccess.READ)
-	if not file:
-		push_error("Could not open cards.json")
-		return
-	
-	var text = file.get_as_text()
-	var parsed = JSON.parse_string(text)
-	
-	if typeof(parsed) == TYPE_DICTIONARY:
-		card_data = parsed
-	else:
-		push_error("JSON parse failed: " + str(parsed))
+	card_data = JsonLoader.load_cards()
 
 # ----------------------------
 # Load decks from JSON file
 # ----------------------------
 func load_decks():
-	var file = FileAccess.open("res://data/Starter_Decks.json", FileAccess.READ)
-	if not file:
-		push_error("Could not open Starter_Decks.json")
-		return
-
-	var text = file.get_as_text()
-	var parsed = JSON.parse_string(text)
-	
-	if typeof(parsed) == TYPE_DICTIONARY:
-		deck_data = parsed
-	else:
-		push_error("JSON parse failed: " + str(parsed))
+	deck_data = JsonLoader.load_decks()
