@@ -24,6 +24,17 @@ var volume = -10
 func _ready():
 	add_child(music_player)
 
+#play a song globally
+#use case: AudioManager.play_music(preload("res://assets/Sounds/test.wav"))
+func play_music(sound: AudioStream):
+	music_player.stream = sound
+	music_player.volume_db = volume
+	music_player.play()
+
+#stop it
+func stop_music():
+	music_player.stop()
+
 #Play a sound from the list.
 #use case: AudioManager.play_sfx(preload("res://assets/Sounds/test.wav"))
 func play_sfx(name: String):
