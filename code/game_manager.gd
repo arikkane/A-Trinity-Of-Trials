@@ -22,12 +22,13 @@ var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
 
-var map_generated: bool = false
-var boss_available: bool = false
-var saved_map_paths: Array = []
-var saved_room_types: Array = []
-var map_selected_path: Array = []
-var map_available_nodes: Array = []
+#depreciated map save/load variables
+#var map_generated: bool = false
+#var boss_available: bool = false
+#var saved_map_paths: Array = []
+#var saved_room_types: Array = []
+#var map_selected_path: Array = []
+#var map_available_nodes: Array = []
 
 enum PlayerClass {
 	GUNDAM,
@@ -83,18 +84,25 @@ func start_run():
 	if DeckDisplayUI == null:
 		DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
 		Main.add_child(DeckDisplayUI)
-
+	
+	Map = MapScene.instantiate()
+	Main.add_child(Map)
+	Map.show_map()
+	
 	DeckDisplayUI.update_cards()
 	DeckDisplayUI.hide()
 
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
-
-	map_generated = false
+	
 	AudioManager.play_music_track("map")
-	SceneManager.change_scene("res://scenes/map.tscn")
+	
+	Map.show_map()
+	#SceneManager.change_scene("res://scenes/map.tscn")
 
 func encounter_complete():
 	AudioManager.play_music_track("map")
-	SceneManager.change_scene("res://scenes/map.tscn")
+	Map.show_map()
+	Map.map_lock = false
+	#SceneManager.change_scene("res://scenes/map.tscn")

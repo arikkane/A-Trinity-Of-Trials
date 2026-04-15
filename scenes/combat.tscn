@@ -7,23 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
-[ext_resource type="Script" path="res://code/gui_text.gd" id="8_4gnb8"]
+[ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
 [ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="8_gvie1"]
 [ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="9_0qyji"]
 [ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="9_hmy61"]
 [ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="10_0qyji"]
 [ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="11_xkyey"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_darkpanel"]
-bg_color = Color(0, 0, 0, 0.78)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-content_margin_left = 15.0
-content_margin_right = 15.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
 
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"
@@ -61,6 +50,17 @@ _data = {
 &"CardSelectionNotice": SubResource("Animation_sa5k0"),
 &"RESET": SubResource("Animation_8we11")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_darkpanel"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.78)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
@@ -190,11 +190,11 @@ offset_top = 17.0
 offset_right = 751.0
 offset_bottom = 162.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_font_sizes/font_size = 24
 text = "Information"

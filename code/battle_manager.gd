@@ -114,6 +114,7 @@ func combat_finished(victory: bool) -> void:
 		var was_boss = is_boss_fight
 		current_enemies.clear()
 		current_room_data = null
+		SceneManager.CurrentScene.gui_text.queue_free()
 		is_boss_fight = false
 		if was_boss:
 			SaveManager.save_run_deck(GameManager.Deck)

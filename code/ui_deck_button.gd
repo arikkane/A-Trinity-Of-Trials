@@ -6,8 +6,12 @@ func _gui_input(event: InputEvent):
 		if not event.pressed:
 			#hides the deck display if it is visible, shows it if it isn't
 			if GameManager.DeckDisplayUI.visible and not GameManager.DeckDisplayUI.remove_selecting:
+				if BattleManager.in_combat:
+						SceneManager.CurrentScene.gui_text.visible = true
 				GameManager.DeckDisplayUI.hide()
 			else:
+				if BattleManager.in_combat:
+						SceneManager.CurrentScene.gui_text.visible = false
 				GameManager.DeckDisplayUI.update_cards()
 				GameManager.DeckDisplayUI.show()
 

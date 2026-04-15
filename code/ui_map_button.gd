@@ -8,12 +8,16 @@ func _gui_input(event: InputEvent):
 			if GameManager.Map.visible and not GameManager.DeckDisplayUI.visible:
 				#if the map is locked, i.e. input is not allowed because the current room encounter is not finished
 				if GameManager.Map.map_lock:
+					if BattleManager.in_combat:
+						SceneManager.CurrentScene.gui_text.visible = true
 					GameManager.Map.hide_map()
 			elif GameManager.Map.visible and GameManager.DeckDisplayUI.visible and not GameManager.DeckDisplayUI.remove_selecting:
 				GameManager.DeckDisplayUI.hide()
 			else:
 				if not GameManager.DeckDisplayUI.remove_selecting:
 					GameManager.Map.show_map()
+					if BattleManager.in_combat:
+						SceneManager.CurrentScene.gui_text.visible = false
 					#if the deck display is open, hides it as it appears over the map
 					if GameManager.DeckDisplayUI.visible:
 						GameManager.DeckDisplayUI.hide()

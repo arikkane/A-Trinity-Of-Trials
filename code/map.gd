@@ -9,9 +9,10 @@ var map_grid_columns: Array[Control] = []
 var boss_node
 var map_texture: TextureRect
 
-var map_generated: bool = false
-var map_selected_path: Array = []     # stores clicked nodes as [column,row]
-var map_available_nodes: Array = []   # stores selectable nodes as [column,row]
+#Depreciated save arrays
+#var map_generated: bool = false
+#var map_selected_path: Array = []     # stores clicked nodes as [column,row]
+#var map_available_nodes: Array = []   # stores selectable nodes as [column,row]
 
 
 var column_width
@@ -33,19 +34,13 @@ func _ready() -> void:
 
 	init_map_grid_columns()
 
-	if GameManager.map_generated:
-		restore_saved_map()
-		restore_map_progress()
-		_scroll_to_active_nodes()
-	else:
-		randomize()
-		init_node_paths()
-		clear_empty_nodes()
-		roll_room_types()
-		generate_boss_node()
-		save_generated_map()
-		initialize_starting_nodes()
-		GameManager.map_generated = true
+	
+	randomize()
+	init_node_paths()
+	clear_empty_nodes()
+	roll_room_types()
+	generate_boss_node()
+	#initialize_starting_nodes()
 #--------------------------------------
 # This function initializes the columns
 # for the node generation grid
@@ -246,13 +241,14 @@ func _on_map_node_clicked(node: Control):
 			room_data = init_shop_room()
 		GameManager.RoomTypes.Boss:
 			room_data = init_boss_room()
-			GameManager.boss_available = false
+			#GameManager.boss_available = false
 
-	# Save clicked node
-	save_map_progress(node)
-
+	# Save clicked node #Depreciated
+	#save_map_progress(node)
+	
 	EventBus.emit_signal("map_node_selected", node)
 	EventBus.emit_signal("room_entered", room_data)
+	update_path_options(node)
 
 	match node.room_type:
 		GameManager.RoomTypes.Combat:
@@ -287,6 +283,7 @@ func roll_combat_encounter():
 			if variation.id in used_combat_encounters:
 				#lowers the weight relative to how many times that combat variation was used
 				variation.gen_weight /= used_combat_encounters[variation.id]
+			print("Combat variation id: " + str(variation.id) + " gen_weight: " + str(variation.gen_weight))
 			total += variation.gen_weight
 		
 		var roll = randi_range(0, total-1)
@@ -295,10 +292,11 @@ func roll_combat_encounter():
 		for variation in combat_encounter_variations:
 			cumulative += variation.gen_weight
 			if roll < cumulative:
+				#Modify these numbers to change the likelyhood of reusing a variation
 				if variation.id in used_combat_encounters:
-					used_combat_encounters[variation.id] += 1
+					used_combat_encounters[variation.id] *= 2
 				else:
-					used_combat_encounters[variation.id] = 2
+					used_combat_encounters[variation.id] = 4
 				return variation
 	else:
 		print("Error: Failed to load combat_data resources")
@@ -320,6 +318,7 @@ func roll_event_variation():
 			if variation.id in used_event_encounters:
 				#lowers the weight relative to how many times that event variation was used
 				variation.gen_weight /= used_event_encounters[variation.id]
+			print("Event variation id: " + str(variation.id) + " gen_weight: " + str(variation.gen_weight))
 			total += variation.gen_weight
 		
 		var roll = randi_range(0, total-1)
@@ -328,6 +327,7 @@ func roll_event_variation():
 		for variation in event_variations:
 			cumulative += variation.gen_weight
 			if roll < cumulative:
+				#Modify these numbers to change the likelyhood of reusing a variation
 				if variation.id in used_event_encounters:
 					used_event_encounters[variation.id] += 1
 				else:
@@ -479,145 +479,147 @@ func print_previous_nodes(current_node, previous_nodes):
 		node.print_grid_position()
 		
 		
-func initialize_starting_nodes():
-	GameManager.map_available_nodes.clear()
-	GameManager.map_selected_path.clear()
 
-	for node in map_grid_columns[0].map_nodes:
-		if node.is_path_option:
-			GameManager.map_available_nodes.append([0, node.row_index])
+#depreciated save & load functions
+#func initialize_starting_nodes():
+	#GameManager.map_available_nodes.clear()
+	#GameManager.map_selected_path.clear()
+#
+	#for node in map_grid_columns[0].map_nodes:
+		#if node.is_path_option:
+			#GameManager.map_available_nodes.append([0, node.row_index])
 
-func save_generated_map():
-	GameManager.saved_map_paths.clear()
-	GameManager.saved_room_types.clear()
+#func save_generated_map():
+	#GameManager.saved_map_paths.clear()
+	#GameManager.saved_room_types.clear()
+#
+	#for col in map_grid_columns:
+		#for node in col.map_nodes:
+			#if not node.is_empty:
+				#var forward_connections = []
+				#for next_node in node.forward_connected_nodes:
+					#if next_node != null and next_node != boss_node:
+						#forward_connections.append([
+							#next_node.get_parent().column_index,
+							#next_node.row_index
+						#])
+#
+				#GameManager.saved_map_paths.append({
+					#"column": col.column_index,
+					#"row": node.row_index,
+					#"forward": forward_connections
+				#})
+#
+				#GameManager.saved_room_types.append({
+					#"column": col.column_index,
+					#"row": node.row_index,
+					#"room_type": node.room_type
+				#})
+#func restore_map_progress():
+	#map_lock = false
+#
+	## First disable all path options
+	#for column in map_grid_columns:
+		#for node in column.map_nodes:
+			#node.is_path_option = false
+#
+	## Mark previously selected nodes
+	#for saved_node in GameManager.map_selected_path:
+		#var col = saved_node[0]
+		#var row = saved_node[1]
+		#var node = get_node_by_grid(col, row)
+		#if node != null:
+			#node.is_path_option = false
+			#node.update_sprite()
+#
+	## Restore currently available next nodes
+	#for saved_node in GameManager.map_available_nodes:
+		#var col = saved_node[0]
+		#var row = saved_node[1]
+		#var node = get_node_by_grid(col, row)
+		#if node != null:
+			#node.is_path_option = true
+			#node.update_sprite()
+#
+	## Restore boss availability
+	#if GameManager.boss_available and boss_node != null:
+		#boss_node.is_path_option = true
+		#boss_node.update_sprite()
+#
+	## Refresh all node sprites
+	#for column in map_grid_columns:
+		#for node in column.map_nodes:
+			#node.update_sprite()
+			#
+#func get_node_by_grid(column_index: int, row_index: int):
+	#if column_index < 0 or column_index >= map_grid_columns.size():
+		#return null
+#
+	#for node in map_grid_columns[column_index].map_nodes:
+		#if node.row_index == row_index:
+			#return node
+#
+	#return null
+#func restore_saved_map():
+	## First mark everything empty
+	#for col in map_grid_columns:
+		#for node in col.map_nodes:
+			#node.is_empty = true
+			#node.forward_connected_nodes.clear()
+			#node.backward_connected_nodes.clear()
+			#node.is_path_option = false
+			#node.room_type_rolled = false
+#
+	## Restore existing nodes and room types
+	#for saved_room in GameManager.saved_room_types:
+		#var node = get_node_by_grid(saved_room["column"], saved_room["row"])
+		#if node != null:
+			#node.is_empty = false
+			#node.room_type = saved_room["room_type"]
+			#node.room_type_rolled = true
+#
+	## Remove empty nodes after marking real ones
+	#clear_empty_nodes()
+#
+	## Reconnect paths
+	#for saved_path in GameManager.saved_map_paths:
+		#var node = get_node_by_grid(saved_path["column"], saved_path["row"])
+		#if node == null:
+			#continue
+#
+		#for conn in saved_path["forward"]:
+			#var next_node = get_node_by_grid(conn[0], conn[1])
+			#if next_node != null:
+				#if not next_node in node.forward_connected_nodes:
+					#node.forward_connected_nodes.append(next_node)
+				#if not node in next_node.backward_connected_nodes:
+					#next_node.backward_connected_nodes.append(node)
+				#node.create_path_line(next_node)
 
-	for col in map_grid_columns:
-		for node in col.map_nodes:
-			if not node.is_empty:
-				var forward_connections = []
-				for next_node in node.forward_connected_nodes:
-					if next_node != null and next_node != boss_node:
-						forward_connections.append([
-							next_node.get_parent().column_index,
-							next_node.row_index
-						])
-
-				GameManager.saved_map_paths.append({
-					"column": col.column_index,
-					"row": node.row_index,
-					"forward": forward_connections
-				})
-
-				GameManager.saved_room_types.append({
-					"column": col.column_index,
-					"row": node.row_index,
-					"room_type": node.room_type
-				})
-func restore_map_progress():
-	map_lock = false
-
-	# First disable all path options
-	for column in map_grid_columns:
-		for node in column.map_nodes:
-			node.is_path_option = false
-
-	# Mark previously selected nodes
-	for saved_node in GameManager.map_selected_path:
-		var col = saved_node[0]
-		var row = saved_node[1]
-		var node = get_node_by_grid(col, row)
-		if node != null:
-			node.is_path_option = false
-			node.update_sprite()
-
-	# Restore currently available next nodes
-	for saved_node in GameManager.map_available_nodes:
-		var col = saved_node[0]
-		var row = saved_node[1]
-		var node = get_node_by_grid(col, row)
-		if node != null:
-			node.is_path_option = true
-			node.update_sprite()
-
-	# Restore boss availability
-	if GameManager.boss_available and boss_node != null:
-		boss_node.is_path_option = true
-		boss_node.update_sprite()
-
-	# Refresh all node sprites
-	for column in map_grid_columns:
-		for node in column.map_nodes:
-			node.update_sprite()
-			
-func get_node_by_grid(column_index: int, row_index: int):
-	if column_index < 0 or column_index >= map_grid_columns.size():
-		return null
-
-	for node in map_grid_columns[column_index].map_nodes:
-		if node.row_index == row_index:
-			return node
-
-	return null
-func restore_saved_map():
-	# First mark everything empty
-	for col in map_grid_columns:
-		for node in col.map_nodes:
-			node.is_empty = true
-			node.forward_connected_nodes.clear()
-			node.backward_connected_nodes.clear()
-			node.is_path_option = false
-			node.room_type_rolled = false
-
-	# Restore existing nodes and room types
-	for saved_room in GameManager.saved_room_types:
-		var node = get_node_by_grid(saved_room["column"], saved_room["row"])
-		if node != null:
-			node.is_empty = false
-			node.room_type = saved_room["room_type"]
-			node.room_type_rolled = true
-
-	# Remove empty nodes after marking real ones
-	clear_empty_nodes()
-
-	# Reconnect paths
-	for saved_path in GameManager.saved_map_paths:
-		var node = get_node_by_grid(saved_path["column"], saved_path["row"])
-		if node == null:
-			continue
-
-		for conn in saved_path["forward"]:
-			var next_node = get_node_by_grid(conn[0], conn[1])
-			if next_node != null:
-				if not next_node in node.forward_connected_nodes:
-					node.forward_connected_nodes.append(next_node)
-				if not node in next_node.backward_connected_nodes:
-					next_node.backward_connected_nodes.append(node)
-				node.create_path_line(next_node)
-
-	# Rebuild boss node
-	generate_boss_node()
-
-	# Refresh sprites
-	for col in map_grid_columns:
-		for node in col.map_nodes:
-			node.update_sprite()
-			
-func save_map_progress(current_node):
-	# Boss node is parented directly to the map, not a column — skip column tracking for it
-	if current_node.room_type != GameManager.RoomTypes.Boss:
-		var col = current_node.get_parent().column_index
-		var row = current_node.row_index
-		GameManager.map_selected_path.append([col, row])
-
-	# Update path options visually in current map
-	update_path_options(current_node)
-
-	# Save the next selectable nodes
-	GameManager.map_available_nodes.clear()
-
-	if current_node.room_type != GameManager.RoomTypes.Boss:
-		for next_node in current_node.forward_connected_nodes:
-			if next_node.room_type == GameManager.RoomTypes.Boss:
-				GameManager.boss_available = true
-			else:
-				GameManager.map_available_nodes.append([next_node.get_parent().column_index, next_node.row_index])
+	## Rebuild boss node
+	#generate_boss_node()
+#
+	## Refresh sprites
+	#for col in map_grid_columns:
+		#for node in col.map_nodes:
+			#node.update_sprite()
+			#
+#func save_map_progress(current_node):
+	## Boss node is parented directly to the map, not a column — skip column tracking for it
+	#if current_node.room_type != GameManager.RoomTypes.Boss:
+		#var col = current_node.get_parent().column_index
+		#var row = current_node.row_index
+		#GameManager.map_selected_path.append([col, row])
+#
+	## Update path options visually in current map
+	#update_path_options(current_node)
+#
+	## Save the next selectable nodes
+	#GameManager.map_available_nodes.clear()
+#
+	#if current_node.room_type != GameManager.RoomTypes.Boss:
+		#for next_node in current_node.forward_connected_nodes:
+			#if next_node.room_type == GameManager.RoomTypes.Boss:
+				#GameManager.boss_available = true
+			#else:
+				#GameManager.map_available_nodes.append([next_node.get_parent().column_index, next_node.row_index])
