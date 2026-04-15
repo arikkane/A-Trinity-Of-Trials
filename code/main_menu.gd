@@ -1,6 +1,7 @@
 extends Control
 
 func _ready() -> void:
+	GameManager.UIOverlay.hide_ui()
 	setup_menu_ui()
 
 func setup_menu_ui():
