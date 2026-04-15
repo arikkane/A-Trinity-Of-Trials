@@ -78,7 +78,8 @@ func set_selectable(value):
 
 #resets a card to the non-selected state
 func reset_selection():
-	combat.gui_text.card_selected_notice(false)
+	if is_instance_valid(combat):
+		combat.gui_text.card_selected_notice(false)
 	if selected == true:
 		selected = false
 	self.position.y = 0

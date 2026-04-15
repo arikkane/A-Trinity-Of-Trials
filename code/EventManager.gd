@@ -3,9 +3,13 @@ extends Node
 var current_event_data: EventData = null
 var in_event: bool = false
 
+var current_shop_data = null
+
 func _ready() -> void:
 	if not EventBus.is_connected("event_started", Callable(self, "_on_event_started")):
 		EventBus.connect("event_started", Callable(self, "_on_event_started"))
+	if not EventBus.is_connected("shop_started", Callable(self, "_on_shop_started")):
+		EventBus.connect("shop_started", Callable(self, "_on_shop_started"))
 
 
 func _on_event_started(data: EventData) -> void:
@@ -32,4 +36,9 @@ func finish_event() -> void:
 
 	in_event = false
 	current_event_data = null
-	SceneManager.change_scene("res://scenes/map.tscn")
+	GameManager.encounter_complete()
+
+func _on_shop_started(data) -> void:
+	current_shop_data = data
+	AudioManager.play_music_track("shop")
+	SceneManager.change_scene("res://scenes/shop.tscn")

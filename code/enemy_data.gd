@@ -36,5 +36,13 @@ const ENEMY_DETAILS := {
 		"maxHp": 100,
 		"cards": [7, 7, 7, 7],
 		"sprite": "res://assets/Monsters/skeleton_1.png"
+	},
+	"lich_boss": {
+		"name": "Lich Boss",
+		"hp": 250,
+		"maxHp": 250,
+		"cards": [],
+		"sprite": "res://assets/Monsters/lich.png",
+		"is_boss": true,
 	}
 }

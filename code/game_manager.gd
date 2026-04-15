@@ -23,6 +23,7 @@ var MapGridWidth = 8
 var MapGridHeight = 6
 
 var map_generated: bool = false
+var boss_available: bool = false
 var saved_map_paths: Array = []
 var saved_room_types: Array = []
 var map_selected_path: Array = []
@@ -89,10 +90,11 @@ func start_run():
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
-	Map = MapScene.instantiate()
-	Main.add_child(Map)
-	Map.show_map()
+
+	map_generated = false
+	AudioManager.play_music_track("map")
+	SceneManager.change_scene("res://scenes/map.tscn")
 
 func encounter_complete():
-	# Map scene will handle its own setup when reloaded
-	pass
+	AudioManager.play_music_track("map")
+	SceneManager.change_scene("res://scenes/map.tscn")

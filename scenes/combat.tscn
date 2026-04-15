@@ -14,6 +14,17 @@
 [ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="10_0qyji"]
 [ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="11_xkyey"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_darkpanel"]
+bg_color = Color(0, 0, 0, 0.78)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 15.0
+content_margin_right = 15.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"
 length = 3.5
@@ -170,6 +181,7 @@ offset_top = 80.0
 offset_right = 387.5
 offset_bottom = 264.0
 grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_darkpanel")
 
 [node name="Info" type="Label" parent="GUIText/TextContainer" unique_id=680085526]
 layout_mode = 0
@@ -177,6 +189,12 @@ offset_left = 22.5
 offset_top = 17.0
 offset_right = 751.0
 offset_bottom = 162.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_font_sizes/font_size = 24
 text = "Information"

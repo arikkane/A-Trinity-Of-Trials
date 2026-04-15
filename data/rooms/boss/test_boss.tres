@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_t0ktd")
-enemies = Array[String](["boss_goblin"])
+enemies = Array[String](["lich_boss"])
 max_gold = 60
 min_gold = 50
 id = "test_boss"

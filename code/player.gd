@@ -7,6 +7,8 @@ extends Node2D
 # Player UI and HP display
 var spell_power: int = 0
 var block: int = 0
+var weaken_turns: int = 0
+var draw_penalty_turns: int = 0
 
 #Relating to sprite animation tweens
 @onready var tween: Tween = null
@@ -56,6 +58,14 @@ func take_damage(amount: int) -> void:
 
 	if GameManager.PlayerHP <= 0:
 		die()
+
+func apply_weaken(turns: int) -> void:
+	weaken_turns += turns
+	print("Player weakened for ", turns, " turns. Total: ", weaken_turns)
+
+func apply_draw_penalty(turns: int) -> void:
+	draw_penalty_turns += turns
+	print("Player draw penalty for ", turns, " turns. Total: ", draw_penalty_turns)
 
 func gain_block(amount: int) -> void:
 	block += amount

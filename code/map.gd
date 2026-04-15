@@ -36,6 +36,7 @@ func _ready() -> void:
 	if GameManager.map_generated:
 		restore_saved_map()
 		restore_map_progress()
+		_scroll_to_active_nodes()
 	else:
 		randomize()
 		init_node_paths()
@@ -245,6 +246,7 @@ func _on_map_node_clicked(node: Control):
 			room_data = init_shop_room()
 		GameManager.RoomTypes.Boss:
 			room_data = init_boss_room()
+			GameManager.boss_available = false
 
 	# Save clicked node
 	save_map_progress(node)
@@ -425,6 +427,28 @@ func show_map():
 	show()
 	$"MapCamera".enabled = true
 
+func _scroll_to_active_nodes() -> void:
+	var target_x: float
+
+	if GameManager.boss_available and boss_node != null:
+		# Scroll directly to the boss node's world position
+		target_x = boss_node.global_position.x
+	elif not GameManager.map_available_nodes.is_empty():
+		# Find the highest column index among available nodes
+		var target_col = 0
+		for node_pos in GameManager.map_available_nodes:
+			target_col = max(target_col, node_pos[0])
+		target_x = target_col * column_width
+	else:
+		return
+
+	# Shift left so the node sits at ~1/3 from the left edge of the screen
+	var viewport_width = get_viewport_rect().size.x / $"MapCamera".zoom.x
+	target_x = target_x - viewport_width * 0.33
+	target_x = clamp(target_x, 0.0, float($"MapCamera".limit_right))
+
+	$"MapCamera".position.x = target_x
+
 #------------------ Debug Functions ------------------
 func print_column_data():
 	for column in map_grid_columns:
@@ -515,6 +539,11 @@ func restore_map_progress():
 			node.is_path_option = true
 			node.update_sprite()
 
+	# Restore boss availability
+	if GameManager.boss_available and boss_node != null:
+		boss_node.is_path_option = true
+		boss_node.update_sprite()
+
 	# Refresh all node sprites
 	for column in map_grid_columns:
 		for node in column.map_nodes:
@@ -574,11 +603,11 @@ func restore_saved_map():
 			node.update_sprite()
 			
 func save_map_progress(current_node):
-	var col = current_node.get_parent().column_index
-	var row = current_node.row_index
-
-	# Save chosen node in path history
-	GameManager.map_selected_path.append([col, row])
+	# Boss node is parented directly to the map, not a column — skip column tracking for it
+	if current_node.room_type != GameManager.RoomTypes.Boss:
+		var col = current_node.get_parent().column_index
+		var row = current_node.row_index
+		GameManager.map_selected_path.append([col, row])
 
 	# Update path options visually in current map
 	update_path_options(current_node)
@@ -588,4 +617,7 @@ func save_map_progress(current_node):
 
 	if current_node.room_type != GameManager.RoomTypes.Boss:
 		for next_node in current_node.forward_connected_nodes:
-			GameManager.map_available_nodes.append([next_node.get_parent().column_index, next_node.row_index])
+			if next_node.room_type == GameManager.RoomTypes.Boss:
+				GameManager.boss_available = true
+			else:
+				GameManager.map_available_nodes.append([next_node.get_parent().column_index, next_node.row_index])

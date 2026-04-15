@@ -46,13 +46,18 @@ func initialize_combat() -> void:
 		var enemy_child = enemy_scene.instantiate()
 		
 		#Now initiate all the enemy's stats
-		enemy_child.enemy_name = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["name"]
-		enemy_child.max_hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["maxHp"]
-		enemy_child.hp = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["hp"]
-		enemy_child.card_ids = EnemyData.ENEMY_DETAILS[currentEnemy[i]]["cards"]
+		var details = EnemyData.ENEMY_DETAILS[currentEnemy[i]]
+		enemy_child.enemy_name = details["name"]
+		enemy_child.max_hp = details["maxHp"]
+		enemy_child.hp = details["hp"]
+		enemy_child.card_ids = details["cards"]
 		enemy_child.id = i
+		if details.get("is_boss", false):
+			enemy_child.is_boss = true
+			enemy_child.boss_phase_changed.connect(_on_boss_phase_changed)
+			_setup_boss_background()
 		enemy_child.parse_card_ids() #Convert the enemy's card IDs into actual cards.
-		enemy_child.init_enemy_sprite(EnemyData.ENEMY_DETAILS[currentEnemy[i]]["sprite"])
+		enemy_child.init_enemy_sprite(details["sprite"])
 		enemy_child.enemy_died.connect(_on_enemy_death)
 		print("Enemy spawned: " + enemy_child.name + ", HP: " + str(enemy_child.hp) + ", Cards: " + str(enemy_child.card_ids))
 		add_child(enemy_child)
@@ -101,9 +106,16 @@ func start_player_turn():
 	player.block = 0
 	$"EndTurnButton".show()
 	update_mana_label()
+	_tick_status_effects()
 	draw_cards()
 	update_block_label()
 	print("player turn has started")
+
+func _tick_status_effects() -> void:
+	if player.weaken_turns > 0:
+		player.weaken_turns -= 1
+	if player.draw_penalty_turns > 0:
+		player.draw_penalty_turns -= 1
 	
 
 #End the player turn
@@ -173,33 +185,138 @@ func enemy_play_card(enemy_user, enemy_card):
 	
 #Function for handling an enemy's turn
 func enemy_turn(enemy_user):
-	#enemy_user: represents which enemy is taking the turn. THIS SHOULD ALWAYS BE AN INSTANCE OF THE "Enemy" NODE 
-	
-	
+	#enemy_user: represents which enemy is taking the turn. THIS SHOULD ALWAYS BE AN INSTANCE OF THE "Enemy" NODE
+
 	print("Enemy Turn: " + str(enemy_user))
 	print(turn_order)
-	
+
+	if enemy_user.is_boss:
+		await _boss_turn(enemy_user)
+		end_enemy_turn()
+		return
+
 	#If the enemy deck is empty, shuffle it and put it back into the enemy's main deck, just like you would for the player
 	if enemy_user.enemy_deck.is_empty():
 		enemy_user.shuffle_deck()
-	
+
 	#For now, the enemy will pick a card randomly
-	#Once the combat system is more complete, I will make it so that the enemy can make intelligent decisions
 	var enemy_card = randi_range(1, enemy_user.enemy_deck.size()) - 1 #pick random card
 	print(enemy_user.enemy_deck.size())
-	
+
 	await enemy_play_card(enemy_user, enemy_user.enemy_deck[enemy_card])
-	
+
 	#With 25% probability, the enemy will play 2 cards in one turn.
 	if randf() < 0.25 and !enemy_user.enemy_deck.is_empty():
 		await enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
-	
+
 	end_enemy_turn()
 
 
 #Once the enemy's turn is over, go back to the turn logic.
 func end_enemy_turn():
 	turn_logic()
+
+# ---Boss Turn Logic---
+func _boss_turn(boss) -> void:
+	var move = boss.get_next_boss_move()
+	await _execute_boss_move(boss, move)
+
+func _execute_boss_move(boss, move: Dictionary) -> void:
+	match move["action"]:
+		"gain_block":
+			boss.gain_block(move["amount"])
+			await show_text(boss.enemy_name + " raises a dark shield!", 1)
+		"heal":
+			boss.heal(move["amount"])
+			await show_text(boss.enemy_name + " absorbs life energy!", 1)
+		"gain_strength":
+			boss.damage_bonus += move["amount"]
+			boss.play_attacking_animation()
+			await show_text(boss.enemy_name + " grows stronger! (+" + str(move["amount"]) + " damage)", 1)
+		"deal_damage":
+			var dmg = move["amount"] + boss.damage_bonus
+			boss.play_attacking_animation()
+			await show_text(boss.enemy_name + " strikes for " + str(dmg) + " damage!", 1)
+			player.take_damage(dmg)
+		"heavy_damage":
+			var dmg = move["amount"] + boss.damage_bonus
+			boss.play_attacking_animation()
+			await show_text(boss.enemy_name + " unleashes a devastating blow for " + str(dmg) + "!", 1)
+			player.take_damage(dmg)
+		"drain":
+			var dmg = move["amount"]
+			boss.play_attacking_animation()
+			await show_text(boss.enemy_name + " drains " + str(dmg) + " HP from you!", 1)
+			player.take_damage(dmg)
+			boss.heal(dmg)
+		"draw_penalty":
+			if player.has_method("apply_draw_penalty"):
+				player.apply_draw_penalty(1)
+			await show_text(boss.enemy_name + " curses your hand! (Draw 1 fewer card next turn)", 1)
+		"targeted_debuff":
+			await _execute_targeted_debuff(boss)
+
+func _execute_targeted_debuff(boss) -> void:
+	# Count dominant card types in player's deck to pick a matching debuff
+	var archetype = _compute_player_archetype()
+	boss.play_attacking_animation()
+	match archetype:
+		"attack":
+			if player.has_method("apply_weaken"):
+				player.apply_weaken(3)
+			await show_text(boss.enemy_name + " weakens your attacks! (Weaken 3 turns)", 1)
+		"defense":
+			if player.has_method("apply_draw_penalty"):
+				player.apply_draw_penalty(3)
+			await show_text(boss.enemy_name + " shreds your defenses! (Draw penalty 3 turns)", 1)
+		_:
+			if player.has_method("apply_weaken"):
+				player.apply_weaken(2)
+			if player.has_method("apply_draw_penalty"):
+				player.apply_draw_penalty(2)
+			await show_text(boss.enemy_name + " curses body and mind! (Weaken + Draw penalty 2 turns)", 1)
+
+func _compute_player_archetype() -> String:
+	var attack_count = 0
+	var defense_count = 0
+	for card_data_item in GameManager.Deck.full_deck:
+		if card_data_item.type == "Damage":
+			attack_count += 1
+		elif card_data_item.type == "Utility" and card_data_item.block > 0:
+			defense_count += 1
+	if attack_count > defense_count + 2:
+		return "attack"
+	elif defense_count > attack_count + 2:
+		return "defense"
+	return "balanced"
+
+func _on_boss_phase_changed(new_phase: int) -> void:
+	if new_phase == 2:
+		show_text("THE LICH ENTERS PHASE 2!", 2)
+		_set_boss_background_phase2()
+
+# ---Boss Background---
+var _boss_bg_rect: ColorRect = null
+var _boss_bg_tween: Tween = null
+
+func _setup_boss_background() -> void:
+	_boss_bg_rect = ColorRect.new()
+	_boss_bg_rect.anchors_preset = Control.PRESET_FULL_RECT
+	_boss_bg_rect.color = Color(0.35, 0.0, 0.55)
+	_boss_bg_rect.z_index = -1
+	add_child(_boss_bg_rect)
+	move_child(_boss_bg_rect, 0)
+	_animate_boss_background(Color(0.35, 0.0, 0.55), Color(0.07, 0.0, 0.13))
+
+func _set_boss_background_phase2() -> void:
+	_animate_boss_background(Color(0.55, 0.0, 0.1), Color(0.1, 0.0, 0.05))
+
+func _animate_boss_background(color_a: Color, color_b: Color) -> void:
+	if _boss_bg_tween:
+		_boss_bg_tween.kill()
+	_boss_bg_tween = create_tween().set_loops()
+	_boss_bg_tween.tween_property(_boss_bg_rect, "color", color_b, 3.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_boss_bg_tween.tween_property(_boss_bg_rect, "color", color_a, 3.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 # Drawing cards and class passives:
 #draws cards from the draw pile at the start of every turn
@@ -209,6 +326,9 @@ func end_enemy_turn():
 func draw_cards(count = null, from_effect = false):
 	if count == null:
 		count = GameManager.CardsDrawnPerTurn
+		# Apply draw penalty from boss debuff (only on turn-start draws)
+		if player.draw_penalty_turns > 0:
+			count = max(1, count - 1)
 
 	for i in range(count):
 		# Reshuffle if draw pile empty
@@ -256,7 +376,11 @@ func play_card(card, target):
 	if card.card_data.type == "Damage":
 		var damage = card.card_data.damage
 
-		# Mecha assive: bonus damage based on block
+		# Apply weaken status effect
+		if player.weaken_turns > 0:
+			damage = max(1, damage / 2)
+
+		# Mecha passive: bonus damage based on block
 		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
 			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
 		
@@ -342,11 +466,13 @@ func check_victory():
 	if BattleManager.enemy_list.is_empty():
 		show_text("Winner!", 1)
 		print("Victory!")
+		gui_text.hide_info_bar()
 		combat_end()
 		BattleManager.combat_finished(true)
 
 	elif GameManager.PlayerHP <= 0:
 		print("Defeat!")
+		gui_text.hide_info_bar()
 		combat_end()
 		BattleManager.combat_finished(false)
 		

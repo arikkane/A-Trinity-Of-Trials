@@ -18,6 +18,9 @@ func show_card_tip():
 	$"CardNotice".show()
 	$"AnimationPlayer".play("CardSelectionNotice")
 
+func hide_info_bar():
+	$"TextContainer".hide()
+
 #timer: the amount to wait after the text is done displaying
 func show_text(display_text, timer):
 	dtext.text = display_text

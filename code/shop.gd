@@ -15,7 +15,8 @@ var remove_used = false
 
 func _ready():
 	init_card_data()
-	AudioManager.play_music_track("shop")
+	if EventManager.current_shop_data != null:
+		init_room_data(EventManager.current_shop_data)
 #----------------------------------------------------------
 # This function places the reference to the ShopData object
 # into the designated variable
@@ -33,7 +34,7 @@ func init_card_data():
 	var card_pool: Array[int]
 	#adds every card for the playable class into the card pool
 	for card in GameManager.Deck.card_data["cards"]:
-		if card.class == GameManager.current_class:
+		if card.get("class", -1) == GameManager.current_class:
 			card_pool.append(card.get("id"))
 	#generating each card being sold
 	for i in range(card_per_shelf*2):
@@ -43,7 +44,7 @@ func init_card_data():
 		var card = GameManager.Deck.card_data["cards"][card_id]
 		#creates the card object
 		var card_object = card_for_sale_scene.instantiate()
-		card_object.card_data = GameManager.Deck.create_card(card.id, card.type, card.damage, card.block, card.heal, card.name)
+		card_object.card_data = GameManager.Deck.create_card(card.type, card.damage, card.block, card.heal, card.name)
 		card_object.generate_price(GameManager.Deck.card_data["cards"][card_id].get("base_price", 60))
 		#connects the cards input handling signal
 		card_object.card_purchased.connect(_on_card_purchased)

@@ -7,6 +7,7 @@ extends Node
 var current_enemies: Array = []
 var current_room_data = null
 var in_combat: bool = false
+var is_boss_fight: bool = false
 
 var enemy_list: Array = [] #contains the actual current enemies in battle. Replace this with current_room_data somehow?
 
@@ -33,6 +34,8 @@ signal disable_input
 func _ready() -> void:
 	if not EventBus.is_connected("combat_started", Callable(self, "_on_combat_node_selected")):
 		EventBus.connect("combat_started", Callable(self, "_on_combat_node_selected"))
+	if not EventBus.is_connected("boss_started", Callable(self, "_on_boss_node_selected")):
+		EventBus.connect("boss_started", Callable(self, "_on_boss_node_selected"))
 
 # -----------------------------
 # Map -> Combat
@@ -62,11 +65,34 @@ func _on_combat_node_selected(room_data) -> void:
 
 	start_combat(enemies)
 
+# -----------------------------
+# Map -> Boss
+# -----------------------------
+func _on_boss_node_selected(room_data) -> void:
+	if in_combat:
+		print("⚠️ Already in combat. Ignoring boss node selection.")
+		return
+
+	if room_data == null:
+		push_error("BattleManager: boss room_data is null.")
+		return
+
+	var enemies = room_data.enemies
+	if enemies == null or enemies.is_empty():
+		push_error("BattleManager: boss room has no enemies.")
+		return
+
+	current_room_data = room_data
+	current_enemies = enemies.duplicate()
+	is_boss_fight = true
+
+	start_combat(enemies)
+
 #NOTE: If called from outside of the map, make sure you assign an array of enemies to the enemy_data value. (ex. ["skeleton_1", "skeleton_2"])
 func start_combat(enemy_data):
 	in_combat = true
 	print("BattleManager: starting combat with enemies: ", current_enemies)
-	
+
 	print(enemy_data)
 	emit_signal("combat_started", enemy_data)
 	SceneManager.change_scene("res://scenes/combat.tscn")
@@ -85,11 +111,18 @@ func combat_finished(victory: bool) -> void:
 	emit_signal("combat_ended", victory)
 
 	if victory:
+		var was_boss = is_boss_fight
 		current_enemies.clear()
 		current_room_data = null
-		AudioManager.play_music_track("map")
-		SceneManager.change_scene("res://scenes/map.tscn")
+		is_boss_fight = false
+		if was_boss:
+			SaveManager.save_run_deck(GameManager.Deck)
+			AudioManager.play_music_track("main_menu")
+			SceneManager.change_scene("res://scenes/credits.tscn")
+		else:
+			GameManager.encounter_complete()
 	else:
+		is_boss_fight = false
 		reset_encounter()
 		AudioManager.play_music_track("main_menu")
 		SceneManager.change_scene("res://scenes/ClassSelection.tscn")

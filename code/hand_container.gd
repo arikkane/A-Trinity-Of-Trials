@@ -18,17 +18,28 @@ func add_card(card:Control):
 	card_array.append(card)
 	$"HBoxContainer".add_child(card)
 	card.visible = true
-	BattleManager.enable_input.connect(card._on_input_enabled)
-	BattleManager.disable_input.connect(card._on_input_disabled)
-	BattleManager.enemy_turn_ended.connect(card._on_enemy_turn_ended)
-	BattleManager.player_turn_ended.connect(card._on_player_turn_ended)
-	#card._on_turn_ended.connect(BattleManager.player_turn_ended)
+	if not BattleManager.enable_input.is_connected(card._on_input_enabled):
+		BattleManager.enable_input.connect(card._on_input_enabled)
+	if not BattleManager.disable_input.is_connected(card._on_input_disabled):
+		BattleManager.disable_input.connect(card._on_input_disabled)
+	if not BattleManager.enemy_turn_ended.is_connected(card._on_enemy_turn_ended):
+		BattleManager.enemy_turn_ended.connect(card._on_enemy_turn_ended)
+	if not BattleManager.player_turn_ended.is_connected(card._on_player_turn_ended):
+		BattleManager.player_turn_ended.connect(card._on_player_turn_ended)
 	update_card_positions()
 
 func remove_card(card:Control):
 	card_array.erase(card)
 	$"HBoxContainer".remove_child(card)
 	card.visible = false
+	if BattleManager.enable_input.is_connected(card._on_input_enabled):
+		BattleManager.enable_input.disconnect(card._on_input_enabled)
+	if BattleManager.disable_input.is_connected(card._on_input_disabled):
+		BattleManager.disable_input.disconnect(card._on_input_disabled)
+	if BattleManager.enemy_turn_ended.is_connected(card._on_enemy_turn_ended):
+		BattleManager.enemy_turn_ended.disconnect(card._on_enemy_turn_ended)
+	if BattleManager.player_turn_ended.is_connected(card._on_player_turn_ended):
+		BattleManager.player_turn_ended.disconnect(card._on_player_turn_ended)
 	update_card_positions()
 
 func update_card_positions():

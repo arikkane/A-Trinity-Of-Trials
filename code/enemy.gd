@@ -27,6 +27,56 @@ var card_ids: Array = Array() #simply used to store the card ids until they can 
 var enemy_deck: Array = []
 var enemy_discard: Array = []
 
+# ---Boss Phase System---
+signal boss_phase_changed(new_phase: int)
+
+var is_boss: bool = false
+var boss_phase: int = 1
+var phase1_index: int = 0
+var phase2_index: int = 0
+var damage_bonus: int = 0
+
+# Phase 1: Defensive cycle used on the first run (no saved deck data)
+const PHASE1_FIRST_RUN: Array = [
+	{"action": "gain_block", "amount": 12},
+	{"action": "deal_damage", "amount": 18},
+	{"action": "gain_block", "amount": 10},
+	{"action": "heal", "amount": 15},
+]
+
+# Phase 1: Cycle used when a previous run deck snapshot exists
+const PHASE1_WITH_SNAPSHOT: Array = [
+	{"action": "gain_block", "amount": 12},
+	{"action": "draw_penalty"},
+	{"action": "deal_damage", "amount": 18},
+	{"action": "gain_strength", "amount": 3},
+]
+
+# Phase 2: Aggressive targeted moves
+const PHASE2_CYCLE: Array = [
+	{"action": "deal_damage", "amount": 22},
+	{"action": "targeted_debuff"},
+	{"action": "heavy_damage", "amount": 30},
+	{"action": "drain", "amount": 10},
+]
+
+func get_next_boss_move() -> Dictionary:
+	if boss_phase == 1:
+		var cycle = PHASE1_WITH_SNAPSHOT if SaveManager.has_previous_run() else PHASE1_FIRST_RUN
+		var move = cycle[phase1_index % cycle.size()]
+		phase1_index += 1
+		return move
+	else:
+		var move = PHASE2_CYCLE[phase2_index % PHASE2_CYCLE.size()]
+		phase2_index += 1
+		return move
+
+func check_phase_transition() -> void:
+	if is_boss and boss_phase == 1 and hp <= max_hp / 2:
+		boss_phase = 2
+		emit_signal("boss_phase_changed", 2)
+		print("Boss entered Phase 2!")
+
 #Relating to sprite animation tweens
 @onready var tween: Tween = null
 var normal_color: Color = Color(1, 1, 1)
@@ -70,6 +120,7 @@ func init_enemy_sprite(enemysprite):
 	var sprite_height = $"Sprite2D".texture.get_height()
 	var sprite_width = $"Sprite2D".texture.get_width()
 	$"Sprite2D/Area2D/CollisionShape2D".shape.set_size(Vector2(sprite_width, sprite_height))
+	$"Sprite2D/Area2D/CollisionShape2D".position = Vector2(sprite_width / 2.0, sprite_height / 2.0)
 	$"Sprite2D".position = Vector2(x, 720-sprite_height)
 	init_health_bar()
 
@@ -87,8 +138,10 @@ func take_damage(amount):
 	
 	if hp > 0:
 		play_damage_animation()
+		if is_boss:
+			check_phase_transition()
 	update_health_bar()
-	
+
 	if hp <= 0:
 		die()
 

@@ -143,11 +143,7 @@ func master_volume_control(value: float):
 	
 	
 func _on_back_button_clicked():
-	if ResourceLoader.exists(return_path):
-		get_tree().change_scene_to_file(return_path)
-		self.queue_free()
-	else:
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	SceneManager.change_scene("res://scenes/main_menu.tscn")
 		
 #saves current settings to a config file
 func save_settings():

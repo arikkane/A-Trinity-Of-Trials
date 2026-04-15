@@ -17,18 +17,20 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*uid://1l86yrm0xd2j"
-SceneManager="*uid://be18llq7gax6j"
-EventManager="*uid://dc5emqklivhxv"
-BattleManager="*uid://bjrttynuxuopl"
-JsonLoader="*uid://s3x2jub4lwbl"
-EventBus="*uid://ceifmxevtln5f"
-AudioManager="*uid://bfdfhirbegqi1"
+GameManager="*res://code/game_manager.gd"
+SceneManager="*res://code/scene_manager.gd"
+EventManager="*res://code/EventManager.gd"
+BattleManager="*res://code/battle_manager.gd"
+JsonLoader="*res://code/JsonLoader.gd"
+EventBus="*res://code/EventBus.gd"
+AudioManager="*res://code/audio_manager.gd"
+SaveManager="*res://code/save_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

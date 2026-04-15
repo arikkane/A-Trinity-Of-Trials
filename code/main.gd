@@ -16,4 +16,4 @@ func _ready() -> void:
 	$"UIOverlay".hide_ui()
 	GameManager.Main = self
 	
-	SceneManager.change_scene("res://scenes/ClassSelection.tscn")
+	SceneManager.change_scene("res://scenes/main_menu.tscn")
