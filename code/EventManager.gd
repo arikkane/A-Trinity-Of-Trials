@@ -1,11 +1,15 @@
 extends Node
 
-var current_event_data: EventData = null
+var current_event_data: RoomData = null
 var in_event: bool = false
 
 func _ready() -> void:
 	if not EventBus.is_connected("event_started", Callable(self, "_on_event_started")):
 		EventBus.connect("event_started", Callable(self, "_on_event_started"))
+	if not EventBus.is_connected("shop_started", Callable(self, "_on_shop_started")):
+		EventBus.connect("shop_started", Callable(self, "_on_shop_started"))
+	if not EventBus.is_connected("rest_started", Callable(self, "_on_rest_started")):
+		EventBus.connect("rest_started", Callable(self, "_on_rest_started"))
 
 
 func _on_event_started(data: EventData) -> void:
@@ -33,3 +37,26 @@ func finish_event() -> void:
 	in_event = false
 	current_event_data = null
 	SceneManager.change_scene("res://scenes/map.tscn")
+
+func _on_shop_started(data: ShopData) -> void:
+	if in_event:
+		print("EventManager: already in event.")
+		return
+		
+	AudioManager.play_music_track("event")
+	
+	in_event = true
+	current_event_data = data
+	
+	SceneManager.change_scene("res://scenes/shop.tscn")
+
+func _on_rest_started(data: RestData) -> void:
+	if in_event:
+		print("EventManager: already in event.")
+		return
+		
+	AudioManager.play_music_track("event")
+	current_event_data = data
+	
+	in_event = true
+	SceneManager.change_scene("res://scenes/rest.tscn")

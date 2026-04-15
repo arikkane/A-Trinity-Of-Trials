@@ -19,10 +19,10 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://1l86yrm0xd2j"
 SceneManager="*uid://be18llq7gax6j"
+EventBus="*uid://ceifmxevtln5f"
 EventManager="*uid://dc5emqklivhxv"
 BattleManager="*uid://bjrttynuxuopl"
 JsonLoader="*uid://s3x2jub4lwbl"
-EventBus="*uid://ceifmxevtln5f"
 AudioManager="*uid://bfdfhirbegqi1"
 
 [display]

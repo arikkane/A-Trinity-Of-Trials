@@ -15,6 +15,7 @@ var remove_used = false
 
 func _ready():
 	init_card_data()
+	init_room_data(EventManager.current_event_data)
 	AudioManager.play_music_track("shop")
 #----------------------------------------------------------
 # This function places the reference to the ShopData object
@@ -43,7 +44,7 @@ func init_card_data():
 		var card = GameManager.Deck.card_data["cards"][card_id]
 		#creates the card object
 		var card_object = card_for_sale_scene.instantiate()
-		card_object.card_data = GameManager.Deck.create_card(card.id, card.type, card.damage, card.block, card.heal, card.name)
+		card_object.card_data = GameManager.Deck.create_card(card.type, card.damage, card.block, card.heal, card.name)
 		card_object.generate_price(GameManager.Deck.card_data["cards"][card_id].get("base_price", 60))
 		#connects the cards input handling signal
 		card_object.card_purchased.connect(_on_card_purchased)
@@ -98,7 +99,7 @@ func _on_card_removed():
 
 func _on_leave_button_pressed():
 	print("button pressed")
-	GameManager.encounter_complete()
+	EventManager.finish_event()
 
 #-----------------------------Debug Functions-----------------------------
 func print_room_data():

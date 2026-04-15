@@ -86,6 +86,10 @@ func create_card(card_type, damage, block, heal, card_name_str):
 	#does not load the scene for the card, card.scene.instantiate() should be loaded whenever the card ui is needed
 	var card = card_data_resource.new()
 	
+	#creates a unique id for the card_data resource instance
+	card.uid = ResourceUID.create_id()
+	ResourceUID.add_id(card.uid, "res://code/card_data.gd")
+	
 	#card.id = id
 	card.type = card_type
 	card.damage = damage
