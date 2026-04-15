@@ -13,7 +13,7 @@ var PlayerHP: int
 var CardsDrawnPerTurn: int
 var Deck: Control = null
 var PlayerPosition = 0
-var PlayerGold = 200
+var PlayerGold = 10
 var Main: Node
 var UIOverlay: CanvasLayer
 var DeckDisplayUI: CanvasLayer
