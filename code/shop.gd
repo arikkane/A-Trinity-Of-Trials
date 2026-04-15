@@ -15,8 +15,8 @@ var remove_used = false
 
 func _ready():
 	init_card_data()
-	if EventManager.current_shop_data != null:
-		init_room_data(EventManager.current_shop_data)
+	if EventManager.current_event_data != null:
+		init_room_data(EventManager.current_event_data)
 #----------------------------------------------------------
 # This function places the reference to the ShopData object
 # into the designated variable
@@ -99,7 +99,7 @@ func _on_card_removed():
 
 func _on_leave_button_pressed():
 	print("button pressed")
-	GameManager.encounter_complete()
+	EventManager.finish_event()
 
 #-----------------------------Debug Functions-----------------------------
 func print_room_data():

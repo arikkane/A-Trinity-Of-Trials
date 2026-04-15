@@ -3,6 +3,7 @@ extends Node
 var room_data
 
 func _ready():
+	init_room_data(EventManager.current_event_data)
 	$"HealButton".pressed.connect(_on_heal_button_pressed)
 	$"GoldButton".pressed.connect(_on_gold_button_pressed)
 
@@ -23,7 +24,7 @@ func _on_heal_button_pressed():
 	GameManager.PlayerHP += int(GameManager.PlayerMaxHP * room_data.heal_percentage)
 	GameManager.PlayerHP = clamp(GameManager.PlayerHP, 0, GameManager.PlayerMaxHP)
 	print("after PlayerHP = " + str(GameManager.PlayerHP))
-	GameManager.encounter_complete()
+	EventManager.finish_event()
 
 func _on_gold_button_pressed():
 	print("gold button pressed")
@@ -31,4 +32,4 @@ func _on_gold_button_pressed():
 	GameManager.PlayerGold += randi_range(room_data.min_gold, room_data.max_gold)
 	GameManager.UIOverlay.update_gold()
 	print("after PlayerGold = " + str(GameManager.PlayerGold))
-	GameManager.encounter_complete()
+	EventManager.finish_event()
