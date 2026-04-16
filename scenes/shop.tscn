@@ -2,8 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dt171pjskiuso" path="res://code/shop.gd" id="1_xfvoa"]
 [ext_resource type="Texture2D" uid="uid://bk6plqgsb4iyk" path="res://sprites/shop_background.png" id="2_xfvoa"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_xfvoa"]
+[ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="3_m4ofw"]
+[ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="4_heatd"]
+[ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="5_1v8qu"]
+[ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="6_44xle"]
+[ext_resource type="Theme" uid="uid://jirvpfro2db3" path="res://assets/Themes&Styles/LabelFont.tres" id="7_24it5"]
+[ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="8_7mqwv"]
+[ext_resource type="Texture2D" uid="uid://d1aq8dkhe0h8q" path="res://sprites/gold_icon.png" id="9_gobkm"]
 
 [node name="Shop" type="Node" unique_id=139382747]
 script = ExtResource("1_xfvoa")
@@ -18,6 +23,9 @@ offset_left = 1581.0
 offset_top = 743.0
 offset_right = 1680.0
 offset_bottom = 800.0
+theme_override_styles/normal = ExtResource("3_m4ofw")
+theme_override_styles/pressed = ExtResource("4_heatd")
+theme_override_styles/hover = ExtResource("5_1v8qu")
 text = "Leave"
 
 [node name="TopShelfContainer" type="HBoxContainer" parent="." unique_id=1897879336]
@@ -41,25 +49,32 @@ offset_left = 1541.0
 offset_top = 534.0
 offset_right = 1720.0
 offset_bottom = 637.0
+theme = ExtResource("6_44xle")
+theme_override_styles/normal = ExtResource("3_m4ofw")
+theme_override_styles/pressed = ExtResource("4_heatd")
+theme_override_styles/hover = ExtResource("5_1v8qu")
 text = "Remove Card
  from Deck"
 
 [node name="Price" type="RichTextLabel" parent="RemoveCardButton" unique_id=1978351891]
 layout_mode = 0
 offset_left = 90.0
-offset_top = 115.0
+offset_top = 132.0
 offset_right = 171.0
-offset_bottom = 155.0
+offset_bottom = 172.0
+theme = ExtResource("7_24it5")
+theme_override_fonts/normal_font = ExtResource("8_7mqwv")
+theme_override_font_sizes/normal_font_size = 24
 text = "50"
 
 [node name="GoldIcon" type="TextureRect" parent="RemoveCardButton" unique_id=1721461187]
 modulate = Color(1, 0.70980394, 0.12941177, 1)
 layout_mode = 0
-offset_left = 57.0
-offset_top = 115.0
-offset_right = 81.0
-offset_bottom = 139.0
-texture = SubResource("CanvasTexture_xfvoa")
+offset_left = 34.0
+offset_top = 118.0
+offset_right = 82.0
+offset_bottom = 166.0
+texture = ExtResource("9_gobkm")
 
 [connection signal="pressed" from="NextRoomButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="RemoveCardButton" to="." method="_on_remove_card_button_pressed"]

@@ -10,6 +10,7 @@ Label/colors/font_outline_color = Color(0.26383978, 0, 0.0061530233, 1)
 Label/constants/outline_size = 4
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("1_woljv")
+LineEdit/fonts/font = ExtResource("1_woljv")
 ProgressBar/colors/font_outline_color = Color(0.41748276, 0, 0.034458224, 1)
 ProgressBar/constants/outline_size = 4
 ProgressBar/font_sizes/font_size = 18

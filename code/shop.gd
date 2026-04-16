@@ -41,11 +41,11 @@ func init_card_data():
 		#picks the card that will be sold from the card pool
 		var card_id = randi_range(0, card_pool.size()-1)
 		#gets the cards data based on the generated id
-		var card = GameManager.Deck.card_data["cards"][card_id]
+		var card = GameManager.Deck.card_data["cards"][card_pool[card_id]]
 		#creates the card object
 		var card_object = card_for_sale_scene.instantiate()
 		card_object.card_data = GameManager.Deck.create_card(card.type, card.damage, card.block, card.heal, card.name)
-		card_object.generate_price(GameManager.Deck.card_data["cards"][card_id].get("base_price", 60))
+		card_object.generate_price(GameManager.Deck.card_data["cards"][card_pool[card_id]].get("base_price", 60))
 		#connects the cards input handling signal
 		card_object.card_purchased.connect(_on_card_purchased)
 		cards.append(card_object)

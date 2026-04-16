@@ -1,6 +1,6 @@
 {
   "cards": [
-	{"id": 0, "class": 0, "name": "Test_DontUseThis", "type": "Damage", "damage": 0, "block": 0, "heal": 0, "base_price": 0},
+	{"id": 0, "class": -1, "name": "Test_DontUseThis", "type": "Damage", "damage": 0, "block": 0, "heal": 0, "base_price": 0},
 	{"id": 1, "class": 0, "name": "Laser Shot", "type": "Damage", "damage": 6, "block": 0, "heal": 0, "base_price": 60},
 	{"id": 2, "class": 0, "name": "Shield Up", "type": "Utility", "damage": 0, "block": 5, "heal": 0, "base_price": 60},
 	{"id": 3, "class": 0, "name": "Repair", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "base_price": 80},

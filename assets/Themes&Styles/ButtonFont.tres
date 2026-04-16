@@ -1,7 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://b3v73v0gugqye"]
 
+[ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="1_i4vy0"]
+
 [resource]
 Button/colors/font_outline_color = Color(0.14901961, 0.21960784, 0.3019608, 1)
 Button/constants/outline_size = 4
 Button/font_sizes/font_size = 24
-Button/fonts/font = null
+Button/fonts/font = ExtResource("1_i4vy0")

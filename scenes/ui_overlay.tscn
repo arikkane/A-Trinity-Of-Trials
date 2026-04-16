@@ -4,17 +4,15 @@
 [ext_resource type="Script" uid="uid://danfjhii1v3vc" path="res://code/ui_deck_button.gd" id="2_khxf3"]
 [ext_resource type="Script" uid="uid://bcfac5i8yh8f7" path="res://code/ui_map_button.gd" id="2_vywth"]
 [ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="3_wmgi7"]
+[ext_resource type="Texture2D" uid="uid://d1aq8dkhe0h8q" path="res://sprites/gold_icon.png" id="4_231b4"]
 [ext_resource type="Theme" uid="uid://jirvpfro2db3" path="res://assets/Themes&Styles/LabelFont.tres" id="5_231b4"]
+[ext_resource type="Texture2D" uid="uid://bpmm3pbd31ubj" path="res://sprites/health_sprite.png" id="6_pyuu8"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_231b4"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_khxf3"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_vqe6e"]
-
 [sub_resource type="CanvasTexture" id="CanvasTexture_5mppo"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_wmgi7"]
 
 [node name="UIOverlay" type="CanvasLayer" unique_id=209031180]
 script = ExtResource("1_5mppo")
@@ -64,16 +62,18 @@ offset_bottom = 39.72
 [node name="GoldIcon" type="TextureRect" parent="GoldContainer" unique_id=1620927714]
 modulate = Color(1, 0.70980394, 0.12941177, 1)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("CanvasTexture_vqe6e")
+offset_left = 2.0
+offset_top = -4.0
+offset_right = 42.0
+offset_bottom = 36.0
+texture = ExtResource("4_231b4")
 
 [node name="Label" type="RichTextLabel" parent="GoldContainer" unique_id=869779248]
 layout_mode = 0
 offset_left = 50.0
-offset_top = 10.0
+offset_top = 9.0
 offset_right = 90.0
-offset_bottom = 50.0
+offset_bottom = 49.0
 theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Gold
 "
@@ -113,17 +113,23 @@ offset_bottom = 57.0
 
 [node name="HealthIcon" type="TextureRect" parent="HealthContainer" unique_id=1150096354]
 modulate = Color(1, 0, 0, 1)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("CanvasTexture_wmgi7")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = -0.275
+anchor_right = 0.025
+anchor_bottom = -0.275
+offset_right = 5400002.0
+offset_bottom = 5500000.5
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6_pyuu8")
 
 [node name="Label" type="RichTextLabel" parent="HealthContainer" unique_id=1343989382]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 10.0
-offset_right = 150.0
-offset_bottom = 50.0
+offset_left = 54.0
+offset_top = 9.0
+offset_right = 154.0
+offset_bottom = 49.0
 theme = ExtResource("5_231b4")
 theme_override_fonts/normal_font = ExtResource("3_wmgi7")
 text = "Health"

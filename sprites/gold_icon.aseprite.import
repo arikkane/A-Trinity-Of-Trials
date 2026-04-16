@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://kio2uxd8dwme"
+path="res://.godot/imported/gold_icon.aseprite-4e158d8e1873020398fb84c3713100a3.res"
+
+[deps]
+
+source_file="res://sprites/gold_icon.aseprite"
+dest_files=["res://.godot/imported/gold_icon.aseprite-4e158d8e1873020398fb84c3713100a3.res"]
+
+[params]
+
