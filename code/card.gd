@@ -5,6 +5,7 @@ extends Control
 
 var combat
 var card_data: CardData
+const TOOLTIP_OFFSET: Vector2 = Vector2.ONE * 60.0
 
 #depreciating below as this data will be stored in card_data
 #Damage, Utility, or Power
@@ -30,10 +31,16 @@ var selected = false
 var selectable = true
 
 func _ready():
+	
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	custom_minimum_size = Vector2(192, 288)  # give the card real size
-	print(self.position.y)
+	#tooltip = $"PanelContainer"
+	#print(self.position.y)
+	$"PanelContainer".hide() #hide tooltip container
 	init_debug_label()
+	update_card_texture()
+	update_tooltip()
+	
 
 # Dragging
 var dragging = false
@@ -49,8 +56,10 @@ func play(target):
 func _on_input_enabled():
 	if (GameManager.PlayerHP >= GameManager.PlayerMaxHP) and card_data.type == "Utility" and card_data.block == 0: #if player is at max health, disallow healing items
 		set_selectable(false)
+		update_tooltip()
 	else:
 		set_selectable(true)
+		update_tooltip()
 
 func _on_input_disabled():
 	reset_selection()
@@ -143,7 +152,19 @@ func check_drop_target():
 			play(combat.enemy)
 
 
-
+#logic for determining the card's texture
+func update_card_texture():
+	if card_data.type == "Damage":
+		$"TextureRect".texture = load("res://sprites/combat_card.png")
+	elif card_data.type == "Utility":
+		if card_data.block == 0 and card_data.heal > 0:
+			$"TextureRect".texture = load("res://sprites/heal_card.png")
+		elif card_data.block > 0 and card_data.heal == 0:
+			$"TextureRect".texture = load("res://sprites/block_card.png")
+		else:
+			$"TextureRect".texture = preload("res://sprites/undefined_card.png")
+	else:
+		$"TextureRect".texture = preload("res://sprites/undefined_card.png")
 
 # debugging
 func init_debug_label():
@@ -171,3 +192,27 @@ func update_debug_label():
 	#sets the font size
 	debug_label.push_font_size(18)
 	debug_label.add_text(label_text)
+
+#Update the card's tooltip
+func update_tooltip():
+	var tooltip = $"PanelContainer/Tooltip"
+	var card_text = "ID: " + str(card_data.id) + "\nName: " + str(card_data.name)
+	if card_data.type == "Damage":
+		card_text += "\n[color=red]Damage[/color] card"
+	elif card_data.type == "Utility":
+		card_text += "\n[color=aqua]Utility[/color] card"
+	card_text += "\n" + str(card_data.description)
+	
+	if (GameManager.PlayerHP >= GameManager.PlayerMaxHP) and card_data.type == "Utility" and card_data.block == 0:
+		card_text += "\n" + "[color=red]Card disabled;[/color] health is [color=green]full[/color]"
+	
+	tooltip.text = card_text
+
+
+#when mouse enters card range, show tooltip
+func _on_mouse_entered() -> void:
+	$"PanelContainer".show()
+
+#and hide it when it leaves
+func _on_mouse_exited() -> void:
+	$"PanelContainer".hide()
