@@ -17,6 +17,8 @@
 [ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="9_hmy61"]
 [ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="10_0qyji"]
 [ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="11_xkyey"]
+[ext_resource type="Texture2D" uid="uid://k5xrx5jtaayh" path="res://sprites/BlockIcon.png" id="12_a5n2y"]
+[ext_resource type="Texture2D" uid="uid://7cb3lfsohf5i" path="res://sprites/ManaSymbol.png" id="19_v3mio"]
 
 [sub_resource type="Animation" id="Animation_sa5k0"]
 resource_name = "CardSelectionNotice\\"
@@ -106,10 +108,10 @@ texture = ExtResource("5_5wjy3")
 
 [node name="Front Bushes" type="TextureRect" parent="Control" unique_id=1449367923]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 68.0
-offset_right = 1922.0
-offset_bottom = 1144.0
+offset_left = -9.0
+offset_top = 62.0
+offset_right = 1909.0
+offset_bottom = 1138.0
 mouse_filter = 2
 texture = ExtResource("6_yxda2")
 
@@ -139,22 +141,85 @@ offset_right = 1553.0
 offset_bottom = 1038.0
 
 [node name="ManaLabel" type="Label" parent="." unique_id=2140329730]
-offset_left = 315.0
-offset_top = 517.0
-offset_right = 416.0
-offset_bottom = 572.0
+offset_left = 338.0
+offset_top = 518.0
+offset_right = 439.0
+offset_bottom = 573.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ManaSymbol" type="Sprite2D" parent="ManaLabel" unique_id=728330175]
+show_behind_parent = true
+position = Vector2(73, 26)
+scale = Vector2(0.086, 0.076)
+texture = ExtResource("19_v3mio")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"pending_changes": {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "",
+"source_uid": -1
+}
+}
 
 [node name="BlockValue" type="Label" parent="." unique_id=294225787]
-offset_left = 228.0
-offset_top = 421.0
-offset_right = 293.0
-offset_bottom = 468.0
+offset_left = 240.0
+offset_top = 411.0
+offset_right = 304.0
+offset_bottom = 462.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlockIcon" type="Sprite2D" parent="BlockValue" unique_id=875842913]
+show_behind_parent = true
+position = Vector2(31.5, 24)
+scale = Vector2(2.6484375, 1.8437498)
+texture = ExtResource("12_a5n2y")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "",
+"source_uid": -1
+},
+"slice_section": false
+}
 
 [node name="EndTurnButton" type="Button" parent="." unique_id=1965496006]
-offset_left = 24.0
-offset_top = 623.0
-offset_right = 151.0
-offset_bottom = 681.0
+offset_left = 66.0
+offset_top = 650.0
+offset_right = 193.0
+offset_bottom = 708.0
 theme = ExtResource("8_gvie1")
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_styles/normal = ExtResource("9_hmy61")
@@ -163,16 +228,16 @@ theme_override_styles/hover = ExtResource("11_xkyey")
 text = "End Turn"
 
 [node name="Win" type="Button" parent="." unique_id=1503039123]
-offset_left = 77.0
-offset_top = 330.0
-offset_right = 249.0
-offset_bottom = 428.0
+offset_left = 49.0
+offset_top = 122.0
+offset_right = 256.0
+offset_bottom = 220.0
 theme = ExtResource("8_gvie1")
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_styles/normal = ExtResource("9_hmy61")
 theme_override_styles/pressed = ExtResource("10_0qyji")
 theme_override_styles/hover = ExtResource("11_xkyey")
-text = "WIN TESTING"
+text = "Auto Win Combat"
 
 [node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]
 script = ExtResource("8_4gnb8")
