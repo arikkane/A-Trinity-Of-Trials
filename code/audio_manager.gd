@@ -25,7 +25,8 @@ var music_tracks = {
 	"combat": preload("res://Audio/Ghost.ogg"),
 	"shop": preload("res://Audio/InCastle.ogg"),
 	"event": preload("res://Audio/CursedVillage.ogg"),
-	"map": preload("res://Audio/StrangeFarm.ogg")
+	"map": preload("res://Audio/StrangeFarm.ogg"),
+	"boss": preload("res://Audio/BossMusic.ogg")
 }
 #This is the audio manager.
 @onready var music_player: AudioStreamPlayer = AudioStreamPlayer.new()

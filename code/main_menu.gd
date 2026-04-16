@@ -36,4 +36,3 @@ func _create_button(text: String, callback: Callable) -> Button:
 	button.custom_minimum_size = Vector2(200, 50)
 	button.pressed.connect(callback)
 	return button
-
