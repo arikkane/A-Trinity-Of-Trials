@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://y8c3c2vqla5t" path="res://code/rest.gd" id="1_46pvv"]
 [ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_p3mib"]
+[ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="3_lcn62"]
+[ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="4_7q1m4"]
+[ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="5_krbhq"]
+[ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="6_lfsvw"]
 
 [node name="Rest" type="Node" unique_id=139382747]
 script = ExtResource("1_46pvv")
@@ -16,9 +20,19 @@ offset_left = 996.0
 offset_top = 156.0
 offset_right = 1491.0
 offset_bottom = 329.0
+theme = ExtResource("3_lcn62")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_7q1m4")
+theme_override_styles/pressed = ExtResource("5_krbhq")
+theme_override_styles/hover = ExtResource("6_lfsvw")
 
 [node name="GoldButton" type="Button" parent="." unique_id=767993638]
 offset_left = 996.0
 offset_top = 432.0
 offset_right = 1491.0
 offset_bottom = 605.0
+theme = ExtResource("3_lcn62")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("4_7q1m4")
+theme_override_styles/pressed = ExtResource("5_krbhq")
+theme_override_styles/hover = ExtResource("6_lfsvw")

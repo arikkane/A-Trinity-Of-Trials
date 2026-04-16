@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://kd2pyxwew622"]
 
 [ext_resource type="Script" uid="uid://cux3wsvyxqmo6" path="res://code/combat.gd" id="1_qajva"]
-[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_4gnb8"]
 [ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
+[ext_resource type="Texture2D" uid="uid://ctudmappf2oex" path="res://assets/Backgrounds/FarTrees.png" id="2_hkish"]
+[ext_resource type="Texture2D" uid="uid://b3kvqdyca4nvr" path="res://assets/Backgrounds/MiddleTrees.png" id="3_a5n2y"]
 [ext_resource type="PackedScene" uid="uid://d4gi0v84vucqk" path="res://scenes/enemy.tscn" id="4_4l26h"]
+[ext_resource type="Texture2D" uid="uid://beclmjw1hsuf" path="res://assets/Backgrounds/NearTrees.png" id="4_v3mio"]
+[ext_resource type="Texture2D" uid="uid://bhdwgrwyrvqnj" path="res://assets/Backgrounds/Ground.png" id="5_5wjy3"]
 [ext_resource type="PackedScene" uid="uid://b760cju5tnn0o" path="res://scenes/draw_pile.tscn" id="5_osi8t"]
 [ext_resource type="PackedScene" uid="uid://c06yqc0opn76g" path="res://scenes/discard_pile.tscn" id="6_4gnb8"]
+[ext_resource type="Texture2D" uid="uid://c8kbj60yik7gh" path="res://assets/Backgrounds/FrontBushes.png" id="6_yxda2"]
 [ext_resource type="PackedScene" uid="uid://bhjitaiiwtk58" path="res://scenes/hand_container.tscn" id="7_sa5k0"]
 [ext_resource type="Script" uid="uid://c561rhlprmn5e" path="res://code/gui_text.gd" id="8_4gnb8"]
 [ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="8_gvie1"]
@@ -65,10 +69,49 @@ corner_radius_bottom_left = 6
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
 
-[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=728056167]
+[node name="Control" type="Control" parent="." unique_id=289712277]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Far Trees" type="TextureRect" parent="Control" unique_id=1355040216]
+layout_mode = 0
+offset_right = 1916.0
+offset_bottom = 1072.0
+mouse_filter = 2
+texture = ExtResource("2_hkish")
+
+[node name="Middle Trees" type="TextureRect" parent="Control" unique_id=20969302]
+layout_mode = 0
+offset_right = 1918.0
+offset_bottom = 1078.0
+mouse_filter = 2
+texture = ExtResource("3_a5n2y")
+
+[node name="Close Trees" type="TextureRect" parent="Control" unique_id=1251864378]
+layout_mode = 0
+offset_right = 1914.0
+offset_bottom = 1076.0
+mouse_filter = 2
+texture = ExtResource("4_v3mio")
+
+[node name="Ground" type="TextureRect" parent="Control" unique_id=728056167]
+layout_mode = 0
 offset_right = 1920.0
-offset_bottom = 1080.0
-texture = ExtResource("2_4gnb8")
+offset_bottom = 843.0
+mouse_filter = 2
+texture = ExtResource("5_5wjy3")
+
+[node name="Front Bushes" type="TextureRect" parent="Control" unique_id=1449367923]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 68.0
+offset_right = 1922.0
+offset_bottom = 1144.0
+mouse_filter = 2
+texture = ExtResource("6_yxda2")
 
 [node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
 position = Vector2(160, 550)
