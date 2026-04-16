@@ -3,11 +3,42 @@
 [ext_resource type="Script" uid="uid://dyn5rw11p80e5" path="res://code/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://bo2q86ol7q7l1" path="res://sprites/blank_card.png" id="2_6u4wf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
+bg_color = Color(0.15686275, 0.15686275, 0.14901961, 0.45882353)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.07150052, 0.07150052, 0.07150049, 1)
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_ktuci"]
+
 [node name="Card" type="Control" unique_id=1208374418]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
 script = ExtResource("1_d81rb")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1739070296]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+offset_left = 25.0
+offset_top = -80.0
+offset_right = 168.0
+offset_bottom = 1.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6u4wf")
+
+[node name="Tooltip" type="RichTextLabel" parent="PanelContainer" unique_id=925972334]
+layout_mode = 2
+mouse_filter = 2
+theme = SubResource("Theme_ktuci")
+theme_override_font_sizes/normal_font_size = 13
+bbcode_enabled = true
+text = "Card Tooltip"
+fit_content = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1277772547]
 layout_mode = 0
@@ -37,3 +68,6 @@ metadata/_aseprite_wizard_interface_config_ = {
 "source_uid": -1
 }
 }
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
