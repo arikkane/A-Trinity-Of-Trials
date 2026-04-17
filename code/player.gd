@@ -1,16 +1,13 @@
 # Player2D.gd
 extends Node2D
 
-# Player sprite
 @onready var sprite = $"Sprite2D"
 
-# Player UI and HP display
 var spell_power: int = 0
 var block: int = 0
 var weaken_turns: int = 0
 var draw_penalty_turns: int = 0
 
-#Relating to sprite animation tweens
 @onready var tween: Tween = null
 var normal_color: Color = Color(1, 1, 1)
 var glow_color: Color = Color(1.5, 1.5, 1.5, 1.0) * 1.5
@@ -19,9 +16,33 @@ var healing_color: Color = Color(0.0, 0.961, 0.451, 1.0) * 1.5
 var blocking_color: Color = Color(0.0, 0.46, 0.775, 1.0) * 1.5
 var dead: Color = Color(1.0, 1.0, 1.0, 0.0)
 
+
+
 func _ready() -> void:
-	await get_tree().process_frame  # wait one frame for GameManager to be ready
+	await get_tree().process_frame
+	set_player_sprite()
 	init_health_bar()
+
+func set_player_sprite() -> void:
+	print("Current class: ", GameManager.current_class)
+
+	match GameManager.current_class:
+		GameManager.PlayerClass.GUNDAM:
+			sprite.texture = preload("res://sprites/ArmorChar.png")
+			sprite.scale = Vector2(0.75, 0.75)
+			sprite.position = Vector2(3, -45)
+		GameManager.PlayerClass.HEXTECHMAGE:
+			sprite.texture = preload("res://sprites/magechar.png")
+			sprite.scale = Vector2(2.5, 2.5)
+			sprite.position = Vector2(20, -70.0)
+		GameManager.PlayerClass.CREATURE:
+			sprite.texture = preload("res://sprites/voidchar (2).png")
+			sprite.scale = Vector2(2.0, 2.0)
+			sprite.position = Vector2(10, -20.0)
+		_:
+			push_error("Unknown current class: " + str(GameManager.current_class))
+
+
 
 func init_health_bar() -> void:
 	$"CharacterDataUI/HealthBar".max_value = GameManager.PlayerMaxHP

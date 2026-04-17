@@ -386,28 +386,34 @@ func play_card(card, target):
 		# Mecha passive: bonus damage based on block
 		if GameManager.current_class == GameManager.PlayerClass.GUNDAM:
 			damage += int(player.block * 0.5)  # 50% of current block as bonus damage
-		
+
+		# Mage passive: add spell power to damage
+		if GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
+			damage += player.spell_power
+
+		# Calculate actual damage dealt after enemy block
+		var actual_damage = max(0, damage - target.block)
+
 		#if (target.hp - min(0,(damage - target.block))) <= 0:
 		if (target.hp - damage) < 0:
 			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!\n" + target.enemy_name + " was defeated!", 1)
 		else:
 			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
+
 		BattleManager.reset_selections()
 		target.take_damage(damage)
-		
+
 		#if target.hp < 0 and is_instance_valid(target):
 		#	disable_input()
 		#	await target.death_anim_done
 		#	enable_input()
-		
+
 		# Alien passive: heal when dealing damage
 		if GameManager.current_class == GameManager.PlayerClass.CREATURE:
-			show_text("Player heals " + str(damage) + " HP!", 1)
-			player.heal(damage)
-			
-		# mage passsive damage
-		if GameManager.current_class == GameManager.PlayerClass.HEXTECHMAGE:
-			damage = (damage + player.spell_power)
+			if actual_damage > 0:
+				show_text("Player heals " + str(actual_damage) + " HP!", 1)
+				player.heal(actual_damage)
+
 	elif card.card_data.type == "Utility":
 		if card.card_data.block > 0:
 			show_text("Player gains " + str(card.card_data.block) + " block!", 1)

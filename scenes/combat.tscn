@@ -145,14 +145,16 @@ offset_left = 338.0
 offset_top = 518.0
 offset_right = 439.0
 offset_bottom = 573.0
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ManaSymbol" type="Sprite2D" parent="ManaLabel" unique_id=728330175]
 show_behind_parent = true
-position = Vector2(73, 26)
-scale = Vector2(0.086, 0.076)
+position = Vector2(49.750004, 26.00001)
+scale = Vector2(0.09700003, 0.084000036)
 texture = ExtResource("19_v3mio")
+offset = Vector2(10, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "pending_changes": {

@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://cwofn183cwrlm"]
 
 [ext_resource type="Script" uid="uid://btpkl7g00k2bx" path="res://code/class_selection.gd" id="1_ib4vr"]
+[ext_resource type="Texture2D" uid="uid://caeesvfe8q6fw" path="res://sprites/magechar.png" id="2_3dsqc"]
+[ext_resource type="Texture2D" uid="uid://gm04nmev2dl6" path="res://sprites/ArmorChar.png" id="3_jog16"]
+[ext_resource type="Texture2D" uid="uid://do3a2qfpto3do" path="res://sprites/voidchar (2).png" id="4_mlwvh"]
 
 [node name="ClassSelection" type="Control" unique_id=1056758104]
 layout_mode = 3
@@ -10,35 +13,88 @@ offset_bottom = 2.0
 mouse_filter = 1
 script = ExtResource("1_ib4vr")
 
-[node name="Label" type="Label" parent="." unique_id=1210532506]
+[node name="ClassTitle" type="Label" parent="." unique_id=1875714121]
 layout_mode = 0
-offset_left = 506.0
-offset_top = 246.0
-offset_right = 1294.0
-offset_bottom = 423.0
+offset_left = 726.0
+offset_top = 138.0
+offset_right = 1119.0
+offset_bottom = 161.0
+text = "Choose Your Character"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="." unique_id=1210532506]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 76.0
+offset_right = 1325.0
+offset_bottom = 253.0
 theme_override_font_sizes/font_size = 46
 text = "TRIALS OF TRINITY"
 horizontal_alignment = 1
 
+[node name="DescriptionLabel" type="Label" parent="." unique_id=629883579]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 157.0
+offset_right = 1312.0
+offset_bottom = 281.0
+theme_override_font_sizes/font_size = 30
+vertical_alignment = 1
+
+[node name="GUNDAM" type="Button" parent="." unique_id=2005418040]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 302.0
+offset_right = 598.0
+offset_bottom = 446.0
+text = "Gn-Armor Knight"
+
+[node name="MAGE" type="Button" parent="." unique_id=690331988]
+layout_mode = 0
+offset_left = 778.0
+offset_top = 299.0
+offset_right = 1115.0
+offset_bottom = 449.0
+text = "Techomancer"
+
+[node name="CREATURE" type="Button" parent="." unique_id=1143182388]
+layout_mode = 0
+offset_left = 1300.0
+offset_top = 307.0
+offset_right = 1641.0
+offset_bottom = 458.0
+text = "Void-Thing"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1161150325]
 layout_mode = 0
-offset_left = 573.0
-offset_top = 439.0
-offset_right = 1244.0
-offset_bottom = 549.0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 105.0
+offset_bottom = 82.0
 
-[node name="GUNDAM" type="Button" parent="VBoxContainer" unique_id=2005418040]
-layout_mode = 2
-text = "Mecha"
+[node name="Magechar" type="Sprite2D" parent="." unique_id=599462586]
+position = Vector2(958, 683)
+scale = Vector2(4.6463404, 3.5590909)
+texture = ExtResource("2_3dsqc")
 
-[node name="MAGE" type="Button" parent="VBoxContainer" unique_id=690331988]
-layout_mode = 2
-text = "mage"
+[node name="ArmorChar" type="Sprite2D" parent="." unique_id=1759466182]
+position = Vector2(420, 676.00006)
+scale = Vector2(1.2841908, 1.1055149)
+texture = ExtResource("3_jog16")
 
-[node name="CREATURE" type="Button" parent="VBoxContainer" unique_id=1143182388]
-layout_mode = 2
-text = "alien"
+[node name="Voidchar(2)" type="Sprite2D" parent="." unique_id=1963597944]
+position = Vector2(1501, 692.25)
+scale = Vector2(2.8906236, 2.9492188)
+texture = ExtResource("4_mlwvh")
 
-[connection signal="pressed" from="VBoxContainer/GUNDAM" to="." method="_on_gundam_pressed"]
-[connection signal="pressed" from="VBoxContainer/MAGE" to="." method="_on_mage_pressed"]
-[connection signal="pressed" from="VBoxContainer/CREATURE" to="." method="_on_creature_pressed"]
+[connection signal="ready" from="DescriptionLabel" to="." method="_on_class_text_ready"]
+[connection signal="mouse_entered" from="GUNDAM" to="." method="_on_gundam_mouse_entered"]
+[connection signal="mouse_exited" from="GUNDAM" to="." method="_on_gundam_mouse_exited"]
+[connection signal="pressed" from="GUNDAM" to="." method="_on_gundam_pressed"]
+[connection signal="mouse_entered" from="MAGE" to="." method="_on_mage_mouse_entered"]
+[connection signal="mouse_exited" from="MAGE" to="." method="_on_mage_mouse_exited"]
+[connection signal="pressed" from="MAGE" to="." method="_on_mage_pressed"]
+[connection signal="mouse_entered" from="CREATURE" to="." method="_on_creature_mouse_entered"]
+[connection signal="mouse_exited" from="CREATURE" to="." method="_on_creature_mouse_exited"]
+[connection signal="pressed" from="CREATURE" to="." method="_on_creature_pressed"]
