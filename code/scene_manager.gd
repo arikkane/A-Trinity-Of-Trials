@@ -4,6 +4,7 @@ extends Node
 
 var SceneContainer: Node = null
 var CurrentScene: Node = null
+var previous_path: String = ""
 
 # ----------------------------
 # Change main scene (menus only)
@@ -19,13 +20,17 @@ func change_scene(scene_path: String):
 
 	# Remove ONLY the current scene
 	if CurrentScene != null:
+		previous_path = CurrentScene.scene_file_path
 		CurrentScene.queue_free()
 		await get_tree().process_frame
-
+		
 	# Load new scene
 	var new_scene = load(scene_path).instantiate()
 	SceneContainer.add_child(new_scene)
 	CurrentScene = new_scene
+	
+	if "return_path" in CurrentScene:
+		CurrentScene.return_path = previous_path
 
 	print_current_scene()
 
