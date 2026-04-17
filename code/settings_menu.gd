@@ -76,12 +76,6 @@ func setup():
 	volume_label.text = str(round(master_slider.value*100)) +"%"
 	hbox.add_child(volume_label)
 	
-	#creates a save button for the settings UI
-	save_button = Button.new()
-	save_button.text = "Save"
-	save_button.pressed.connect(save_settings)
-	vbox.add_child(save_button)
-	
 	#color blind mode option button
 	colorblind_check = OptionButton.new()
 	colorblind_check.add_item("Normal")
@@ -90,6 +84,12 @@ func setup():
 	colorblind_check.add_item("Tritanopia")
 	colorblind_check.item_selected.connect(update_mode)
 	vbox.add_child(colorblind_check)
+	
+	#creates a save button for the settings UI
+	save_button = Button.new()
+	save_button.text = "Save"
+	save_button.pressed.connect(save_settings)
+	vbox.add_child(save_button)
 	
 	#creates an exit button to go back to main menu or game
 	back_button = Button.new()
@@ -107,24 +107,25 @@ func setup_colorblind_filter():
 	filter_UI.visible = false
 	
 	var mat = ShaderMaterial.new()
-	var shader = Shader.new()
 	
-	mat.shader = shader
+	mat.shader = load("res://scenes/colorblind_shader.gdshader")
 	filter_UI.material = mat
 	
 	var canvas = CanvasLayer.new()
+	canvas.name = "FilterCanvas"
 	canvas.layer = 100
 	add_child(canvas)
 	canvas.add_child(filter_UI)
-	update_mode(BlindMode.NORMAL)
+	update_mode(colorblind_check.selected if colorblind_check else 0)
 	
 func update_mode(index: int):
-	if index == BlindMode.NORMAL:
-		filter_UI.visible = false
-	else:
-		filter_UI.visible = true
-		filter_UI.material.set_shader_parameter("mode",index)
-	save_settings()
+	if filter_UI and filter_UI.material:
+		filter_UI.visible = (index != BlindMode.NORMAL)
+		if filter_UI.visible:
+			filter_UI.material.set_shader_parameter("mode", index)
+	
+	if GameManager.Main and GameManager.Main.has_method("apply_global_colorblind_mode"):
+		GameManager.Main.apply_global_colorblind_mode(index)
 
 #toggles window to be either fullscreen or windowed mode
 func fullscreen_toggle(button_pressed: bool):

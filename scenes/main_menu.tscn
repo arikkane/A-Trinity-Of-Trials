@@ -47,16 +47,10 @@ func setup_menu_ui():
 
 #function that switches to the initial combat scene of the game
 func _on_play_button_pressed():
-	##get_tree().change_scene_to_file(game_scene_path)
 	SceneManager.change_scene(game_scene_path)
 	
 #fucntion that switches to the settings scene
 func _on_settings_button_pressed():
-	#var settings_scene = load(\"res://scenes/SettingsMenu.tscn\").instantiate()
-	#settings_scene.return_path = \"res://scenes.main_menu.tscn\"
-	#get_tree().root.add_child(settings_scene)
-	#self.queue_free()
-	#get_tree().change_scene_to_file(settings_scene_path)
 	SceneManager.change_scene(settings_scene_path)
 	
 #function that closes the program
