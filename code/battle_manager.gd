@@ -118,7 +118,6 @@ func combat_finished(victory: bool) -> void:
 		is_boss_fight = false
 		if was_boss:
 			SaveManager.save_run_deck(GameManager.Deck)
-			AudioManager.play_music_track("main_menu")
 			SceneManager.change_scene("res://scenes/credits.tscn")
 		else:
 			GameManager.encounter_complete()

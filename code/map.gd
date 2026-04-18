@@ -34,12 +34,12 @@ func _ready() -> void:
 
 	init_map_grid_columns()
 
-	
 	randomize()
 	init_node_paths()
 	clear_empty_nodes()
 	roll_room_types()
 	generate_boss_node()
+	_add_debug_boss_button()
 	#initialize_starting_nodes()
 #--------------------------------------
 # This function initializes the columns
@@ -422,10 +422,14 @@ func update_path_options(current_node):
 func hide_map():
 	hide()
 	$"MapCamera".enabled = false
+	if _debug_boss_canvas:
+		_debug_boss_canvas.hide()
 
 func show_map():
 	show()
 	$"MapCamera".enabled = true
+	if _debug_boss_canvas:
+		_debug_boss_canvas.show()
 
 func _scroll_to_active_nodes() -> void:
 	var target_x: float
@@ -623,3 +627,25 @@ func print_previous_nodes(current_node, previous_nodes):
 				#GameManager.boss_available = true
 			#else:
 				#GameManager.map_available_nodes.append([next_node.get_parent().column_index, next_node.row_index])
+
+var _debug_boss_canvas: CanvasLayer = null
+
+func _add_debug_boss_button() -> void:
+	_debug_boss_canvas = CanvasLayer.new()
+	_debug_boss_canvas.layer = 10
+	add_child(_debug_boss_canvas)
+
+	var btn = Button.new()
+	btn.text = "DEBUG: Fight Boss"
+	btn.custom_minimum_size = Vector2(180, 44)
+	btn.position = Vector2(20, 90)
+	_debug_boss_canvas.add_child(btn)
+	btn.pressed.connect(_on_debug_boss_pressed)
+
+func _on_debug_boss_pressed() -> void:
+	var room_data = init_boss_room()
+	if room_data == null:
+		push_error("Debug boss: failed to load boss room data")
+		return
+	hide_map()
+	EventBus.emit_signal("boss_started", room_data)

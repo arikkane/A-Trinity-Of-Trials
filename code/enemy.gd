@@ -71,6 +71,25 @@ func get_next_boss_move() -> Dictionary:
 		phase2_index += 1
 		return move
 
+func peek_next_boss_move() -> String:
+	var move: Dictionary
+	if boss_phase == 1:
+		var cycle = PHASE1_WITH_SNAPSHOT if SaveManager.has_previous_run() else PHASE1_FIRST_RUN
+		move = cycle[phase1_index % cycle.size()]
+	else:
+		move = PHASE2_CYCLE[phase2_index % PHASE2_CYCLE.size()]
+
+	match move["action"]:
+		"deal_damage":   return "⚠ " + enemy_name + " will attack for " + str(move.get("amount", 0) + damage_bonus) + " damage!"
+		"heavy_damage":  return "⚠ " + enemy_name + " is winding up a heavy strike for " + str(move.get("amount", 0) + damage_bonus) + " damage!"
+		"drain":         return "⚠ " + enemy_name + " will drain " + str(move.get("amount", 0)) + " HP from you!"
+		"gain_block":    return "🛡 " + enemy_name + " will defend next turn."
+		"heal":          return "💀 " + enemy_name + " will heal next turn."
+		"gain_strength": return "⚠ " + enemy_name + " is gathering strength!"
+		"draw_penalty":  return "⚠ " + enemy_name + " will curse your hand next turn!"
+		"targeted_debuff": return "⚠ " + enemy_name + " is preparing a debuff!"
+	return ""
+
 func check_phase_transition() -> void:
 	if is_boss and boss_phase == 1 and hp <= max_hp / 2:
 		boss_phase = 2
@@ -253,6 +272,34 @@ func force_kill():
 	queue_free()
 
 #---ANIMATION HANDLING---
+
+var _pulse_ghost: Sprite2D = null
+
+func start_phase2_pulse() -> void:
+	if _pulse_ghost != null:
+		return
+
+	_pulse_ghost = Sprite2D.new()
+	_pulse_ghost.texture = sprite.texture
+	_pulse_ghost.centered = sprite.centered
+	_pulse_ghost.offset = sprite.offset
+	_pulse_ghost.position = Vector2.ZERO
+	_pulse_ghost.scale = Vector2.ONE
+	_pulse_ghost.modulate = Color(1.0, 0.0, 0.0, 0.0)
+	_pulse_ghost.z_index = 1
+	sprite.add_child(_pulse_ghost)
+
+	_run_pulse_cycle()
+
+func _run_pulse_cycle() -> void:
+	if _pulse_ghost == null:
+		return
+	_pulse_ghost.scale = Vector2.ONE
+	_pulse_ghost.modulate = Color(1.0, 0.0, 0.0, 0.5)
+	var t = create_tween()
+	t.parallel().tween_property(_pulse_ghost, "scale", Vector2.ONE * 1.12, 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	t.parallel().tween_property(_pulse_ghost, "modulate", Color(1.0, 0.0, 0.0, 0.0), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	t.finished.connect(_run_pulse_cycle)
 
 #Resetting sprite after tweening animation ends
 func reset_color():

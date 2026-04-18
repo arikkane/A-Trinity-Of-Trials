@@ -21,6 +21,10 @@ func show_card_tip():
 func hide_info_bar():
 	$"TextContainer".hide()
 
+func set_info(text: String) -> void:
+	$"TextContainer".show()
+	dtext.text = text
+
 #timer: the amount to wait after the text is done displaying
 func show_text(display_text, timer):
 	dtext.text = display_text

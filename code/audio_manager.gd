@@ -46,6 +46,8 @@ func play_music(sound: AudioStream) -> void:
 		return
 
 	music_player.stream = sound
+	if music_player.stream is AudioStreamOggVorbis:
+		music_player.stream.loop = true
 	music_player.volume_db = music_volume
 	music_player.play()
 
@@ -63,6 +65,11 @@ func play_music_track(track_name: String) -> void:
 func stop_music() -> void:
 	music_player.stop()
 	current_music_name = ""
+	music_player.pitch_scale = 1.0
+
+func set_music_pitch(pitch: float) -> void:
+	var t = create_tween()
+	t.tween_property(music_player, "pitch_scale", pitch, 2.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func set_music_volume(volume_db: float) -> void:
 	music_volume = volume_db

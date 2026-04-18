@@ -29,6 +29,7 @@ func _ready() -> void:
 	player = $"Player"
 	if BattleManager.is_boss_fight:
 		AudioManager.play_music_track("boss")
+		_add_debug_half_hp_button()
 	else:
 		AudioManager.play_music_track("combat")
 	player_class = GameManager.PlayerClass
@@ -87,6 +88,7 @@ func combat_start():
 
 
 func combat_end():
+	AudioManager.music_player.pitch_scale = 1.0
 	for i in range($"DrawPile".card_array.size()):
 		$"DrawPile".remove_card($"DrawPile".card_array.back())
 	for i in range($"DiscardPile".card_array.size()):
@@ -112,6 +114,7 @@ func start_player_turn():
 	_tick_status_effects()
 	draw_cards()
 	update_block_label()
+	_show_boss_intent()
 	print("player turn has started")
 
 func _tick_status_effects() -> void:
@@ -293,10 +296,22 @@ func _compute_player_archetype() -> String:
 		return "defense"
 	return "balanced"
 
+func _show_boss_intent() -> void:
+	if not BattleManager.is_boss_fight:
+		return
+	for e in BattleManager.enemy_list:
+		if is_instance_valid(e) and e.is_boss:
+			gui_text.set_info(e.peek_next_boss_move())
+			return
+
 func _on_boss_phase_changed(new_phase: int) -> void:
 	if new_phase == 2:
 		show_text("THE LICH ENTERS PHASE 2!", 2)
 		_set_boss_background_phase2()
+		for e in BattleManager.enemy_list:
+			if e.is_boss:
+				e.start_phase2_pulse()
+		AudioManager.set_music_pitch(1.10)
 
 # ---Boss Background---
 var _boss_bg_rect: ColorRect = null
@@ -529,3 +544,21 @@ func _on_win_button_down() -> void:
 	print("DEBUG: Forced victory")
 	combat_end()
 	BattleManager.combat_finished(true)
+
+func _add_debug_half_hp_button() -> void:
+	var canvas = CanvasLayer.new()
+	canvas.layer = 10
+	add_child(canvas)
+	var btn = Button.new()
+	btn.text = "DEBUG: Boss 50% HP"
+	btn.custom_minimum_size = Vector2(180, 44)
+	btn.position = Vector2(20, 90)
+	canvas.add_child(btn)
+	btn.pressed.connect(_on_debug_half_hp_pressed)
+
+func _on_debug_half_hp_pressed() -> void:
+	for e in BattleManager.enemy_list:
+		if is_instance_valid(e) and e.is_boss:
+			e.hp = e.max_hp / 2
+			e.update_health_bar()
+			print("DEBUG: Boss HP set to ", e.hp)
