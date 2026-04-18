@@ -241,6 +241,19 @@ theme_override_styles/pressed = ExtResource("10_0qyji")
 theme_override_styles/hover = ExtResource("11_xkyey")
 text = "Auto Win Combat"
 
+[node name="SetHealth1" type="Button" parent="." unique_id=24631401]
+offset_left = 51.0
+offset_top = 240.0
+offset_right = 258.0
+offset_bottom = 338.0
+theme = ExtResource("8_gvie1")
+theme_override_fonts/font = ExtResource("9_0qyji")
+theme_override_styles/normal = ExtResource("9_hmy61")
+theme_override_styles/pressed = ExtResource("10_0qyji")
+theme_override_styles/hover = ExtResource("11_xkyey")
+text = "Set Health to 1
+"
+
 [node name="GUIText" type="CanvasLayer" parent="." unique_id=1601108879]
 script = ExtResource("8_4gnb8")
 
@@ -311,3 +324,4 @@ text = "Information"
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_down" from="Win" to="." method="_on_win_button_down"]
+[connection signal="pressed" from="SetHealth1" to="." method="_on_set_health_1_pressed"]

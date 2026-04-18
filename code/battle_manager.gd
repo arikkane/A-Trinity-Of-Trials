@@ -88,7 +88,10 @@ func _on_boss_node_selected(room_data) -> void:
 
 	start_combat(enemies)
 
+# -----------------------------
+# Start Combat Function
 #NOTE: If called from outside of the map, make sure you assign an array of enemies to the enemy_data value. (ex. ["skeleton_1", "skeleton_2"])
+# ------------------------
 func start_combat(enemy_data):
 	in_combat = true
 	print("BattleManager: starting combat with enemies: ", current_enemies)

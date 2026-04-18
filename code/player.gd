@@ -99,6 +99,8 @@ func heal(amount: int) -> void:
 	update_health_bar()
 
 func die() -> void:
+	await play_death_animation()
+	
 	print("You have been defeated")
 	# Add restart or game over logic here
 

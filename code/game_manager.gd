@@ -22,6 +22,9 @@ var Map: Node2D
 var MapGridWidth = 8
 var MapGridHeight = 6
 
+var popup: CanvasLayer
+var VictoryDefeatPopup: PackedScene = preload("res://scenes/victory-defeat.tscn")
+
 #depreciated map save/load variables
 #var map_generated: bool = false
 #var boss_available: bool = false
@@ -104,3 +107,13 @@ func encounter_complete():
 	Map.show_map()
 	Map.map_lock = false
 	#SceneManager.change_scene("res://scenes/map.tscn")
+
+func display_victory():
+	popup = VictoryDefeatPopup.instantiate()
+	get_tree().root.add_child(popup)
+	popup.show_victory_screen()
+
+func display_defeat():
+	popup = VictoryDefeatPopup.instantiate()
+	get_tree().root.add_child(popup)
+	popup.show_defeat_screen()

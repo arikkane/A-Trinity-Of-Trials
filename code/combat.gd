@@ -148,7 +148,6 @@ func turn_logic():
 		turn_logic()
 	
 	if turn_order[0].has_method("parse_card_ids"): #Making sure it's actually an enemy, since only enemies have this function.
-		print(turn_order)
 		enemy_turn(turn_order[0])
 	else: #otherwise, assume it's the player's turn
 		BattleManager.enemy_turn_ended.emit()
@@ -192,9 +191,8 @@ func enemy_play_card(enemy_user, enemy_card):
 #Function for handling an enemy's turn
 func enemy_turn(enemy_user):
 	#enemy_user: represents which enemy is taking the turn. THIS SHOULD ALWAYS BE AN INSTANCE OF THE "Enemy" NODE
-
-	print("Enemy Turn: " + str(enemy_user))
-	print(turn_order)
+	
+	print("Enemy Turn: " + str(enemy_user.enemy_name))
 
 	if enemy_user.is_boss:
 		await _boss_turn(enemy_user)
@@ -207,20 +205,23 @@ func enemy_turn(enemy_user):
 
 	#For now, the enemy will pick a card randomly
 	var enemy_card = randi_range(1, enemy_user.enemy_deck.size()) - 1 #pick random card
-	print(enemy_user.enemy_deck.size())
 
 	await enemy_play_card(enemy_user, enemy_user.enemy_deck[enemy_card])
 
 	#With 25% probability, the enemy will play 2 cards in one turn.
-	if randf() < 0.25 and !enemy_user.enemy_deck.is_empty():
-		await enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
+	if !GameManager.PlayerHP <= 0: #but first make sure the player isn't dead
+		if randf() < 0.25 and !enemy_user.enemy_deck.is_empty():
+			await enemy_play_card(enemy_user, enemy_user.enemy_deck[randi_range(1, enemy_user.enemy_deck.size()) - 1])
 
 	end_enemy_turn()
 
 
 #Once the enemy's turn is over, go back to the turn logic.
 func end_enemy_turn():
-	turn_logic()
+	if !GameManager.PlayerHP <= 0:
+		turn_logic()
+	else: #but if the player is dead, then call check_victory which will display the defeat animation.
+		check_victory()
 
 # ---Boss Turn Logic---
 func _boss_turn(boss) -> void:
@@ -489,16 +490,17 @@ func _on_enemy_death(enemy):
 func check_victory():
 	if BattleManager.enemy_list.is_empty():
 		show_text("Winner!", 1)
-		print("Victory!")
+		print("Player won the battle!")
 		gui_text.hide_info_bar()
+		GameManager.display_victory()
 		combat_end()
-		BattleManager.combat_finished(true)
+		
 
 	elif GameManager.PlayerHP <= 0:
-		print("Defeat!")
+		print("Player is dead.")
 		gui_text.hide_info_bar()
+		GameManager.display_defeat()
 		combat_end()
-		BattleManager.combat_finished(false)
 		
 		
 
@@ -536,14 +538,15 @@ func _on_end_turn_button_pressed() -> void:
 	
 func _on_win_test_button_pressed() -> void:
 	print("DEBUG: Forced victory")
-	combat_end()
-	BattleManager.combat_finished(true)
+	BattleManager.enemy_list.clear()
+	check_victory()
+	#BattleManager.combat_finished(true)
 
 
 func _on_win_button_down() -> void:
 	print("DEBUG: Forced victory")
-	combat_end()
-	BattleManager.combat_finished(true)
+	BattleManager.enemy_list.clear()
+	check_victory()
 
 func _add_debug_half_hp_button() -> void:
 	var canvas = CanvasLayer.new()
@@ -562,3 +565,9 @@ func _on_debug_half_hp_pressed() -> void:
 			e.hp = e.max_hp / 2
 			e.update_health_bar()
 			print("DEBUG: Boss HP set to ", e.hp)
+
+
+func _on_set_health_1_pressed() -> void:
+	print("DEBUG: Health set to 1.")
+	GameManager.PlayerHP = 1
+	player.update_health_bar()
