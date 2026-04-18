@@ -36,6 +36,9 @@ func init_card_data():
 	for card in GameManager.Deck.card_data["cards"]:
 		if card.get("class", -1) == GameManager.current_class:
 			card_pool.append(card.get("id"))
+	if card_pool.is_empty():
+		push_error("Shop: no cards found for class " + str(GameManager.current_class))
+		return
 	#generating each card being sold
 	for i in range(card_per_shelf*2):
 		#picks the card that will be sold from the card pool

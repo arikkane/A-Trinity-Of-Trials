@@ -97,8 +97,6 @@ func start_run():
 	UIOverlay.show_ui()
 	
 	AudioManager.play_music_track("map")
-	
-	Map.show_map()
 	#SceneManager.change_scene("res://scenes/map.tscn")
 
 func encounter_complete():
