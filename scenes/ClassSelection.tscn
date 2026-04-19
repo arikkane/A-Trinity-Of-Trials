@@ -88,6 +88,25 @@ position = Vector2(1501, 692.25)
 scale = Vector2(2.8906236, 2.9492188)
 texture = ExtResource("4_mlwvh")
 
+[node name="SeedButton" type="CheckButton" parent="." unique_id=1565967441]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 946.0
+offset_right = 962.0
+offset_bottom = 990.0
+theme_override_font_sizes/font_size = 36
+text = "Set Seed"
+
+[node name="SeedInput" type="TextEdit" parent="." unique_id=120839108]
+layout_mode = 0
+offset_left = 973.0
+offset_top = 946.0
+offset_right = 1215.0
+offset_bottom = 988.0
+placeholder_text = "-1
+"
+editable = false
+
 [connection signal="ready" from="DescriptionLabel" to="." method="_on_class_text_ready"]
 [connection signal="mouse_entered" from="GUNDAM" to="." method="_on_gundam_mouse_entered"]
 [connection signal="mouse_exited" from="GUNDAM" to="." method="_on_gundam_mouse_exited"]
@@ -98,3 +117,4 @@ texture = ExtResource("4_mlwvh")
 [connection signal="mouse_entered" from="CREATURE" to="." method="_on_creature_mouse_entered"]
 [connection signal="mouse_exited" from="CREATURE" to="." method="_on_creature_mouse_exited"]
 [connection signal="pressed" from="CREATURE" to="." method="_on_creature_pressed"]
+[connection signal="toggled" from="SeedButton" to="." method="_on_seed_button_toggled"]

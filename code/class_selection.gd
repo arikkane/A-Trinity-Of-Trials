@@ -1,6 +1,8 @@
 extends Control
 
 @onready var description_label = $DescriptionLabel
+@onready var seed_toggle = $SeedButton
+@onready var seed_input = $SeedInput
 
 var default_description := ""
 
@@ -32,6 +34,19 @@ func _on_creature_pressed():
 
 func start_game(selected_class):
 	print("Selected class: ", selected_class)
+	randomize()
+	
+	if seed_toggle.button_pressed == false:
+		pass
+	elif seed_toggle.button_pressed == true and !seed_input.text.is_valid_float(): #if seed contains numbers, hash it and then use that hash as a seed
+		seed(seed_input.text.hash())
+		print("Seed: " + str(seed_input.text.hash()))
+		pass
+	else:
+		var selected_seed = seed_input.text.to_int()
+		seed(selected_seed)
+		print("Seed: " + str(selected_seed))
+	
 	# Setup player + deck
 	GameManager.setup_class(selected_class)
 
@@ -58,3 +73,11 @@ func _on_creature_mouse_entered() -> void:
 
 func _on_creature_mouse_exited() -> void:
 	description_label.text = default_description
+
+
+func _on_seed_button_toggled(toggled_on: bool) -> void:
+	if toggled_on == true:
+		seed_input.editable = true
+	else:
+		seed_input.text = ""
+		seed_input.editable = false

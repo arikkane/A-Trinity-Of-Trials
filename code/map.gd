@@ -9,6 +9,7 @@ var map_grid_columns: Array[Control] = []
 var boss_node
 var map_texture: TextureRect
 
+
 #Depreciated save arrays
 #var map_generated: bool = false
 #var map_selected_path: Array = []     # stores clicked nodes as [column,row]
@@ -34,7 +35,7 @@ func _ready() -> void:
 
 	init_map_grid_columns()
 
-	randomize()
+	#randomize()
 	init_node_paths()
 	clear_empty_nodes()
 	roll_room_types()
