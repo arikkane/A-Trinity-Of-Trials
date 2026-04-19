@@ -363,7 +363,7 @@ func draw_cards(count = null, from_effect = false):
 			$"HandContainer".add_card(current_card)
 			current_card.combat = self
 			current_card.update_debug_label()
-			if GameManager.PlayerHP >= GameManager.PlayerMaxHP and current_card.card_data.type == "Utility" and current_card.card_data.block == 0:
+			if GameManager.PlayerHP >= GameManager.PlayerMaxHP and current_card.card_data.type == "Utility" and current_card.card_data.block == 0 and !current_card.card_data.draw:
 				current_card.set_selectable(false)
 
 			# ----------------------
