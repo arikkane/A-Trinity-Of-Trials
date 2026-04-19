@@ -1,10 +1,17 @@
 extends CanvasLayer
 
+#GUIText handles the card notices and the text container.
+
 @onready var dtext = $"TextContainer/Info"
 
 func ready_():
+	hide_all_visible_notices()
+
+#does exactly what the function name says it'll do.
+func hide_all_visible_notices():
 	$"CardNotice".hide()
 	$"PickEnemyNotice".hide()
+	$"OutOfManaNotice".hide()
 
 func card_selected_notice(display):
 	if display == true:
@@ -14,7 +21,13 @@ func card_selected_notice(display):
 	else:
 		$"PickEnemyNotice".hide()
 
+func show_out_of_mana_tip():
+	hide_all_visible_notices()
+	$"OutOfManaNotice".show()
+	$"AnimationPlayer".play("OutOfManaNotice")
+
 func show_card_tip():
+	hide_all_visible_notices()
 	$"CardNotice".show()
 	$"AnimationPlayer".play("CardSelectionNotice")
 

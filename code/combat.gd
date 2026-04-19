@@ -383,6 +383,7 @@ func play_card(card, target):
 		return
 
 	if player_mana <= 0:
+		show_out_of_mana_tip()
 		print("Not enough mana")
 		return
 
@@ -519,6 +520,11 @@ func show_text(text, timer):
 func show_card_tip():
 	AudioManager.play_sfx("buzzer")
 	gui_text.show_card_tip()
+	
+#show the "out of mana" tip
+func show_out_of_mana_tip():
+	AudioManager.play_sfx("buzzer")
+	gui_text.show_out_of_mana_tip()
 
 func disable_input():
 	$"EndTurnButton".hide()
