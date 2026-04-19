@@ -30,9 +30,9 @@ func _process(_delta: float) -> void:
 func setup():
 	#creates background panel
 	var panel = PanelContainer.new()
-	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(600,500)
 	add_child(panel)
+	panel.custom_minimum_size = Vector2(600,500)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	
 	var vbox = VBoxContainer.new()
 	vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
