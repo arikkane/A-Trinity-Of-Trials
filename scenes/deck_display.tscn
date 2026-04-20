@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
 
 [node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
-layer = 5
+layer = 6
 script = ExtResource("1_3kh8g")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1421998904]
