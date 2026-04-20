@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bd0rl20v3lda3"]
 
 [ext_resource type="Script" uid="uid://0g4r51k3gu0o" path="res://code/card_for_sale.gd" id="1_g8q0a"]
-[ext_resource type="Texture2D" uid="uid://bo2q86ol7q7l1" path="res://sprites/blank_card.png" id="1_n0sk8"]
+[ext_resource type="Texture2D" uid="uid://d00jxhcknlhwf" path="res://sprites/undefined_card.png" id="2_36ex3"]
 [ext_resource type="Texture2D" uid="uid://07mdxr4cje54" path="res://sprites/shop_pricetag.png" id="2_g8q0a"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_g8q0a"]
@@ -21,29 +21,19 @@ script = ExtResource("1_g8q0a")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("1_n0sk8")
-
-[node name="Type" type="RichTextLabel" parent="CardTexture" unique_id=2014733375]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 108.0
-offset_right = 188.0
-offset_bottom = 132.0
-mouse_filter = 2
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-horizontal_alignment = 1
+texture = ExtResource("2_36ex3")
 
 [node name="Description" type="RichTextLabel" parent="CardTexture" unique_id=1081462091]
 layout_mode = 0
 offset_left = 5.0
-offset_top = 158.0
+offset_top = 83.0
 offset_right = 187.0
-offset_bottom = 283.0
+offset_bottom = 208.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Name" type="RichTextLabel" parent="CardTexture" unique_id=1645902111]
 layout_mode = 0

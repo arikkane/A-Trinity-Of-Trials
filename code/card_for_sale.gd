@@ -38,7 +38,6 @@ func generate_price(base_price):
 #---------------------------------------
 func update_labels():
 	$"CardTexture/Name".text = str(card_data.name)
-	$"CardTexture/Type".text = str(card_data.type)
 	$"CardTexture/Description".text = str(card_data.description)
 	$"PricetagTexture/PriceText".text = str(str(card_price))
 	check_if_affordable()

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bdbp13qanlchd"]
 
 [ext_resource type="Script" uid="uid://dyn5rw11p80e5" path="res://code/card.gd" id="1_d81rb"]
-[ext_resource type="Texture2D" uid="uid://bo2q86ol7q7l1" path="res://sprites/blank_card.png" id="2_6u4wf"]
+[ext_resource type="Texture2D" uid="uid://d00jxhcknlhwf" path="res://sprites/undefined_card.png" id="2_6u4wf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
 bg_color = Color(0.15686275, 0.15686275, 0.14901961, 0.45882353)
@@ -68,6 +68,27 @@ metadata/_aseprite_wizard_interface_config_ = {
 "source_uid": -1
 }
 }
+
+[node name="Name" type="RichTextLabel" parent="." unique_id=1198166467]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 188.0
+offset_bottom = 30.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 20
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="." unique_id=1945138568]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 86.0
+offset_right = 188.0
+offset_bottom = 211.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

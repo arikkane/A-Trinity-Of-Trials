@@ -37,7 +37,7 @@ func _ready():
 	#tooltip = $"PanelContainer"
 	#print(self.position.y)
 	$"PanelContainer".hide() #hide tooltip container
-	init_debug_label()
+	init_labels()
 	update_card_texture()
 	update_tooltip()
 	
@@ -166,32 +166,35 @@ func update_card_texture():
 	else:
 		$"TextureRect".texture = preload("res://sprites/undefined_card.png")
 
+func init_labels():
+	$"Name".text = card_data.name
+	$"Description".text = card_data.description
 # debugging
-func init_debug_label():
-	debug_label = RichTextLabel.new()
-	#makes the debug label object ignore the mouse input
-	debug_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	#enables font settings
-	debug_label.bbcode_enabled = true
-	add_child(debug_label)
-	#sets the size of the label, needed for the label to be visible
-	debug_label.custom_minimum_size = Vector2(108, 280)
-	#sets the position to the label relative to the card
-	debug_label.position = Vector2(self.position.x+10, self.position.y+10)
+#func init_debug_label():
+	#debug_label = RichTextLabel.new()
+	##makes the debug label object ignore the mouse input
+	#debug_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	##enables font settings
+	#debug_label.bbcode_enabled = true
+	#add_child(debug_label)
+	##sets the size of the label, needed for the label to be visible
+	#debug_label.custom_minimum_size = Vector2(108, 280)
+	##sets the position to the label relative to the card
+	#debug_label.position = Vector2(self.position.x+10, self.position.y+10)
 
-func update_debug_label():
-	var label_text = "ID: " + str(card_data.id) + "\nName: " + str(card_data.name) + "\nType: " + str(card_data.type)
-	if card_data.type == "Damage":
-		label_text += "\nDamage: " + str(card_data.damage)
-	elif card_data.type == "Utility":
-		label_text += "\nBlock: " + str(card_data.block) + "\nHeal: " + str(card_data.heal)
-	label_text += "\nDescription: " + str(card_data.description)
-	debug_label.clear()
-	#sets the font color
-	debug_label.push_color(Color("Black"))
-	#sets the font size
-	debug_label.push_font_size(18)
-	debug_label.add_text(label_text)
+#func update_debug_label():
+	#var label_text = "ID: " + str(card_data.id) + "\nName: " + str(card_data.name) + "\nType: " + str(card_data.type)
+	#if card_data.type == "Damage":
+		#label_text += "\nDamage: " + str(card_data.damage)
+	#elif card_data.type == "Utility":
+		#label_text += "\nBlock: " + str(card_data.block) + "\nHeal: " + str(card_data.heal)
+	#label_text += "\nDescription: " + str(card_data.description)
+	#debug_label.clear()
+	##sets the font color
+	#debug_label.push_color(Color("Black"))
+	##sets the font size
+	#debug_label.push_font_size(18)
+	#debug_label.add_text(label_text)
 
 #Update the card's tooltip
 func update_tooltip():

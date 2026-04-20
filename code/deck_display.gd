@@ -44,8 +44,7 @@ func update_cards():
 		current_card.card_data = sorted_deck[i]
 		card_rows[i/5].add_child(current_card)
 		current_card.deck_display_copy = true
-		current_card.init_debug_label()
-		current_card.update_debug_label()
+		current_card.init_labels()
 		current_card.position.x = (card_width+card_horizontal_margin)*(i%5)
 		#print_card(current_card)
 
