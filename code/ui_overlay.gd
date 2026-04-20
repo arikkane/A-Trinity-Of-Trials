@@ -10,6 +10,9 @@ func update_health():
 	$"HealthContainer/Label".text = str(GameManager.PlayerHP) + "/" + str(GameManager.PlayerMaxHP)
 	$"HealthContainer/Label/Label".text = str(GameManager.PlayerHP) + "/" + str(GameManager.PlayerMaxHP)
 
+func hide_pause():
+	$"PauseMenu".hide()
+
 func hide_ui():
 	for child in get_children():
 		child.hide()
