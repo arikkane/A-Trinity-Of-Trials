@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_lgyql")
 type = 2
-description = "You step on a hidden spike trap and take 15 damage."
+description = "You step on a hidden vine trap and take 15 damage."
 damage = 15
 id = "trap_1"
 gen_weight = 50.0

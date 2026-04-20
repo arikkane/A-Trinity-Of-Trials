@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_illfe")
-description = "You find gold"
+description = "You find a small treasure chest."
 reward = 20
 id = "treasure_1"
 gen_weight = 50.0

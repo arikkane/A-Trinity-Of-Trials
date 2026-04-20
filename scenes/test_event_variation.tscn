@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cthy83hw1jr7u"]
 
 [ext_resource type="Script" uid="uid://cmwjykk1lypvx" path="res://code/test_event_variation.gd" id="1_pu0on"]
-[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_cfmwn"]
+[ext_resource type="Texture2D" uid="uid://c1ij1s3jm45pj" path="res://assets/Backgrounds/EventGrotto.webp" id="2_ef6q8"]
 [ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="3_ef6q8"]
 [ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="4_28s2m"]
 [ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="5_5af27"]
@@ -13,9 +13,10 @@ script = ExtResource("1_pu0on")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=274205333]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_cfmwn")
+offset_top = 81.0
+offset_right = 1920.0
+offset_bottom = 1103.0
+texture = ExtResource("2_ef6q8")
 
 [node name="IntroPanel" type="Control" parent="." unique_id=1622583247]
 anchors_preset = 0
@@ -24,29 +25,32 @@ offset_bottom = 40.0
 
 [node name="IntroLabel" type="Label" parent="IntroPanel" unique_id=1823729093]
 layout_mode = 0
-offset_left = 1299.0
-offset_top = 293.0
-offset_right = 1905.0
-offset_bottom = 486.0
+offset_left = 650.0
+offset_top = 489.0
+offset_right = 1256.0
+offset_bottom = 682.0
+theme_override_font_sizes/font_size = 29
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Proceed" type="Button" parent="IntroPanel" unique_id=1918900744]
 layout_mode = 0
-offset_left = 1350.0
-offset_top = 423.0
-offset_right = 1552.0
-offset_bottom = 471.0
+offset_left = 580.0
+offset_top = 627.0
+offset_right = 807.0
+offset_bottom = 679.0
 theme_override_styles/normal = ExtResource("3_ef6q8")
 theme_override_styles/pressed = ExtResource("4_28s2m")
 theme_override_styles/hover = ExtResource("5_5af27")
-text = "Proceed "
+text = "Enter Grotto "
 
 [node name="GoAround" type="Button" parent="IntroPanel" unique_id=607947084]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1637.0
-offset_top = 426.0
-offset_right = 1834.0
-offset_bottom = 474.0
+offset_left = 1144.0
+offset_top = 620.0
+offset_right = 1365.0
+offset_bottom = 679.0
 theme_override_styles/normal = ExtResource("3_ef6q8")
 theme_override_styles/pressed = ExtResource("4_28s2m")
 theme_override_styles/hover = ExtResource("5_5af27")
@@ -61,10 +65,10 @@ offset_bottom = 44.0
 
 [node name="NextRoomButton" type="Button" parent="EventPanel" unique_id=264806088]
 layout_mode = 0
-offset_left = 1463.0
-offset_top = 497.0
-offset_right = 1660.0
-offset_bottom = 561.0
+offset_left = 825.0
+offset_top = 714.0
+offset_right = 1022.0
+offset_bottom = 778.0
 theme_override_styles/normal = ExtResource("3_ef6q8")
 theme_override_styles/pressed = ExtResource("4_28s2m")
 theme_override_styles/hover = ExtResource("5_5af27")
@@ -72,7 +76,8 @@ text = "Next Room"
 
 [node name="DescriptionLabel" type="Label" parent="EventPanel" unique_id=2058090884]
 layout_mode = 0
-offset_left = 1316.0
-offset_top = 286.0
-offset_right = 1834.0
-offset_bottom = 387.0
+offset_left = 642.0
+offset_top = 613.0
+offset_right = 1160.0
+offset_bottom = 714.0
+theme_override_font_sizes/font_size = 26
