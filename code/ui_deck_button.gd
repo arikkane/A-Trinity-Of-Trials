@@ -16,7 +16,7 @@ func _gui_input(event: InputEvent):
 				GameManager.DeckDisplayUI.show()
 
 func _on_mouse_entered():
-	modulate = Color("#629fff")
+	modulate *= 1.2
 
 func _on_mouse_exited():
-	modulate = Color("#3082ff")
+	modulate = Color(1,1,1,1)
