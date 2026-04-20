@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cmwjykk1lypvx" path="res://code/test_event_variation.gd" id="1_pu0on"]
 [ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_cfmwn"]
+[ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="3_ef6q8"]
+[ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="4_28s2m"]
+[ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="5_5af27"]
 
 [node name="TestEventVariation" type="Control" unique_id=767838022]
 layout_mode = 3
@@ -32,6 +35,9 @@ offset_left = 1350.0
 offset_top = 423.0
 offset_right = 1552.0
 offset_bottom = 471.0
+theme_override_styles/normal = ExtResource("3_ef6q8")
+theme_override_styles/pressed = ExtResource("4_28s2m")
+theme_override_styles/hover = ExtResource("5_5af27")
 text = "Proceed "
 
 [node name="GoAround" type="Button" parent="IntroPanel" unique_id=607947084]
@@ -41,6 +47,9 @@ offset_left = 1637.0
 offset_top = 426.0
 offset_right = 1834.0
 offset_bottom = 474.0
+theme_override_styles/normal = ExtResource("3_ef6q8")
+theme_override_styles/pressed = ExtResource("4_28s2m")
+theme_override_styles/hover = ExtResource("5_5af27")
 text = "Go Around"
 
 [node name="EventPanel" type="Control" parent="." unique_id=903214285]
@@ -56,6 +65,9 @@ offset_left = 1463.0
 offset_top = 497.0
 offset_right = 1660.0
 offset_bottom = 561.0
+theme_override_styles/normal = ExtResource("3_ef6q8")
+theme_override_styles/pressed = ExtResource("4_28s2m")
+theme_override_styles/hover = ExtResource("5_5af27")
 text = "Next Room"
 
 [node name="DescriptionLabel" type="Label" parent="EventPanel" unique_id=2058090884]
