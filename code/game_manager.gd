@@ -85,6 +85,9 @@ func init_player_variables(maxhp: int, cdpt: int) -> void:
 	Deck.init_cards()
 	
 func start_run():
+	# Play the transition scene first, THEN load everything
+	await SceneManager.SceneTransition.transition_scene()
+	
 	if DeckDisplayUI == null:
 		DeckDisplayUI = load("res://scenes/deck_display.tscn").instantiate()
 		Main.add_child(DeckDisplayUI)
@@ -102,6 +105,7 @@ func start_run():
 	UIOverlay.hide_pause()
 	GamePausable = true
 	
+	SceneManager.SceneTransition.detransition_scene() #now play the detransition scene
 	AudioManager.play_music_track("map")
 	#SceneManager.change_scene("res://scenes/map.tscn")
 

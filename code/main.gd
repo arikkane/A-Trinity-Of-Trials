@@ -13,9 +13,11 @@ func _ready() -> void:
 	print("Main scene loaded")
 
 	SceneManager.SceneContainer = $"SceneContainer"
+	SceneManager.SceneTransition = $"SceneTransition"
 	GameManager.UIOverlay = $"UIOverlay"
-	$"UIOverlay".hide_ui()
 	GameManager.Main = self
+	$"UIOverlay".hide_ui()
+	$"SceneTransition".hide()
 	
 	setup_colorblind_filter()
 	load_and_apply_colorblind_filter()

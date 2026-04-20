@@ -230,7 +230,7 @@ func _on_map_node_clicked(node: Control):
 		return
 
 	var room_data = null
-
+	
 	match node.room_type:
 		GameManager.RoomTypes.Combat:
 			room_data = roll_combat_encounter()
@@ -250,6 +250,7 @@ func _on_map_node_clicked(node: Control):
 	EventBus.emit_signal("map_node_selected", node)
 	EventBus.emit_signal("room_entered", room_data)
 	update_path_options(node)
+	
 
 	match node.room_type:
 		GameManager.RoomTypes.Combat:
@@ -262,11 +263,17 @@ func _on_map_node_clicked(node: Control):
 			EventBus.emit_signal("shop_started", room_data)
 		GameManager.RoomTypes.Boss:
 			EventBus.emit_signal("boss_started", room_data)
+	
+	#play scene transition animation
+	await SceneManager.SceneTransition.transition_scene("square_sweep")
 
 	map_lock = true
 	print("map_lock:", map_lock)
 	print("room_data:", room_data)
 	hide_map()
+	
+	#detransition animation
+	await SceneManager.SceneTransition.detransition_scene()
 
 #------------------------------------------------
 # This function gets the weights from each combat

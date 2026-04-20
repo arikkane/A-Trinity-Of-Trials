@@ -1,8 +1,11 @@
 extends Node
 
+var transition_exclusions: Array = ["res://scenes/main_menu.tscn"]
+
 # Autoloaded SceneManager
 
 var SceneContainer: Node = null
+var SceneTransition: Node = null
 var CurrentScene: Node = null
 var previous_path: String = ""
 
@@ -18,6 +21,11 @@ func change_scene(scene_path: String):
 		push_error("SceneContainer is not set!")
 		return
 
+	#If the scene is in the transition exclusion set, do not transition to it with an animation
+	if !transition_exclusions.has(scene_path):
+		await SceneTransition.transition_scene("square_sweep")
+
+	#await SceneTransition.transition_scene()
 	# Remove ONLY the current scene
 	if CurrentScene != null:
 		previous_path = CurrentScene.scene_file_path
@@ -32,6 +40,9 @@ func change_scene(scene_path: String):
 	if "return_path" in CurrentScene:
 		CurrentScene.return_path = previous_path
 
+	#Just like the above, if the scene is in the transition exclusion set, do not play the detransition animation
+	if !transition_exclusions.has(scene_path):
+		SceneTransition.detransition_scene("square_sweep")
 	print_current_scene()
 
 # ----------------------------
