@@ -15,7 +15,8 @@ var sounds = {
 	"punch2": preload("res://assets/Sounds/punch2.wav"),
 	"heal": preload("res://assets/Sounds/heal.wav"),
 	"crumble": preload("res://assets/Sounds/crumble.wav"),
-	"scrape": preload("res://assets/Sounds/scrape.wav")
+	"scrape": preload("res://assets/Sounds/scrape.wav"),
+	"explosion": preload("res://assets/Sounds/explosion.wav")
 }
 
 

@@ -179,6 +179,7 @@ func parse_card_ids():
 		card.damage = card_data["cards"][card_ids[i]].get("damage", 0)
 		card.block = card_data["cards"][card_ids[i]].get("block", 0)
 		card.heal = card_data["cards"][card_ids[i]].get("heal", 0)
+		card.sound = card_data["cards"][card_ids[i]].get("sound", "punch")
 		card.name = card_data["cards"][card_ids[i]].get("name", "Unnamed Card")  # assign node name to avoid confusion
 		
 		enemy_deck.append(card) #add the newly-compiled card to the enemy deck

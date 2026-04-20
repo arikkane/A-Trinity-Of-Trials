@@ -167,6 +167,8 @@ func enemy_play_card(enemy_user, enemy_card):
 			var damage = enemy_card.damage
 			enemy_user.play_attacking_animation()
 			await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 1)
+			
+			AudioManager.play_sfx(enemy_card.sound)
 			player.take_damage(damage)
 			if player.block > 0:
 				await show_text("Player's block negated all damage!\nPlayer took no damage!", 1)

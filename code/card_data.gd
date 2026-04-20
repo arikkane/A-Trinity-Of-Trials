@@ -9,6 +9,7 @@ class_name CardData
 @export var type: String
 @export var description: String
 @export var count: int
+@export var sound: String
 
 #damage type
 @export var damage: int

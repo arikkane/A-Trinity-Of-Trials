@@ -122,7 +122,7 @@ func play_death_animation():
 func play_damage_animation():
 	reset_color()
 	sprite.modulate = damaged_color
-	AudioManager.play_sfx("punch")
+	#AudioManager.play_sfx("punch")
 	tween = create_tween()
 	tween.tween_property(sprite, "modulate", normal_color, 0.25)
 
