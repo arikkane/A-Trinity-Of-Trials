@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxhoyy7wst1cd" path="res://scenes/main_background.gd" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://lw00hte55jde" path="res://assets/UI&Charactors/Battleground2.png" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://pmsa0w2x0phr" path="res://assets/UI&Charactors/ToTLogo.png" id="3_bqqt6"]
 
 [sub_resource type="GDScript" id="GDScript_vue75"]
 script/source = "extends Node
@@ -20,12 +21,13 @@ func setup_menu_ui():
 	var menu_container = VBoxContainer.new()
 	add_child(menu_container)
 	menu_container.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	menu_container.position.y += 150
 	menu_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	menu_container.add_theme_constant_override(\"separation\", 15)
 
-	var play_button = create_button(\"Play Game\", _on_play_button_pressed)
-	var settings_button = create_button(\"Settings\", _on_settings_button_pressed)
-	var exit_button = create_button(\"Exit\", _on_exit_button_pressed)
+	var play_button = create_button(\"res://assets/UI&Charactors/new_game_icon.png\",_on_play_button_pressed)
+	var settings_button = create_button(\"res://assets/UI&Charactors/settings_con.png\",_on_settings_button_pressed)
+	var exit_button = create_button(\"res://assets/UI&Charactors/exit_icon.png\",_on_exit_button_pressed)
 
 	menu_container.add_child(play_button)
 	menu_container.add_child(settings_button)
@@ -46,10 +48,15 @@ func _on_settings_button_pressed():
 func _on_exit_button_pressed():
 	get_tree().quit()
 
-func create_button(text : String, callback : Callable) -> Button:
+func create_button(icon: String,callback : Callable) -> Button:
 	var button = Button.new()
-	button.text = text
 	button.custom_minimum_size = Vector2(200, 50)
+	button.icon = load(icon)
+	button.expand_icon = true
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	button.add_theme_constant_override(\"outline_size\",0)
+	button.add_theme_stylebox_override(\"normal\", StyleBoxEmpty.new())
 	button.pressed.connect(callback)
 	return button
 "
@@ -74,3 +81,8 @@ script = ExtResource("1_l6cm7")
 position = Vector2(959.50006, 537)
 scale = Vector2(0.9994792, 0.9907408)
 texture = ExtResource("2_ekxnf")
+
+[node name="ToTLogo" type="Sprite2D" parent="." unique_id=112724297]
+position = Vector2(389.00006, 742)
+scale = Vector2(1.1041979, 1.9237288)
+texture = ExtResource("3_bqqt6")
