@@ -174,11 +174,14 @@ func enemy_play_card(enemy_user, enemy_card):
 				await show_text("Player takes " + str(damage) + " damage!", 1)
 			
 		elif enemy_card.type == "Utility":
+			enemy_user.play_attacking_animation()
 			if enemy_card.block > 0:
+				await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 0.8)
 				enemy_user.gain_block(enemy_card.block)
 				await show_text("" + enemy_user.enemy_name + " gains " + str(enemy_card.block) + " block!", 1)
 			
 			if enemy_card.heal > 0:
+				await show_text("" + enemy_user.enemy_name + " uses " + enemy_card.name + "!", 0.8)
 				enemy_user.heal(enemy_card.heal)
 				await show_text("" + enemy_user.enemy_name + " heals for " + str(enemy_card.heal) + " HP!", 1)
 		
