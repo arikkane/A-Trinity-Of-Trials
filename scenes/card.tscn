@@ -75,8 +75,10 @@ offset_left = 5.0
 offset_top = 6.0
 offset_right = 188.0
 offset_bottom = 30.0
+mouse_filter = 1
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 20
+scroll_active = false
 horizontal_alignment = 1
 
 [node name="Description" type="RichTextLabel" parent="." unique_id=1945138568]
@@ -85,8 +87,10 @@ offset_left = 5.0
 offset_top = 86.0
 offset_right = 188.0
 offset_bottom = 211.0
+mouse_filter = 1
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 18
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 

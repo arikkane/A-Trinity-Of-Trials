@@ -24,6 +24,7 @@ var MapGridHeight = 6
 
 var popup: CanvasLayer
 var VictoryDefeatPopup: PackedScene = preload("res://scenes/victory-defeat.tscn")
+var GamePausable: bool = false
 
 #depreciated map save/load variables
 #var map_generated: bool = false
@@ -98,6 +99,7 @@ func start_run():
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
+	GamePausable = true
 	
 	AudioManager.play_music_track("map")
 	#SceneManager.change_scene("res://scenes/map.tscn")
