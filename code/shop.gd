@@ -48,6 +48,7 @@ func init_card_data():
 		#creates the card object
 		var card_object = card_for_sale_scene.instantiate()
 		card_object.card_data = GameManager.Deck.create_card(card.type, card.damage, card.block, card.heal, card.name)
+		card_object.update_sprite()
 		card_object.generate_price(GameManager.Deck.card_data["cards"][card_pool[card_id]].get("base_price", 60))
 		#connects the cards input handling signal
 		card_object.card_purchased.connect(_on_card_purchased)
