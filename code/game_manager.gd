@@ -115,10 +115,13 @@ func encounter_complete():
 	Map.map_lock = false
 	#SceneManager.change_scene("res://scenes/map.tscn")
 
-func display_victory():
+func display_victory(gold_obtained: int = -1):
 	popup = VictoryDefeatPopup.instantiate()
 	get_tree().root.add_child(popup)
-	popup.show_victory_screen()
+	if gold_obtained == -1:
+		popup.show_victory_screen() #if no gold value specified, don't display "you got gold" text
+	else:
+		popup.show_victory_screen(gold_obtained)
 
 func display_defeat():
 	popup = VictoryDefeatPopup.instantiate()

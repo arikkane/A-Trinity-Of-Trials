@@ -493,7 +493,11 @@ func check_victory():
 		show_text("Winner!", 1)
 		print("Player won the battle!")
 		gui_text.hide_info_bar()
-		GameManager.display_victory()
+		
+		var obtained_gold = randi_range(BattleManager.current_room_data.min_gold, BattleManager.current_room_data.max_gold)
+		GameManager.PlayerGold += obtained_gold
+		GameManager.UIOverlay.update_gold()
+		GameManager.display_victory(obtained_gold)
 		combat_end()
 		
 

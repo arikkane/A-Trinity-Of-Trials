@@ -16,13 +16,17 @@ func _ready() -> void:
 	#hide()
 
 #this is SO JANKY
-func show_victory_screen():
+func show_victory_screen(gold_obtained: int = 0):
 	show()
 	img = $"Control/TextureRect"
 	img.texture = victory_img
 	img.modulate = halfshowncolor
 	img.scale = Vector2(0.5, 0.5)
 	img.z_index = 3
+	if gold_obtained > 0:
+		$"Control/PanelContainer/MarginContainer/Label".text = "You earned [color=gold]" + str(gold_obtained) + "[/color] gold!"
+	else:
+		$"Control/PanelContainer/MarginContainer/Label".text = "Great job!"
 	
 	results_container = $"Control/PanelContainer"
 	results_container.show()

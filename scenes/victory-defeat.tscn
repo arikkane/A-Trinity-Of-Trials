@@ -38,7 +38,6 @@ expand_mode = 2
 stretch_mode = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1564700636]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,16 +58,17 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=2120205560]
+[node name="Label" type="RichTextLabel" parent="Control/PanelContainer/MarginContainer" unique_id=1576462341]
 layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=1159730698]
-layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
 text = "You earned [gold] gold!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=2120205560]
+layout_mode = 2
+alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="Control/PanelContainer/MarginContainer/VBoxContainer" unique_id=2096887956]
 layout_mode = 2
