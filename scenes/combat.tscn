@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://kd2pyxwew622"]
 
 [ext_resource type="Script" uid="uid://cux3wsvyxqmo6" path="res://code/combat.gd" id="1_qajva"]
+[ext_resource type="Texture2D" uid="uid://gns2jn02bgtd" path="res://assets/Backgrounds/BackGround.png" id="2_5wjy3"]
 [ext_resource type="PackedScene" uid="uid://b0ijnhs8nkfku" path="res://scenes/player.tscn" id="2_aic3r"]
 [ext_resource type="Texture2D" uid="uid://ctudmappf2oex" path="res://assets/Backgrounds/FarTrees.png" id="2_hkish"]
 [ext_resource type="Texture2D" uid="uid://b3kvqdyca4nvr" path="res://assets/Backgrounds/MiddleTrees.png" id="3_a5n2y"]
@@ -100,70 +101,82 @@ corner_radius_bottom_left = 6
 [node name="Combat" type="Node" unique_id=1594897435]
 script = ExtResource("1_qajva")
 
-[node name="Control" type="Control" parent="." unique_id=289712277]
+[node name="Control" type="Control" parent="." unique_id=415664447]
 layout_mode = 3
 anchors_preset = 0
+offset_top = -18.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 22.0
 mouse_filter = 2
 
-[node name="Far Trees" type="TextureRect" parent="Control" unique_id=1355040216]
+[node name="Background" type="TextureRect" parent="Control" unique_id=745634325]
+modulate = Color(0.05851572, 0.06405511, 0.22954825, 1)
 layout_mode = 0
-offset_right = 1916.0
-offset_bottom = 1072.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_5wjy3")
+
+[node name="Far Trees" type="TextureRect" parent="Control" unique_id=671135410]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 texture = ExtResource("2_hkish")
 
-[node name="Middle Trees" type="TextureRect" parent="Control" unique_id=20969302]
+[node name="Middle Trees" type="TextureRect" parent="Control" unique_id=963221642]
 layout_mode = 0
-offset_right = 1918.0
-offset_bottom = 1078.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 texture = ExtResource("3_a5n2y")
 
-[node name="Close Trees" type="TextureRect" parent="Control" unique_id=1251864378]
+[node name="Close Trees" type="TextureRect" parent="Control" unique_id=821476758]
 layout_mode = 0
-offset_right = 1914.0
-offset_bottom = 1076.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 texture = ExtResource("4_v3mio")
 
-[node name="Ground" type="TextureRect" parent="Control" unique_id=728056167]
+[node name="Ground" type="TextureRect" parent="Control" unique_id=72177741]
 layout_mode = 0
+offset_top = -226.0
 offset_right = 1920.0
-offset_bottom = 843.0
+offset_bottom = 854.0
 mouse_filter = 2
 texture = ExtResource("5_5wjy3")
 
-[node name="Front Bushes" type="TextureRect" parent="Control" unique_id=1449367923]
+[node name="Front Bushes" type="TextureRect" parent="Control" unique_id=1515098695]
+z_index = 1
 layout_mode = 0
-offset_left = -9.0
-offset_top = 62.0
-offset_right = 1909.0
-offset_bottom = 1138.0
+offset_top = 19.0
+offset_right = 1920.0
+offset_bottom = 1099.0
 mouse_filter = 2
 texture = ExtResource("6_yxda2")
 
 [node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
-position = Vector2(160, 550)
+position = Vector2(160, 519)
 
 [node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
 visible = false
 position = Vector2(1600, 568)
 
 [node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
+z_index = 2
 offset_left = 46.0
-offset_top = 756.0
+offset_top = 755.0
 offset_right = 238.0
-offset_bottom = 1044.0
+offset_bottom = 1043.0
 
 [node name="DiscardPile" parent="." unique_id=1770958959 instance=ExtResource("6_4gnb8")]
+z_index = 2
 offset_left = 1645.0
 offset_top = 751.0
 offset_right = 1837.0
 offset_bottom = 1039.0
 
 [node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
+z_index = 2
 offset_left = 294.0
 offset_top = 759.0
 offset_right = 1553.0
@@ -218,7 +231,7 @@ vertical_alignment = 1
 
 [node name="BlockIcon" type="Sprite2D" parent="BlockValue" unique_id=875842913]
 show_behind_parent = true
-position = Vector2(31.5, 24)
+position = Vector2(31.5, -7)
 scale = Vector2(2.6484375, 1.8437498)
 texture = ExtResource("12_a5n2y")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -247,10 +260,10 @@ metadata/_aseprite_wizard_interface_config_ = {
 }
 
 [node name="EndTurnButton" type="Button" parent="." unique_id=1965496006]
-offset_left = 66.0
-offset_top = 650.0
-offset_right = 193.0
-offset_bottom = 708.0
+offset_left = 62.0
+offset_top = 610.0
+offset_right = 189.0
+offset_bottom = 668.0
 theme = ExtResource("8_gvie1")
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_styles/normal = ExtResource("9_hmy61")

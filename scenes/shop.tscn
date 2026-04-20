@@ -68,12 +68,21 @@ theme_override_font_sizes/normal_font_size = 24
 text = "50"
 
 [node name="GoldIcon" type="TextureRect" parent="RemoveCardButton" unique_id=1721461187]
-modulate = Color(1, 0.70980394, 0.12941177, 1)
 layout_mode = 0
-offset_left = 34.0
-offset_top = 118.0
+offset_left = 53.0
+offset_top = 123.0
 offset_right = 82.0
-offset_bottom = 166.0
+offset_bottom = 162.0
+texture = ExtResource("9_gobkm")
+
+[node name="GoldIcon" type="TextureRect" parent="RemoveCardButton/GoldIcon" unique_id=1488470560]
+modulate = Color(0, 0, 0, 0.42352942)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -3.0
+offset_top = 2.0
+offset_right = 26.0
+offset_bottom = 41.0
 texture = ExtResource("9_gobkm")
 
 [connection signal="pressed" from="NextRoomButton" to="." method="_on_leave_button_pressed"]

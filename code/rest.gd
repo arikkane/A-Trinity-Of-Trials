@@ -4,6 +4,7 @@ var room_data
 
 func _ready():
 	init_room_data(EventManager.current_event_data)
+	init_player_sprite()
 	$"HealButton".pressed.connect(_on_heal_button_pressed)
 	$"GoldButton".pressed.connect(_on_gold_button_pressed)
 
@@ -12,6 +13,21 @@ func init_room_data(data: RestData):
 	$"HealButton".text = "Heal " + str(int(GameManager.PlayerMaxHP * room_data.heal_percentage)) + " health"
 	$"GoldButton".text = "Take " + str(room_data.min_gold) + "-" + str(room_data.max_gold) + " gold"
 	print_room_data()
+
+func init_player_sprite():
+	match GameManager.current_class:
+		GameManager.PlayerClass.GUNDAM:
+			$"PlayerSprite".texture = load("res://sprites/ArmorChar.png")
+			$"PlayerSprite".scale = Vector2(0.75, 0.75)
+			$"PlayerSprite".global_position = Vector2(470, 593)
+		GameManager.PlayerClass.HEXTECHMAGE:
+			$"PlayerSprite".texture = load("res://sprites/magechar.png")
+			$"PlayerSprite".scale = Vector2(2.5, 2.5)
+			$"PlayerSprite".global_position = Vector2(461, 595)
+		GameManager.PlayerClass.CREATURE:
+			$"PlayerSprite".texture = load("res://sprites/voidchar (2).png")
+			$"PlayerSprite".scale = Vector2(2.0, 2.0)
+			$"PlayerSprite".global_position = Vector2(477, 584)
 
 func print_room_data():
 	print("ID: " + room_data.id)

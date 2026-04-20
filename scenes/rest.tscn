@@ -1,19 +1,118 @@
 [gd_scene format=3 uid="uid://s6dd000uo2tv"]
 
 [ext_resource type="Script" uid="uid://y8c3c2vqla5t" path="res://code/rest.gd" id="1_46pvv"]
-[ext_resource type="Texture2D" uid="uid://c0m8kwffd6mbw" path="res://sprites/placeholder_background.png" id="2_p3mib"]
+[ext_resource type="Texture2D" uid="uid://gns2jn02bgtd" path="res://assets/Backgrounds/BackGround.png" id="2_8dtxw"]
+[ext_resource type="Texture2D" uid="uid://bhdwgrwyrvqnj" path="res://assets/Backgrounds/Ground.png" id="2_lcn62"]
 [ext_resource type="Theme" uid="uid://b3v73v0gugqye" path="res://assets/Themes&Styles/ButtonFont.tres" id="3_lcn62"]
+[ext_resource type="Texture2D" uid="uid://ctudmappf2oex" path="res://assets/Backgrounds/FarTrees.png" id="3_qenvm"]
 [ext_resource type="StyleBox" uid="uid://b0fdqvv6mpl75" path="res://assets/Themes&Styles/ButtonStyleNormal.tres" id="4_7q1m4"]
+[ext_resource type="Texture2D" uid="uid://b3kvqdyca4nvr" path="res://assets/Backgrounds/MiddleTrees.png" id="4_vne21"]
+[ext_resource type="Texture2D" uid="uid://beclmjw1hsuf" path="res://assets/Backgrounds/NearTrees.png" id="5_48564"]
 [ext_resource type="StyleBox" uid="uid://cenrvoii0o1xu" path="res://assets/Themes&Styles/ButtonStylePressed.tres" id="5_krbhq"]
 [ext_resource type="StyleBox" uid="uid://cct83475yyn7p" path="res://assets/Themes&Styles/ButtonStyleHover.tres" id="6_lfsvw"]
+[ext_resource type="Texture2D" uid="uid://c8kbj60yik7gh" path="res://assets/Backgrounds/FrontBushes.png" id="7_p1gp2"]
+[ext_resource type="Texture2D" uid="uid://do3a2qfpto3do" path="res://sprites/voidchar (2).png" id="12_7e64x"]
+[ext_resource type="Texture2D" uid="uid://122vuux26y4l" path="res://assets/Campfire/Camp Fire-0.png" id="13_tut3h"]
+[ext_resource type="Texture2D" uid="uid://c3c571r5ma78d" path="res://assets/Campfire/Camp Fire-1.png" id="14_i1r3h"]
+[ext_resource type="Texture2D" uid="uid://bx2x81ndqsiih" path="res://assets/Campfire/Camp Fire-2.png" id="15_25jrk"]
+[ext_resource type="Texture2D" uid="uid://df26shi0ti0lh" path="res://assets/Campfire/Camp Fire-3.png" id="16_7l12o"]
+[ext_resource type="Texture2D" uid="uid://ltebb7xxf6dj" path="res://assets/Campfire/Camp Fire-4.png" id="17_5pmmg"]
+[ext_resource type="Texture2D" uid="uid://drwx1y5l14asi" path="res://assets/Campfire/Camp Fire-5.png" id="18_s1ibg"]
+[ext_resource type="Texture2D" uid="uid://c7nf8ey8iyfpk" path="res://assets/Campfire/Camp Fire-6.png" id="19_64hmn"]
+
+[sub_resource type="Animation" id="Animation_0rhr4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_tut3h")]
+}
+
+[sub_resource type="Animation" id="Animation_xxdqb"]
+resource_name = "campfire"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("13_tut3h"), ExtResource("14_i1r3h"), ExtResource("15_25jrk"), ExtResource("16_7l12o"), ExtResource("17_5pmmg"), ExtResource("18_s1ibg"), ExtResource("19_64hmn")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gcx87"]
+_data = {
+&"RESET": SubResource("Animation_0rhr4"),
+&"campfire": SubResource("Animation_xxdqb")
+}
 
 [node name="Rest" type="Node" unique_id=139382747]
 script = ExtResource("1_46pvv")
 
-[node name="Background" type="TextureRect" parent="." unique_id=274205333]
+[node name="RoomVisual" type="Control" parent="." unique_id=1117785864]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -1.0
 offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_p3mib")
+offset_bottom = 39.0
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="RoomVisual" unique_id=1178232235]
+modulate = Color(0.05851572, 0.06405511, 0.22954825, 1)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_8dtxw")
+
+[node name="Far Trees" type="TextureRect" parent="RoomVisual" unique_id=1228150301]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("3_qenvm")
+
+[node name="Middle Trees" type="TextureRect" parent="RoomVisual" unique_id=1598749859]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("4_vne21")
+
+[node name="Close Trees" type="TextureRect" parent="RoomVisual" unique_id=2090731664]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("5_48564")
+
+[node name="Ground" type="TextureRect" parent="RoomVisual" unique_id=135287227]
+layout_mode = 0
+offset_top = -226.0
+offset_right = 1920.0
+offset_bottom = 854.0
+mouse_filter = 2
+texture = ExtResource("2_lcn62")
+
+[node name="Front Bushes" type="TextureRect" parent="RoomVisual" unique_id=1183997694]
+z_index = 1
+layout_mode = 0
+offset_top = 17.0
+offset_right = 1920.0
+offset_bottom = 1097.0
+mouse_filter = 2
+texture = ExtResource("7_p1gp2")
 
 [node name="HealButton" type="Button" parent="." unique_id=264806088]
 offset_left = 996.0
@@ -36,3 +135,17 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("4_7q1m4")
 theme_override_styles/pressed = ExtResource("5_krbhq")
 theme_override_styles/hover = ExtResource("6_lfsvw")
+
+[node name="PlayerSprite" type="Sprite2D" parent="." unique_id=2083512042]
+position = Vector2(477, 584)
+scale = Vector2(2, 2)
+texture = ExtResource("12_7e64x")
+
+[node name="Campfire" type="Sprite2D" parent="." unique_id=72180098]
+position = Vector2(657.00006, 592)
+scale = Vector2(0.64453125, 0.6365741)
+texture = ExtResource("13_tut3h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Campfire" unique_id=1213210884]
+libraries/ = SubResource("AnimationLibrary_gcx87")
+autoplay = &"campfire"

@@ -6,7 +6,7 @@ func _gui_input(event: InputEvent):
 		if not event.pressed:
 			#hides the deck display if it is visible, shows it if it isn't
 			if GameManager.DeckDisplayUI.visible and not GameManager.DeckDisplayUI.remove_selecting:
-				if BattleManager.in_combat:
+				if BattleManager.in_combat and not GameManager.Map.visible:
 						SceneManager.CurrentScene.gui_text.visible = true
 				GameManager.DeckDisplayUI.hide()
 			else:
@@ -16,7 +16,7 @@ func _gui_input(event: InputEvent):
 				GameManager.DeckDisplayUI.show()
 
 func _on_mouse_entered():
-	modulate = Color("#629fff")
+	modulate *= 1.2
 
 func _on_mouse_exited():
-	modulate = Color("#3082ff")
+	modulate = Color(1,1,1,1)

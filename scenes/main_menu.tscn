@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bsf88s43ss2ej"]
 
-[ext_resource type="Script" uid="uid://dxhoyy7wst1cd" path="res://scenes/main_background.gd" id="1_l6cm7"]
+[ext_resource type="Script" path="res://scenes/main_background.gd" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://lw00hte55jde" path="res://assets/UI&Charactors/Battleground2.png" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://pmsa0w2x0phr" path="res://assets/UI&Charactors/ToTLogo.png" id="3_bqqt6"]
 
