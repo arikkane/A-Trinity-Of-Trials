@@ -116,22 +116,21 @@ func _ready() -> void:
 #Initiate position of health bar
 func init_health_bar():
 	$"EnemyDataUI/HealthBar".max_value = max_hp
-	$"EnemyDataUI/HealthBar".position.x = $"Sprite2D".position.x
-	$"EnemyDataUI/HealthBar".position.y = $"Sprite2D".position.y
+	#$"EnemyDataUI/HealthBar".position.x = $"Sprite2D".position.x
+	#$"EnemyDataUI/HealthBar".position.y = $"Sprite2D".position.y
 	update_health_bar()
 
-#THIS NEEDS FIXING!
 func init_enemy_sprite(enemysprite):
 	#adjust X position based on enemy ID
-	var x = 1100
+	var x = 1000
 	if id == 0:
-		x += 200
+		x += 225
 	elif id == 1:
-		x+= 400
+		x+= 450
 	elif id == 2:
-		x+= 600
+		x+= 675
 	elif id == 3:
-		x+= 800
+		x+= 900
 	
 	#base y = 568
 	
@@ -140,7 +139,7 @@ func init_enemy_sprite(enemysprite):
 	var sprite_width = $"Sprite2D".texture.get_width()
 	$"Sprite2D/Area2D/CollisionShape2D".shape.set_size(Vector2(sprite_width, sprite_height))
 	$"Sprite2D/Area2D/CollisionShape2D".position = Vector2(sprite_width / 2.0, sprite_height / 2.0)
-	$"Sprite2D".position = Vector2(x, 730-sprite_height)
+	global_position = Vector2(x, 698-sprite_height)
 	init_health_bar()
 
 #call this whenever health is changed

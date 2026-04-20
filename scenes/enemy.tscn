@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://dc5nbq4m75m3a" path="res://assets/Monsters/goblin_1.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://5r77yqlkybu4" path="res://code/enemy.gd" id="1_md0e3"]
-[ext_resource type="Script" path="res://code/enemyarea2d.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://dxui5uu2ciakv" path="res://code/enemyarea2d.gd" id="3_4ra3w"]
 [ext_resource type="Theme" uid="uid://jirvpfro2db3" path="res://assets/Themes&Styles/LabelFont.tres" id="4_xwavj"]
-[ext_resource type="StyleBox" path="res://assets/Themes&Styles/HealthBarStyleBackground.tres" id="5_nenq2"]
-[ext_resource type="StyleBox" path="res://assets/Themes&Styles/HealthBarStyleFill.tres" id="6_md484"]
+[ext_resource type="StyleBox" uid="uid://ce5121y6h48ey" path="res://assets/Themes&Styles/HealthBarStyleBackground.tres" id="5_nenq2"]
+[ext_resource type="StyleBox" uid="uid://o25nf4488fg" path="res://assets/Themes&Styles/HealthBarStyleFill.tres" id="6_md484"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
 size = Vector2(138, 156)
@@ -33,17 +33,19 @@ offset_right = 210.0
 
 [node name="HealthBar" type="ProgressBar" parent="EnemyDataUI" unique_id=552501359]
 layout_mode = 0
-offset_right = 300.0
-offset_bottom = 35.0
+offset_left = 51.0
+offset_top = 6.0
+offset_right = 258.0
+offset_bottom = 29.0
 theme = ExtResource("4_xwavj")
 theme_override_styles/background = ExtResource("5_nenq2")
 theme_override_styles/fill = ExtResource("6_md484")
 
 [node name="StatusEffectContainer" type="HBoxContainer" parent="EnemyDataUI" unique_id=1177759634]
 layout_mode = 0
-offset_top = 35.0
+offset_top = 36.0
 offset_right = 300.0
-offset_bottom = 75.0
+offset_bottom = 76.0
 
 [connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_entered"]

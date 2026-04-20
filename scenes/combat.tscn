@@ -157,41 +157,16 @@ texture = ExtResource("6_yxda2")
 [node name="Player" parent="." unique_id=618503237 instance=ExtResource("2_aic3r")]
 position = Vector2(160, 519)
 
-[node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
-visible = false
-position = Vector2(1600, 568)
-
-[node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
-z_index = 2
-offset_left = 46.0
-offset_top = 755.0
-offset_right = 238.0
-offset_bottom = 1043.0
-
-[node name="DiscardPile" parent="." unique_id=1770958959 instance=ExtResource("6_4gnb8")]
-z_index = 2
-offset_left = 1645.0
-offset_top = 751.0
-offset_right = 1837.0
-offset_bottom = 1039.0
-
-[node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
-z_index = 2
-offset_left = 294.0
-offset_top = 759.0
-offset_right = 1553.0
-offset_bottom = 1038.0
-
-[node name="ManaLabel" type="Label" parent="." unique_id=2140329730]
-offset_left = 338.0
-offset_top = 518.0
-offset_right = 439.0
-offset_bottom = 573.0
+[node name="ManaLabel" type="Label" parent="Player" unique_id=2140329730]
+offset_left = 182.0
+offset_top = 3.0
+offset_right = 283.0
+offset_bottom = 58.0
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ManaSymbol" type="Sprite2D" parent="ManaLabel" unique_id=728330175]
+[node name="ManaSymbol" type="Sprite2D" parent="Player/ManaLabel" unique_id=728330175]
 show_behind_parent = true
 position = Vector2(49.750004, 26.00001)
 scale = Vector2(0.09700003, 0.084000036)
@@ -219,17 +194,17 @@ metadata/_aseprite_wizard_interface_config_ = {
 }
 }
 
-[node name="BlockValue" type="Label" parent="." unique_id=294225787]
-offset_left = 240.0
-offset_top = 411.0
-offset_right = 304.0
-offset_bottom = 462.0
+[node name="BlockValue" type="Label" parent="Player" unique_id=294225787]
+offset_left = 199.0
+offset_top = 96.0
+offset_right = 263.0
+offset_bottom = 147.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlockIcon" type="Sprite2D" parent="BlockValue" unique_id=875842913]
+[node name="BlockIcon" type="Sprite2D" parent="Player/BlockValue" unique_id=875842913]
 show_behind_parent = true
 position = Vector2(31.5, -7)
 scale = Vector2(2.6484375, 1.8437498)
@@ -259,6 +234,31 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": false
 }
 
+[node name="Enemy" parent="." unique_id=1076380734 instance=ExtResource("4_4l26h")]
+visible = false
+position = Vector2(1600, 568)
+
+[node name="DrawPile" parent="." unique_id=1849675310 instance=ExtResource("5_osi8t")]
+z_index = 2
+offset_left = 46.0
+offset_top = 755.0
+offset_right = 238.0
+offset_bottom = 1043.0
+
+[node name="DiscardPile" parent="." unique_id=1770958959 instance=ExtResource("6_4gnb8")]
+z_index = 2
+offset_left = 1645.0
+offset_top = 751.0
+offset_right = 1837.0
+offset_bottom = 1039.0
+
+[node name="HandContainer" parent="." unique_id=691641462 instance=ExtResource("7_sa5k0")]
+z_index = 2
+offset_left = 294.0
+offset_top = 759.0
+offset_right = 1553.0
+offset_bottom = 1038.0
+
 [node name="EndTurnButton" type="Button" parent="." unique_id=1965496006]
 offset_left = 62.0
 offset_top = 610.0
@@ -284,10 +284,10 @@ theme_override_styles/hover = ExtResource("11_xkyey")
 text = "Auto Win Combat"
 
 [node name="SetHealth1" type="Button" parent="." unique_id=24631401]
-offset_left = 51.0
-offset_top = 240.0
-offset_right = 258.0
-offset_bottom = 338.0
+offset_left = 294.0
+offset_top = 122.0
+offset_right = 502.0
+offset_bottom = 220.0
 theme = ExtResource("8_gvie1")
 theme_override_fonts/font = ExtResource("9_0qyji")
 theme_override_styles/normal = ExtResource("9_hmy61")

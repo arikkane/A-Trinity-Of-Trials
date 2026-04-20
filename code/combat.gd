@@ -507,9 +507,9 @@ func check_victory():
 
 # updates mana in screen
 func update_mana_label():
-	$ManaLabel.text = str(player_mana)
+	$Player/ManaLabel.text = str(player_mana)
 func update_block_label():
-	$BlockValue.text = str(player.block)
+	$Player/BlockValue.text = str(player.block)
 
 #Display text on screen to the user
 func show_text(text, timer):

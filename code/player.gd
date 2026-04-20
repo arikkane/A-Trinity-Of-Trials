@@ -30,17 +30,16 @@ func set_player_sprite() -> void:
 		GameManager.PlayerClass.GUNDAM:
 			sprite.texture = preload("res://sprites/ArmorChar.png")
 			sprite.scale = Vector2(0.75, 0.75)
-			sprite.position = Vector2(3, -45)
 		GameManager.PlayerClass.HEXTECHMAGE:
 			sprite.texture = preload("res://sprites/magechar.png")
 			sprite.scale = Vector2(2.5, 2.5)
-			sprite.position = Vector2(20, -70.0)
 		GameManager.PlayerClass.CREATURE:
 			sprite.texture = preload("res://sprites/voidchar (2).png")
 			sprite.scale = Vector2(2.0, 2.0)
-			sprite.position = Vector2(10, -20.0)
 		_:
 			push_error("Unknown current class: " + str(GameManager.current_class))
+	
+	global_position = Vector2(200, 698-(sprite.texture.get_height() * sprite.scale.y))
 
 
 

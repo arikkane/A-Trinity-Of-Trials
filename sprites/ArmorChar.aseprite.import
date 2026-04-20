@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dubcff1hwiblo"
+path="res://.godot/imported/ArmorChar.aseprite-c5dea4f68e4f555abce264d936e83b7f.res"
+
+[deps]
+
+source_file="res://sprites/ArmorChar.aseprite"
+dest_files=["res://.godot/imported/ArmorChar.aseprite-c5dea4f68e4f555abce264d936e83b7f.res"]
+
+[params]
+
