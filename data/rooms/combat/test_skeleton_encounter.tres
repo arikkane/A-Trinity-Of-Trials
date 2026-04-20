@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_030ji")
-enemies = Array[String](["skeleton_1", "skeleton_2", "skeleton_3"])
+enemies = Array[String](["skeleton_1", "skeleton_1", "skeleton_1"])
 id = "test_skeleton_encounter"
 gen_weight = 50.0
 scene_path = "res://scenes/test_combat_variation.tscn"
