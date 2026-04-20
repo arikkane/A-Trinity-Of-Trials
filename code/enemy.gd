@@ -145,6 +145,7 @@ func init_enemy_sprite(enemysprite):
 #call this whenever health is changed
 func update_health_bar():
 	$"EnemyDataUI/HealthBar".value = hp
+	$"EnemyDataUI/HealthBar/HPLabel".text = str(hp) + "/" + str(max_hp)
 
 func take_damage(amount):
 	var remaining_damage = amount - block

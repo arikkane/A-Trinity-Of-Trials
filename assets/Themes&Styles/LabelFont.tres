@@ -3,6 +3,7 @@
 [ext_resource type="FontFile" uid="uid://3t8aef52jjyx" path="res://assets/Themes&Styles/Perfect DOS VGA 437 Win.ttf" id="1_woljv"]
 
 [resource]
+default_font = ExtResource("1_woljv")
 Button/colors/font_outline_color = Color(0.16470589, 0.24313726, 0.32941177, 1)
 Button/constants/outline_size = 4
 Button/fonts/font = ExtResource("1_woljv")
