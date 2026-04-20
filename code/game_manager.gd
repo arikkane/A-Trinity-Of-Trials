@@ -99,6 +99,7 @@ func start_run():
 	UIOverlay.update_health()
 	UIOverlay.update_gold()
 	UIOverlay.show_ui()
+	UIOverlay.hide_pause()
 	GamePausable = true
 	
 	AudioManager.play_music_track("map")

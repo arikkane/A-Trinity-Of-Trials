@@ -20,4 +20,3 @@ mouse_filter = 2
 layer = 2
 
 [node name="PauseMenu" parent="UIOverlay" unique_id=1088437579 instance=ExtResource("3_sugp2")]
-visible = false
