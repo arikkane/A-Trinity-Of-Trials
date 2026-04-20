@@ -39,6 +39,7 @@ func _on_heal_button_pressed():
 	print("before PlayerHP = " + str(GameManager.PlayerHP))
 	GameManager.PlayerHP += int(GameManager.PlayerMaxHP * room_data.heal_percentage)
 	GameManager.PlayerHP = clamp(GameManager.PlayerHP, 0, GameManager.PlayerMaxHP)
+	GameManager.UIOverlay.update_health()
 	print("after PlayerHP = " + str(GameManager.PlayerHP))
 	EventManager.finish_event()
 

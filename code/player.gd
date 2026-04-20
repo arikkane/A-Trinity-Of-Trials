@@ -69,6 +69,7 @@ func take_damage(amount: int) -> void:
 
 	if remaining_damage > 0:
 		GameManager.PlayerHP -= remaining_damage
+		GameManager.UIOverlay.update_health()
 		if play_break_sound == true:
 			AudioManager.play_sfx("crumble")
 		play_damage_animation()
