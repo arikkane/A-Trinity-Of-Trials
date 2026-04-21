@@ -384,6 +384,7 @@ func draw_cards(count = null, from_effect = false):
 # ----------------------------
 func play_card(card, target):
 	gui_text.card_selected_notice(false)
+	card.selected = false
 	if not player_turn:
 		return
 
@@ -416,6 +417,7 @@ func play_card(card, target):
 		# Calculate actual damage dealt after enemy block
 		var actual_damage = max(0, damage - target.block)
 
+		BattleManager.reset_selections()
 		#if (target.hp - min(0,(damage - target.block))) <= 0:
 		if (target.hp - damage) < 0:
 			target.take_damage(damage)
@@ -424,7 +426,6 @@ func play_card(card, target):
 			target.take_damage(damage)
 			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
 
-		BattleManager.reset_selections()
 		#target.take_damage(damage)
 
 		#if target.hp < 0 and is_instance_valid(target):
@@ -503,7 +504,7 @@ func check_victory():
 		AudioManager.stop_music()
 		AudioManager.play_sfx("victory")
 		
-		var obtained_gold = randi_range(BattleManager.current_room_data.min_gold, BattleManager.current_room_data.max_gold)
+		var obtained_gold = randi_range(BattleManager.current_room_data.min_gold * 3, BattleManager.current_room_data.max_gold * 3)
 		GameManager.PlayerGold += obtained_gold
 		GameManager.UIOverlay.update_gold()
 		GameManager.display_victory(obtained_gold)
