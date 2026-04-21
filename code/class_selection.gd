@@ -34,6 +34,7 @@ func _on_creature_pressed():
 
 func start_game(selected_class):
 	print("Selected class: ", selected_class)
+	AudioManager.play_sfx("menuclick2")
 	randomize()
 	
 	if seed_toggle.button_pressed == false:
@@ -55,21 +56,21 @@ func start_game(selected_class):
 # ----------------------------
 
 func _on_gundam_mouse_entered() -> void:
-	description_label.text = "Health:120, Passive: Deal extra Damage equal to your current block value"
+	description_label.text = "Health: 120, Passive: Deal extra damage equal to your current block value."
 	
 func _on_gundam_mouse_exited() -> void:
 	description_label.text = default_description
 
 
 func _on_mage_mouse_entered() -> void:
-	description_label.text = "Health:70, Passive: gain a damage buff when you play draw cards"
+	description_label.text = "Health: 70, Passive: Gain a damage buff when you play draw cards."
 
 func _on_mage_mouse_exited() -> void:
 	description_label.text = default_description
 
 
 func _on_creature_mouse_entered() -> void:
-	description_label.text = "Health:100, Passive: recover hp when you deal damage"
+	description_label.text = "Health: 100, Passive: Recover HP when you deal damage."
 
 func _on_creature_mouse_exited() -> void:
 	description_label.text = default_description

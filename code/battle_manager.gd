@@ -123,11 +123,13 @@ func combat_finished(victory: bool) -> void:
 			SaveManager.save_run_deck(GameManager.Deck)
 			SceneManager.change_scene("res://scenes/credits.tscn")
 		else:
+			await SceneManager.SceneTransition.transition_scene()
 			GameManager.encounter_complete()
 	else:
 		is_boss_fight = false
 		reset_encounter()
 		AudioManager.play_music_track("main_menu")
+		GameManager.UIOverlay.hide_ui()
 		SceneManager.change_scene("res://scenes/ClassSelection.tscn")
 
 # -----------------------------

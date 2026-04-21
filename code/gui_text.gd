@@ -38,6 +38,12 @@ func show_card_tip():
 	$"CardNotice".show()
 	$"AnimationPlayer".play("CardSelectionNotice")
 
+func show_out_of_cards_notice():
+	$"OutOfCardsNotice".show()
+
+func hide_out_of_cards_notice():
+	$"OutOfCardsNotice".hide()
+
 func hide_info_bar():
 	$"TextContainer".hide()
 

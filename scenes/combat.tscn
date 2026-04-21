@@ -300,7 +300,6 @@ text = "Set Health to 1
 script = ExtResource("8_4gnb8")
 
 [node name="PickEnemyNotice" type="Label" parent="GUIText" unique_id=774852374]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -380,7 +379,23 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
 theme_override_fonts/normal_font = ExtResource("9_0qyji")
 theme_override_font_sizes/normal_font_size = 24
-text = "Is this epic or what?"
+text = "The battle begins!"
+
+[node name="OutOfCardsNotice" type="Label" parent="GUIText" unique_id=799971586]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = 335.0
+offset_right = 273.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "Out of cards! End your turn to get more."
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_down" from="Win" to="." method="_on_win_button_down"]

@@ -44,9 +44,12 @@ func remove_card(card:Control):
 
 func update_card_positions():
 	if not card_array.is_empty():
+		get_parent().gui_text.hide_out_of_cards_notice()
 		var container_width = get_parent().card_width*card_array.size()
 		size.x = container_width
 		global_position.x = (get_tree().root.get_visible_rect().size.x - container_width)/2
+	if card_array.is_empty():
+		get_parent().gui_text.show_out_of_cards_notice()
 		#var card_spacing = 0
 		##increases the overlap by 16 pixels for every card over 6 in the players hand
 		#if card_array.size() > 6:

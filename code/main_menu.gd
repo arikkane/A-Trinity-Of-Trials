@@ -31,10 +31,12 @@ func setup_menu_ui():
 #function that switches to the initial combat scene of the game
 func _on_play_button_pressed():
 	SceneManager.change_scene(game_scene_path)
+	AudioManager.play_sfx("menuclick")
 	
 #fucntion that switches to the settings scene
 func _on_settings_button_pressed():
 	SceneManager.change_scene(settings_scene_path)
+	AudioManager.play_sfx("menuclick")
 	
 #function that closes the program
 func _on_exit_button_pressed():

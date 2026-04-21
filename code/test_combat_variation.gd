@@ -19,7 +19,7 @@ func print_room_data():
 		print("  " + enemy)
 
 func give_gold():
-	print("Aquired Gold: " + str(randi_range(room_data.min_gold, room_data.max_gold)))
+	print("Acquired Gold: " + str(randi_range(room_data.min_gold, room_data.max_gold)))
 
 func _on_button_pressed():
 	print("button pressed")

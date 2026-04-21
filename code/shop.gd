@@ -36,6 +36,9 @@ func init_card_data():
 	for card in GameManager.Deck.card_data["cards"]:
 		if card.get("class", -1) == GameManager.current_class:
 			card_pool.append(card.get("id"))
+	#Appending Super Heal Pulse and Bomb for DEMONSTRATION PURPOSES, these will be removed later.
+	card_pool.append(10)
+	card_pool.append(14)
 	if card_pool.is_empty():
 		push_error("Shop: no cards found for class " + str(GameManager.current_class))
 		return
@@ -81,6 +84,7 @@ func check_if_remove_card_affordable():
 
 #-----------------------------Event Handling-----------------------------
 func _on_card_purchased():
+	AudioManager.play_sfx("purchase")
 	for card in cards:
 		if not card.purchased:
 			card.check_if_affordable()
@@ -96,6 +100,7 @@ func _on_card_removed():
 	GameManager.UIOverlay.update_gold()
 	GameManager.DeckDisplayUI.pay_for_removal.disconnect(_on_card_removed)
 	remove_used = true
+	AudioManager.play_sfx("purchase")
 	$"RemoveCardButton/Price".visible = false
 	$"RemoveCardButton/GoldIcon".visible = false
 	$"RemoveCardButton".text = "SOLD OUT"
@@ -103,6 +108,8 @@ func _on_card_removed():
 
 func _on_leave_button_pressed():
 	print("button pressed")
+	AudioManager.play_sfx("store_enter")
+	await SceneManager.SceneTransition.transition_scene()
 	EventManager.finish_event()
 
 #-----------------------------Debug Functions-----------------------------

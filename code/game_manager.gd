@@ -115,6 +115,7 @@ func start_run():
 
 func encounter_complete():
 	AudioManager.play_music_track("map")
+	SceneManager.SceneTransition.detransition_scene()
 	Map.show_map()
 	Map.map_lock = false
 	#SceneManager.change_scene("res://scenes/map.tscn")

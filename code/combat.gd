@@ -171,7 +171,7 @@ func enemy_play_card(enemy_user, enemy_card):
 			AudioManager.play_sfx(enemy_card.sound)
 			player.take_damage(damage)
 			if player.block > 0:
-				await show_text("Player's block negated all damage!\nPlayer took no damage!", 1)
+				await show_text("Player's block negated all damage!", 1)
 			else:
 				await show_text("Player takes " + str(damage) + " damage!", 1)
 			
@@ -498,6 +498,8 @@ func check_victory():
 		show_text("Winner!", 1)
 		print("Player won the battle!")
 		gui_text.hide_info_bar()
+		AudioManager.stop_music()
+		AudioManager.play_sfx("victory")
 		
 		var obtained_gold = randi_range(BattleManager.current_room_data.min_gold, BattleManager.current_room_data.max_gold)
 		GameManager.PlayerGold += obtained_gold
@@ -509,6 +511,8 @@ func check_victory():
 	elif GameManager.PlayerHP <= 0:
 		print("Player is dead.")
 		gui_text.hide_info_bar()
+		AudioManager.stop_music()
+		AudioManager.play_sfx("defeat")
 		GameManager.display_defeat()
 		combat_end()
 		

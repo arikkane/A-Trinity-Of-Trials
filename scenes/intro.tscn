@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dfdgves34783t"]
+
+[ext_resource type="Script" uid="uid://baushp63mbyrc" path="res://intro.gd" id="1_4bx60"]
+[ext_resource type="Texture2D" uid="uid://bxgd1gip8nvgi" path="res://sprites/logo.png" id="2_i2l1n"]
+[ext_resource type="Texture2D" uid="uid://dvlme3mmpyx1r" path="res://sprites/proudly_presents.png" id="3_wfs7u"]
+
+[sub_resource type="Animation" id="Animation_es01l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0naf5"]
+resource_name = "fadein"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bu1yb"]
+_data = {
+&"RESET": SubResource("Animation_es01l"),
+&"fadein": SubResource("Animation_0naf5")
+}
+
+[node name="Intro" type="Control" unique_id=1471209485]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4bx60")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1266825403]
+modulate = Color(0, 0, 0, 1)
+z_index = 1
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1079.0
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="ColorRect" parent="." unique_id=1432179888]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.28494853, 0.3565637, 0.36021042, 1)
+
+[node name="Logo" type="TextureRect" parent="." unique_id=872032401]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -538.0
+offset_top = -118.00003
+offset_right = 862.0
+offset_bottom = 132.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("2_i2l1n")
+
+[node name="ProudlyPresents" type="TextureRect" parent="." unique_id=1116300141]
+layout_mode = 0
+offset_left = 631.0
+offset_top = 589.0
+offset_right = 1385.0
+offset_bottom = 787.0
+texture = ExtResource("3_wfs7u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=699881956]
+libraries/ = SubResource("AnimationLibrary_bu1yb")

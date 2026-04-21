@@ -23,9 +23,10 @@ func _on_event_started(data: EventData) -> void:
 	SceneManager.change_scene("res://scenes/test_event_variation.tscn")
 
 func finish_event() -> void:
+	SceneManager.SceneTransition.detransition_scene()
 	if not in_event:
 		return
-
+	
 	print("EventManager: finishing event")
 
 	in_event = false

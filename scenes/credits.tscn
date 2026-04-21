@@ -1,21 +1,22 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bvph67ss88dpq"]
 
-[ext_resource type="Script" path="res://code/credits.gd" id="1_credits"]
+[ext_resource type="Script" uid="uid://cbpwpoxioebnd" path="res://code/credits.gd" id="1_credits"]
 
-[node name="Credits" type="Control"]
+[node name="Credits" type="Control" unique_id=1173975516]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_credits")
 
-[node name="Background" type="ColorRect" parent="."]
-anchors_preset = 15
+[node name="Background" type="ColorRect" parent="." unique_id=794664047]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.05, 0.05, 0.1, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 8
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1226972150]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -26,19 +27,20 @@ offset_right = 400.0
 offset_bottom = 300.0
 alignment = 1
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=105811486]
 layout_mode = 2
+theme_override_font_sizes/font_size = 56
 text = "YOU DEFEATED THE LICH BOSS"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 56
 
-[node name="Spacer1" type="Control" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Spacer1" type="Control" parent="VBoxContainer" unique_id=659927487]
 custom_minimum_size = Vector2(0, 40)
-
-[node name="CreditsLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
+
+[node name="CreditsLabel" type="RichTextLabel" parent="VBoxContainer" unique_id=1130544938]
 custom_minimum_size = Vector2(800, 300)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "[center][b]A TRINITY OF TRIALS[/b]
 
@@ -51,16 +53,15 @@ The Placeholders
 Godot Engine 4.6
 
 Thank you for playing![/center]"
-theme_override_font_sizes/normal_font_size = 28
 
-[node name="Spacer2" type="Control" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Spacer2" type="Control" parent="VBoxContainer" unique_id=1570913490]
 custom_minimum_size = Vector2(0, 40)
-
-[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer" unique_id=1704410333]
 custom_minimum_size = Vector2(400, 70)
-text = "Return to Main Menu"
+layout_mode = 2
 theme_override_font_sizes/font_size = 32
+text = "Return to Main Menu"
 
 [connection signal="pressed" from="VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

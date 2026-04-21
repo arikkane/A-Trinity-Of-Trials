@@ -34,6 +34,7 @@ func finish_event() -> void:
 	if not in_event:
 		return
 
+	SceneManager.SceneTransition.detransition_scene()
 	print("EventManager: finishing event")
 
 	in_event = false

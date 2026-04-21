@@ -254,14 +254,19 @@ func _on_map_node_clicked(node: Control):
 
 	match node.room_type:
 		GameManager.RoomTypes.Combat:
+			AudioManager.play_sfx("sword_shing")
 			EventBus.emit_signal("combat_started", room_data)
 		GameManager.RoomTypes.Event:
+			AudioManager.play_sfx("grass_rustle")
 			EventBus.emit_signal("event_started", room_data)
 		GameManager.RoomTypes.Rest:
+			AudioManager.play_sfx("grass_rustle")
 			EventBus.emit_signal("rest_started", room_data)
 		GameManager.RoomTypes.Shop:
+			AudioManager.play_sfx("store_enter")
 			EventBus.emit_signal("shop_started", room_data)
 		GameManager.RoomTypes.Boss:
+			AudioManager.play_sfx("sword_shing")
 			EventBus.emit_signal("boss_started", room_data)
 	
 	#play scene transition animation

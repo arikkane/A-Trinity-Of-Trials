@@ -54,6 +54,7 @@ func show_victory_screen(gold_obtained: int = 0):
 
 func show_defeat_screen():
 	show()
+	$"Control/PanelContainer".hide()
 	img = $"Control/TextureRect"
 	img.texture = defeat_img
 	img.modulate = halfshowncolor
@@ -70,6 +71,8 @@ func show_defeat_screen():
 
 
 func _on_proceed_pressed() -> void:
+	$"Control/PanelContainer".hide()
+	hide()
 	if tween:
 		tween.kill()
 	BattleManager.combat_finished(true)
