@@ -12,6 +12,7 @@ func _gui_input(event: InputEvent):
 			else:
 				if BattleManager.in_combat:
 						SceneManager.CurrentScene.gui_text.visible = false
+				AudioManager.play_sfx("scroll")
 				GameManager.DeckDisplayUI.update_cards()
 				GameManager.DeckDisplayUI.show()
 

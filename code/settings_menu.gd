@@ -67,9 +67,9 @@ func setup():
 	master_slider.min_value = 0.0
 	master_slider.max_value = 1.0
 	master_slider.step = .01
-	master_slider.value = 0.8
+	master_slider.value = 0.6
 	master_slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	master_slider.value_changed.connect(master_volume_control)
+	#master_slider.value_changed.connect(master_volume_control)
 	vbox.add_child(master_slider)
 	
 	volume_label = Label.new()
@@ -208,7 +208,7 @@ func load_settings():
 	fullscreen_check.button_pressed = is_fullscreen
 	
 	#apply audio settings
-	var volume = config.get_value("audio","master_volume", .8)
+	var volume = config.get_value("audio","master_volume", .5)
 	AudioManager.set_master_volume(volume)
 	
 	#apply color blind mode settings

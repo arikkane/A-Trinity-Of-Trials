@@ -1,6 +1,6 @@
 extends Node
 
-var transition_exclusions: Array = ["res://scenes/main_menu.tscn"]
+var transition_exclusions: Array = ["res://scenes/main_menu.tscn", "res://scenes/intro.tscn"]
 
 # Autoloaded SceneManager
 

@@ -70,6 +70,7 @@ func _process(delta):
 	if GameManager.AnimatedText == true:
 		if animate_text == true:
 			if dtext.visible_ratio < 1:
+				AudioManager.play_sfx("textblip")
 				dtext.visible_ratio += (1.0/dtext.text.length()) * (TEXT_ANIMATION_SPEED * delta)
 				current_visible_characters = dtext.visible_characters
 			else:

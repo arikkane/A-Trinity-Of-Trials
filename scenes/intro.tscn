@@ -18,6 +18,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProudlyPresents:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(647, 1270)]
+}
 
 [sub_resource type="Animation" id="Animation_0naf5"]
 resource_name = "fadein"
@@ -34,10 +46,31 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_4bx60"]
+resource_name = "fadeout"
+
+[sub_resource type="Animation" id="Animation_i2l1n"]
+resource_name = "proudly_present"
+length = 1.5115
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProudlyPresents:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5115),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(647, 1270), Vector2(647, 560)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bu1yb"]
 _data = {
 &"RESET": SubResource("Animation_es01l"),
-&"fadein": SubResource("Animation_0naf5")
+&"fadein": SubResource("Animation_0naf5"),
+&"fadeout": SubResource("Animation_4bx60"),
+&"proudly_present": SubResource("Animation_i2l1n")
 }
 
 [node name="Intro" type="Control" unique_id=1471209485]
@@ -81,10 +114,10 @@ texture = ExtResource("2_i2l1n")
 
 [node name="ProudlyPresents" type="TextureRect" parent="." unique_id=1116300141]
 layout_mode = 0
-offset_left = 631.0
-offset_top = 589.0
-offset_right = 1385.0
-offset_bottom = 787.0
+offset_left = 647.0
+offset_top = 1270.0
+offset_right = 1401.0
+offset_bottom = 1468.0017
 texture = ExtResource("3_wfs7u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=699881956]

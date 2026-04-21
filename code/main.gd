@@ -4,6 +4,7 @@ var initialized = false
 var filter_UI = ColorRect
 
 func _ready() -> void:
+	
 	if initialized:
 		print("⚠️ Main already initialized — skipping")
 		return
@@ -21,7 +22,8 @@ func _ready() -> void:
 	
 	setup_colorblind_filter()
 	load_and_apply_colorblind_filter()
-	SceneManager.change_scene("res://scenes/main_menu.tscn")
+	SceneManager.change_scene("res://scenes/intro.tscn")
+	#SceneManager.change_scene("res://scenes/main_menu.tscn")
 	
 	
 	

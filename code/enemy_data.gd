@@ -34,14 +34,14 @@ const ENEMY_DETAILS := {
 		"name": "Skeleton",
 		"hp": 90,
 		"maxHp": 90,
-		"cards": [12, 12, 13, 13, 16, 16, 16],
+		"cards": [12, 12, 13, 13, 13, 16, 16,],
 		"sprite": "res://assets/Monsters/skeleton_2.png"
 	},
 	"skeleton_3": {
 		"name": "Skeleton",
 		"hp": 110,
 		"maxHp": 110,
-		"cards": [17, 17, 17, 16, 16, 16],
+		"cards": [13, 17, 17, 17, 17, 17, 17, 16, 16],
 		"sprite": "res://assets/Monsters/skeleton_3.png"
 	},
 	"lich_boss": {
