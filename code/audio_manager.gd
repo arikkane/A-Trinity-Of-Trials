@@ -62,7 +62,8 @@ func play_music(sound: AudioStream) -> void:
 	music_player.stream = sound
 	if music_player.stream is AudioStreamOggVorbis:
 		music_player.stream.loop = true
-	music_player.volume_db = music_volume
+	#music_player.volume_db = music_volume
+	music_player.volume_db = -10.0
 	music_player.play()
 
 func play_music_track(track_name: String) -> void:

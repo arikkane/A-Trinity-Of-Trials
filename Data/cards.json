@@ -10,13 +10,13 @@
 	{"id": 7, "class": 2, "name": "Bite", "type": "Damage", "damage": 5, "block": 0, "heal": 0, "base_price": 60},
 	{"id": 8, "class": 2, "name": "Hide", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "base_price": 60},
 	{"id": 9, "class": 2, "name": "Regenerate", "type": "Utility", "damage": 0, "block": 0, "heal": 3, "base_price": 80},
-	{"id": 10, "class": 3, "name": "Super Heal Pulse", "type": "Utility", "damage": 0, "block": 0, "heal": 6, "base_price": 200},
+	{"id": 10, "class": 3, "name": "Super Heal Pulse", "type": "Utility", "damage": 0, "block": 0, "heal": 8, "base_price": 200},
 	{"id": 11, "class": 9, "name": "Block Breaker", "type": "Utility", "damage": 0, "block": 0, "heal": 0, "base_price": 100},
 	{"id": 12, "class": 9, "name": "Slice", "type": "Damage", "sound": "swordblow", "damage": 4, "block": 0, "heal": 0, "base_price": 50},
 	{"id": 13, "class": 9, "name": "Slash", "type": "Damage", "sound": "swordblow", "damage": 6, "block": 0, "heal": 0, "base_price": 50},
 	{"id": 14, "class": 9, "name": "Bomb", "type": "Damage", "sound": "explosion","damage": 12, "block": 0, "heal": 0, "base_price": 70},
 	{"id": 15, "class": 9, "name": "Undead Guard", "type": "Utility", "damage": 0, "block": 2, "heal": 0, "base_price": 60},
 	{"id": 16, "class": 9, "name": "Undead Shield", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "base_price": 60},
-	{"id": 16, "class": 9, "name": "Impale", "type": "Damage", "sound": "stab", "damage": 0, "block": 8, "heal": 0, "base_price": 80},
+	{"id": 17, "class": 9, "name": "Impale", "type": "Damage", "sound": "stab", "damage": 8, "block": 0, "heal": 0, "base_price": 80},
   ]
 }
