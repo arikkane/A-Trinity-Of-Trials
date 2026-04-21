@@ -67,9 +67,9 @@ func setup():
 	master_slider.min_value = 0.0
 	master_slider.max_value = 1.0
 	master_slider.step = .01
-	master_slider.value = 0.6
+	master_slider.value = 0.7
 	master_slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#master_slider.value_changed.connect(master_volume_control)
+	master_slider.value_changed.connect(master_volume_control)
 	vbox.add_child(master_slider)
 	
 	volume_label = Label.new()
