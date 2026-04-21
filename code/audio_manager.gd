@@ -16,6 +16,7 @@ var sounds = {
 	"grass_rustle": preload("res://assets/Sounds/grass-rustle.wav"),
 	"coinbag": preload("res://assets/Sounds/coinbag.wav"),
 	"scream": preload("res://assets/Sounds/wilhelm-scream.wav"),
+	"death_scream": preload("res://assets/Sounds/doomguy_scream.wav"),
 	"nope": preload("res://assets/Sounds/nope.wav"),
 	"victory": preload("res://assets/Sounds/victory-sting.wav"),
 	"defeat": preload("res://assets/Sounds/defeat.wav"),

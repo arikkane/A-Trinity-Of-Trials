@@ -116,6 +116,7 @@ func reset_color():
 func play_death_animation():
 	reset_color()
 	sprite.modulate = normal_color
+	AudioManager.play_sfx("death_scream")
 	tween = create_tween()
 	tween.tween_property(sprite, "modulate", dead, 0.8)
 

@@ -418,12 +418,14 @@ func play_card(card, target):
 
 		#if (target.hp - min(0,(damage - target.block))) <= 0:
 		if (target.hp - damage) < 0:
+			target.take_damage(damage)
 			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!\n" + target.enemy_name + " was defeated!", 1)
 		else:
+			target.take_damage(damage)
 			show_text("" + target.enemy_name + " takes " + str(damage) + " damage!", 1)
 
 		BattleManager.reset_selections()
-		target.take_damage(damage)
+		#target.take_damage(damage)
 
 		#if target.hp < 0 and is_instance_valid(target):
 		#	disable_input()

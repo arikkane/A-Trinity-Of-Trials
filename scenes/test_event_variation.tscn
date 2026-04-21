@@ -36,6 +36,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="IntroLabel" type="Label" parent="IntroPanel" unique_id=1823729093]
+visible = false
 layout_mode = 0
 offset_left = 650.0
 offset_top = 489.0

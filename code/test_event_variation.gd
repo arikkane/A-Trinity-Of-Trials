@@ -21,7 +21,6 @@ func _ready() -> void:
 
 	$IntroPanel.visible = false
 	$EventPanel.visible = false
-	$IntroPanel/IntroLabel.text = "You find a small clearing with a grotto."
 	
 	await show_text("You find a small clearing with a grotto.")
 	$IntroPanel.visible = true
