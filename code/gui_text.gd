@@ -2,7 +2,14 @@ extends CanvasLayer
 
 #GUIText handles the card notices and the text container.
 
+#---Text and Text Animation Variables--
+const TEXT_ANIMATION_SPEED : int = 30
+var animate_text : bool = false
+var current_visible_characters : int = 0 
 @onready var dtext = $"TextContainer/Info"
+
+#Called when text is doing being animated.
+signal text_animation_done
 
 func ready_():
 	hide_all_visible_notices()
@@ -40,6 +47,27 @@ func set_info(text: String) -> void:
 
 #timer: the amount to wait after the text is done displaying
 func show_text(display_text, timer):
-	dtext.text = display_text
-	await get_tree().create_timer(timer).timeout #is this bad coding practice?
+	if GameManager.AnimatedText == true:
+		current_visible_characters = 0
+		dtext.visible_characters = 0
+		dtext.text = display_text
+		animate_text = true
+	
+		await text_animation_done
+		await get_tree().create_timer(0.4).timeout #is this bad coding practice?
+	else:
+		dtext.text = display_text
+		await get_tree().create_timer(timer).timeout #is this bad coding practice?
 	return
+
+func _process(delta):
+	if GameManager.AnimatedText == true:
+		if animate_text == true:
+			if dtext.visible_ratio < 1:
+				dtext.visible_ratio += (1.0/dtext.text.length()) * (TEXT_ANIMATION_SPEED * delta)
+				current_visible_characters = dtext.visible_characters
+			else:
+				animate_text = false
+				text_animation_done.emit()
+	else:
+		dtext.visible_ratio = dtext.text.length()

@@ -15,7 +15,7 @@ func _ready() -> void:
 
 	$IntroPanel.visible = true
 	$EventPanel.visible = false
-	$IntroPanel/IntroLabel.text = "You find a small clearing with a grotto"
+	$IntroPanel/IntroLabel.text = "You find a small clearing with a grotto."
 
 func _on_proceed_button_pressed() -> void:
 	$IntroPanel.visible = false

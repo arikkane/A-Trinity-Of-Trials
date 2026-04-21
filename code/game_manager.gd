@@ -3,11 +3,15 @@ extends Node
 #This script is autoloaded via Project/Globals tab, and contains the player variables and deck node
 
 #=======
+#----------
+# Global Options
+#----------
+
+var AnimatedText = true
+
 # ----------------------------
 # Player variables
 # ----------------------------
-
-
 var PlayerMaxHP: int
 var PlayerHP: int
 var CardsDrawnPerTurn: int

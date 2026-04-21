@@ -5,6 +5,7 @@ const SAVE_PATH = "user://settings.cfg"
 var master_slider: HSlider
 var volume_label: Label
 var fullscreen_check: CheckButton
+var text_animation: CheckButton
 var save_button: Button
 var colorblind_check: OptionButton
 var filter_UI: ColorRect
@@ -85,6 +86,12 @@ func setup():
 	colorblind_check.item_selected.connect(update_mode)
 	vbox.add_child(colorblind_check)
 	
+	text_animation = CheckButton.new()
+	text_animation.text = "Animated Text"
+	text_animation.button_pressed = true
+	text_animation.toggled.connect(animated_text_toggle)
+	vbox.add_child(text_animation)
+	
 	#creates a save button for the settings UI
 	save_button = Button.new()
 	save_button.text = "Save"
@@ -144,6 +151,12 @@ func resolution_toggle(index: int):
 func master_volume_control(value: float):
 	AudioManager.set_master_volume(value)
 	volume_label.text = str(round(value*100)) +"%"
+
+func animated_text_toggle(button_pressed: bool):
+	if button_pressed:
+		GameManager.AnimatedText = true
+	else:
+		GameManager.AnimatedText = false
 	
 	
 	

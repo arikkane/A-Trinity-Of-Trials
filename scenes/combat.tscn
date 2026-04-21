@@ -367,20 +367,20 @@ offset_bottom = 264.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_darkpanel")
 
-[node name="Info" type="Label" parent="GUIText/TextContainer" unique_id=680085526]
+[node name="Info" type="RichTextLabel" parent="GUIText/TextContainer" unique_id=1621280200]
 layout_mode = 0
 offset_left = 22.5
 offset_top = 17.0
 offset_right = 751.0
 offset_bottom = 162.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("9_0qyji")
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/normal_font = ExtResource("9_0qyji")
+theme_override_font_sizes/normal_font_size = 24
+text = "Is this epic or what?"
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="button_down" from="Win" to="." method="_on_win_button_down"]
