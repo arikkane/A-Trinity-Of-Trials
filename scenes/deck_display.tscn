@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d0trrmacukhwa"]
 
 [ext_resource type="Script" uid="uid://du3kqd5bp8yhf" path="res://code/deck_display.gd" id="1_3kh8g"]
+[ext_resource type="Theme" uid="uid://jirvpfro2db3" path="res://assets/Themes&Styles/LabelFont.tres" id="2_g66cj"]
 
 [node name="DeckDisplay" type="CanvasLayer" unique_id=313920594]
 layer = 6
@@ -40,6 +41,7 @@ alignment = 1
 
 [node name="SortType" type="OptionButton" parent="DeckContainer/SortMenu" unique_id=1693425587]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 selected = 0
 allow_reselect = true
 item_count = 2
@@ -50,13 +52,30 @@ popup/item_1/id = 1
 
 [node name="Label" type="RichTextLabel" parent="DeckContainer/SortMenu/SortType" unique_id=742231997]
 layout_mode = 0
-offset_left = -40.0
-offset_top = 20.0
-offset_bottom = 60.0
+offset_left = -42.0
+offset_top = 27.0
+offset_right = -2.0
+offset_bottom = 67.0
+theme = ExtResource("2_g66cj")
 text = "Sort"
+horizontal_alignment = 1
+
+[node name="LabelShadow" type="RichTextLabel" parent="DeckContainer/SortMenu/SortType/Label" unique_id=1535301923]
+modulate = Color(0, 0, 0, 0.42352942)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 39.0
+offset_bottom = 41.0
+theme = ExtResource("2_g66cj")
+text = "Sort"
+horizontal_alignment = 1
 
 [node name="SortBy" type="OptionButton" parent="DeckContainer/SortMenu" unique_id=150447773]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 selected = 0
 allow_reselect = true
 item_count = 2
@@ -67,11 +86,25 @@ popup/item_1/id = 1
 
 [node name="Label" type="RichTextLabel" parent="DeckContainer/SortMenu/SortBy" unique_id=2008681399]
 layout_mode = 0
-offset_left = -30.0
-offset_top = 20.0
-offset_right = 10.0
-offset_bottom = 60.0
+offset_left = -39.0
+offset_top = 27.0
+offset_right = 1.0
+offset_bottom = 67.0
+theme = ExtResource("2_g66cj")
 text = "By"
+horizontal_alignment = 1
+
+[node name="LabelShadow" type="RichTextLabel" parent="DeckContainer/SortMenu/SortBy/Label" unique_id=1408819927]
+modulate = Color(0, 0, 0, 0.42352942)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 39.0
+offset_bottom = 41.0
+theme = ExtResource("2_g66cj")
+text = "By"
+horizontal_alignment = 1
 
 [node name="DeckScrollContainer" type="ScrollContainer" parent="DeckContainer" unique_id=1398989580]
 layout_mode = 0
