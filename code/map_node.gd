@@ -29,7 +29,10 @@ func update_position():
 	var column = get_parent()
 	global_position = Vector2(column.custom_minimum_size.x*column.column_index+column.get_parent().column_width/2-size.x/2, column.get_parent().column_vertical_offset+column.get_parent().column_height/GameManager.MapGridHeight * row_index+size.y/2)
 
-#changes the sprites to correlate to their room type
+#------------------------------------
+# This function changes the sprite to 
+# correlate with their room type
+#------------------------------------
 func update_sprite():
 	#fades the node if it is not a valid path option
 	if not is_path_option:
@@ -54,7 +57,10 @@ func update_sprite():
 			hoverTexture = load("res://sprites/map/battle_icon_hovering.png")
 	$"NodeTexture".texture = idleTexture
 
-#renders the line between connected nodes
+#------------------------------------------
+# This function renders the connecting line
+# between nodes
+#------------------------------------------
 func create_path_line(next_node):
 	var new_line = Line2D.new()
 	new_line.default_color = "#75503f"
@@ -74,7 +80,11 @@ func create_path_line(next_node):
 	add_child(new_line)
 	connecting_lines.append(new_line)
 
-#returns all the nodes in every path leading to this node
+
+#---------------------------------------------
+# This function returns all the nodes in every 
+# path leading to this node
+#---------------------------------------------
 func get_prev_nodes() -> Array[Control]:
 	#the array that will be returned
 	var prev_path: Array[Control]
@@ -98,12 +108,18 @@ func get_prev_nodes() -> Array[Control]:
 	return prev_path
 #----------------------------Input Handling Functions--------------------------------------
 
-#changes the texture when the mouse cursor is over the node
+#-------------------------------------------
+# This function changes the texture when the 
+# mouse cursor is over the node
+#-------------------------------------------
 func _on_mouse_entered():
 	if $"NodeTexture".texture != hoverTexture:
 		$"NodeTexture".texture = hoverTexture
 
-#changes the texture once the mouse is no longer hovering over the node
+#-------------------------------------------
+# This function changes the texture once the 
+# mouse is no longer hovering over the node
+#-------------------------------------------
 func _on_mouse_exited():
 	if $"NodeTexture".texture != idleTexture:
 		$"NodeTexture".texture = idleTexture

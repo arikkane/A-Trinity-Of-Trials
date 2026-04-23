@@ -15,12 +15,18 @@ var map_nodes: Array[Control]
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
 
-#sets the dimensions and position of the column
+#--------------------------------------
+# This function sets the dimensions and 
+# position of the column
+#--------------------------------------
 func init_container_transform():
 	custom_minimum_size = Vector2(get_parent().column_width, get_parent().column_height)
 	global_position = Vector2(custom_minimum_size.x*column_index, get_parent().column_vertical_offset)
 
-#initializes an empty node for every row position in the column
+#----------------------------------------
+# This function initializes an empty node 
+# for every row position in the column
+#----------------------------------------
 func init_empty_nodes():
 	for i in range(GameManager.MapGridHeight):
 		var new_node = map_node_scene.instantiate()
@@ -30,7 +36,10 @@ func init_empty_nodes():
 		add_child(new_node)
 		new_node.update_position()
 
-#makes sure that the path currently being generated wont cross with another path
+#-------------------------------------------------
+# This function makes sure that the path currently
+# being generated wont cross with another path
+#-------------------------------------------------
 func check_for_crossing(current_position, target_position):
 	for conn in connections:
 		if (current_position < conn.x and target_position > conn.y) or (current_position > conn.x and target_position < conn.y):

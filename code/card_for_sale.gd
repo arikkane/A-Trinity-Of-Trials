@@ -42,6 +42,11 @@ func update_labels():
 	$"PricetagTexture/PriceText".text = str(str(card_price))
 	check_if_affordable()
 
+#---------------------------------------
+# This function updates the card sprites
+# so that they are using the correct
+# sprite based on their type
+#---------------------------------------
 func update_sprite():
 	if card_data.type == "Damage":
 		$"CardTexture".texture = load("res://sprites/combat_card.png")
@@ -51,6 +56,7 @@ func update_sprite():
 		$"CardTexture".texture = load("res://sprites/heal_card.png")
 	else:
 		$"CardTexture".texture = load("res://sprites/undefined_card.png")
+
 #-----------------------------------------
 # This function deletes the cards texture
 # when the card is purchased, as well as
