@@ -14,6 +14,7 @@ func setup_menu_ui():
 	var menu_container = VBoxContainer.new()
 	add_child(menu_container)
 	menu_container.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	menu_container.position.y += 150
 	menu_container.alignment = BoxContainer.ALIGNMENT_CENTER
 	menu_container.add_theme_constant_override("separation", 15)
 
@@ -31,12 +32,10 @@ func setup_menu_ui():
 #function that switches to the initial combat scene of the game
 func _on_play_button_pressed():
 	SceneManager.change_scene(game_scene_path)
-	AudioManager.play_sfx("menuclick")
 	
 #fucntion that switches to the settings scene
 func _on_settings_button_pressed():
 	SceneManager.change_scene(settings_scene_path)
-	AudioManager.play_sfx("menuclick")
 	
 #function that closes the program
 func _on_exit_button_pressed():
@@ -49,5 +48,7 @@ func create_button(icon: String,callback : Callable) -> Button:
 	button.expand_icon = true
 	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+	button.add_theme_constant_override("outline_size",0)
+	button.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
 	button.pressed.connect(callback)
 	return button

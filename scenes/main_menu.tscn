@@ -1,68 +1,11 @@
 [gd_scene format=3 uid="uid://bsf88s43ss2ej"]
 
-[ext_resource type="Script" path="res://scenes/main_background.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://cnp7lxc0ctdpi" path="res://code/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://lw00hte55jde" path="res://assets/UI&Charactors/Battleground2.png" id="2_ekxnf"]
 [ext_resource type="Texture2D" uid="uid://pmsa0w2x0phr" path="res://assets/UI&Charactors/ToTLogo.png" id="3_bqqt6"]
 
-[sub_resource type="GDScript" id="GDScript_vue75"]
-script/source = "extends Node
-
-@export var game_scene_path : String = \"res://scenes/ClassSelection.tscn\"
-@export var settings_scene_path : String = \"res://scenes/SettingsMenu.tscn\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	AudioManager.play_music_track(\"main_menu\")
-	GameManager.UIOverlay.hide_ui()
-	setup_menu_ui()
-
-func setup_menu_ui():
-	var menu_container = VBoxContainer.new()
-	add_child(menu_container)
-	menu_container.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	menu_container.position.y += 150
-	menu_container.alignment = BoxContainer.ALIGNMENT_CENTER
-	menu_container.add_theme_constant_override(\"separation\", 15)
-
-	var play_button = create_button(\"res://assets/UI&Charactors/new_game_icon.png\",_on_play_button_pressed)
-	var settings_button = create_button(\"res://assets/UI&Charactors/settings_con.png\",_on_settings_button_pressed)
-	var exit_button = create_button(\"res://assets/UI&Charactors/exit_icon.png\",_on_exit_button_pressed)
-
-	menu_container.add_child(play_button)
-	menu_container.add_child(settings_button)
-	menu_container.add_child(exit_button)
-
-	play_button.grab_focus()
-	
-
-#function that switches to the initial combat scene of the game
-func _on_play_button_pressed():
-	SceneManager.change_scene(game_scene_path)
-	
-#fucntion that switches to the settings scene
-func _on_settings_button_pressed():
-	SceneManager.change_scene(settings_scene_path)
-	
-#function that closes the program
-func _on_exit_button_pressed():
-	get_tree().quit()
-
-func create_button(icon: String,callback : Callable) -> Button:
-	var button = Button.new()
-	button.custom_minimum_size = Vector2(200, 50)
-	button.icon = load(icon)
-	button.expand_icon = true
-	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
-	button.add_theme_constant_override(\"outline_size\",0)
-	button.add_theme_stylebox_override(\"normal\", StyleBoxEmpty.new())
-	button.pressed.connect(callback)
-	return button
-"
-
 [node name="MainMenu" type="Node" unique_id=139064769]
-script = SubResource("GDScript_vue75")
+script = ExtResource("1_bqqt6")
 
 [node name="TempLabel" type="RichTextLabel" parent="." unique_id=799125659]
 offset_left = 995.0
@@ -75,7 +18,6 @@ text = "Main Menu "
 [node name="TextureRect" type="TextureRect" parent="." unique_id=321127322]
 offset_right = 1920.0
 offset_bottom = 1081.0
-script = ExtResource("1_l6cm7")
 
 [node name="Battleground2" type="Sprite2D" parent="TextureRect" unique_id=410195606]
 position = Vector2(959.50006, 537)
