@@ -42,6 +42,8 @@ func init_cards():
 			className = "HEXTECHMAGE"
 		GameManager.PlayerClass.CREATURE:
 			className = "CREATURE"
+		GameManager.PlayerClass.THIEF:
+			className = "THIEF"
 
 	if not deck_data.has(className):
 		push_error("Class not found in JSON: " + className)

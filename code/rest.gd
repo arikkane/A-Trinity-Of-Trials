@@ -36,6 +36,10 @@ func init_player_sprite():
 			$"PlayerSprite".texture = load("res://sprites/voidchar (2).png")
 			$"PlayerSprite".scale = Vector2(2.0, 2.0)
 			$"PlayerSprite".global_position = Vector2(477, 584)
+		GameManager.PlayerClass.THIEF:
+			$"PlayerSprite".texture = load("res://sprites/thiefchar.png")
+			$"PlayerSprite".scale = Vector2(0.4, 0.4)
+			$"PlayerSprite".global_position = Vector2(477, 584)
 
 func print_room_data():
 	print("ID: " + room_data.id)

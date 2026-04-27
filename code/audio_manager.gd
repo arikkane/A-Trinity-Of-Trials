@@ -4,6 +4,7 @@ extends Node
 # Sound Effects
 var sounds = {
 	"textblip": preload("res://assets/Sounds/blip.wav"),
+	"hover": preload("res://assets/Sounds/mouse-hover.wav"),
 	"menuclick": preload("res://assets/Sounds/menuclick1.wav"),
 	"menuclick2": preload("res://assets/Sounds/menuclick2.wav"),
 	"scroll": preload("res://assets/Sounds/scroll.wav"),
@@ -13,6 +14,8 @@ var sounds = {
 	"buzzer": preload("res://assets/Sounds/buzzer1.wav"),
 	"store_enter": preload("res://assets/Sounds/store-enter.wav"),
 	"purchase": preload("res://assets/Sounds/purchase.wav"),
+	"squeak": preload("res://assets/Sounds/squeak.wav"),
+	"squeak2": preload("res://assets/Sounds/squeak2.wav"),
 	"grass_rustle": preload("res://assets/Sounds/grass-rustle.wav"),
 	"coinbag": preload("res://assets/Sounds/coinbag.wav"),
 	"scream": preload("res://assets/Sounds/wilhelm-scream.wav"),
@@ -46,7 +49,7 @@ var music_tracks = {
 #This is the audio manager.
 @onready var music_player: AudioStreamPlayer = AudioStreamPlayer.new()
 
-var music_volume := -10.0
+var music_volume := -15.0
 var sfx_volume := -10.0
 var current_music_name := ""
 
@@ -63,8 +66,7 @@ func play_music(sound: AudioStream) -> void:
 	music_player.stream = sound
 	if music_player.stream is AudioStreamOggVorbis:
 		music_player.stream.loop = true
-	#music_player.volume_db = music_volume
-	music_player.volume_db = -10.0
+	music_player.volume_db = music_volume
 	music_player.play()
 
 func play_music_track(track_name: String) -> void:

@@ -206,8 +206,8 @@ vertical_alignment = 1
 
 [node name="BlockIcon" type="Sprite2D" parent="Player/BlockValue" unique_id=875842913]
 show_behind_parent = true
-position = Vector2(31, 22)
-scale = Vector2(2.6484375, 1.8437498)
+position = Vector2(29.999992, 20.999994)
+scale = Vector2(1.59375, 1.59375)
 texture = ExtResource("12_a5n2y")
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,

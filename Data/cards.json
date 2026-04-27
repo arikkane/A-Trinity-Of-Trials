@@ -19,5 +19,6 @@
 	{"id": 16, "class": 9, "name": "Undead Shield", "type": "Utility", "damage": 0, "block": 4, "heal": 0, "base_price": 60},
 	{"id": 17, "class": 9, "name": "Impale", "type": "Damage", "sound": "stab", "damage": 8, "block": 0, "heal": 0, "base_price": 80},
 	{"id": 18, "class": 9, "name": "Magic Guard", "type": "Utility", "damage": 0, "block": 10, "heal": 0, "base_price": 60},
+	{"id": 19, "class": 0, "name": "Scratch", "type": "Damage", "damage": 10, "block": 0, "heal": 0, "base_price": 60},
   ]
 }

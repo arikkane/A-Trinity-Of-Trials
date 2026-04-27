@@ -41,7 +41,8 @@ var GamePausable: bool = false
 enum PlayerClass {
 	GUNDAM,
 	HEXTECHMAGE,
-	CREATURE
+	CREATURE,
+	THIEF
 }
 
 var current_class: PlayerClass = PlayerClass.GUNDAM
@@ -67,6 +68,8 @@ func setup_class(player_class: PlayerClass) -> void:
 			init_player_variables(70, 6)
 		PlayerClass.CREATURE:
 			init_player_variables(100, 5)
+		PlayerClass.THIEF:
+			init_player_variables(90, 6)
 
 	print("Class set to:", current_class, "PlayerMaxHP:", PlayerMaxHP, "PlayerHP:", PlayerHP)
 	start_run()

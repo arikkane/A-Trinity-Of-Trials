@@ -36,6 +36,9 @@ func set_player_sprite() -> void:
 		GameManager.PlayerClass.CREATURE:
 			sprite.texture = preload("res://sprites/voidchar (2).png")
 			sprite.scale = Vector2(2.0, 2.0)
+		GameManager.PlayerClass.THIEF:
+			sprite.texture = preload("res://sprites/thiefchar.png")
+			sprite.scale = Vector2(0.4, 0.4)
 		_:
 			push_error("Unknown current class: " + str(GameManager.current_class))
 	
@@ -123,7 +126,11 @@ func play_death_animation():
 func play_damage_animation():
 	reset_color()
 	sprite.modulate = damaged_color
-	#AudioManager.play_sfx("punch")
+	
+	#if the player is a thief, squeak when taking damage!
+	if GameManager.current_class == GameManager.PlayerClass.THIEF:
+		AudioManager.play_sfx("squeak2")
+		
 	tween = create_tween()
 	tween.tween_property(sprite, "modulate", normal_color, 0.25)
 

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://caeesvfe8q6fw" path="res://sprites/magechar.png" id="2_3dsqc"]
 [ext_resource type="Texture2D" uid="uid://gm04nmev2dl6" path="res://sprites/ArmorChar.png" id="3_jog16"]
 [ext_resource type="Texture2D" uid="uid://do3a2qfpto3do" path="res://sprites/voidchar (2).png" id="4_mlwvh"]
+[ext_resource type="Texture2D" uid="uid://xq4yk4g3us78" path="res://sprites/thief-selection0.png" id="5_jog16"]
 
 [node name="ClassSelection" type="Control" unique_id=1056758104]
 layout_mode = 3
@@ -107,6 +108,24 @@ placeholder_text = "-1
 "
 editable = false
 
+[node name="THIEF" type="Button" parent="." unique_id=1096927230]
+visible = false
+layout_mode = 0
+offset_left = 1202.0
+offset_top = 1008.0
+offset_right = 1444.0
+offset_bottom = 1058.0
+text = "Thief"
+
+[node name="Thiefchar" type="TextureRect" parent="." unique_id=687255397]
+layout_mode = 0
+offset_left = 1596.0
+offset_top = 734.0
+offset_right = 2096.0
+offset_bottom = 1234.0
+scale = Vector2(0.79979277, 0.7626512)
+texture = ExtResource("5_jog16")
+
 [connection signal="ready" from="DescriptionLabel" to="." method="_on_class_text_ready"]
 [connection signal="mouse_entered" from="GUNDAM" to="." method="_on_gundam_mouse_entered"]
 [connection signal="mouse_exited" from="GUNDAM" to="." method="_on_gundam_mouse_exited"]
@@ -118,3 +137,7 @@ editable = false
 [connection signal="mouse_exited" from="CREATURE" to="." method="_on_creature_mouse_exited"]
 [connection signal="pressed" from="CREATURE" to="." method="_on_creature_pressed"]
 [connection signal="toggled" from="SeedButton" to="." method="_on_seed_button_toggled"]
+[connection signal="pressed" from="THIEF" to="." method="_on_thief_pressed"]
+[connection signal="gui_input" from="Thiefchar" to="." method="_on_thiefchar_gui_input"]
+[connection signal="mouse_entered" from="Thiefchar" to="." method="_on_thiefchar_mouse_entered"]
+[connection signal="mouse_exited" from="Thiefchar" to="." method="_on_thiefchar_mouse_exited"]

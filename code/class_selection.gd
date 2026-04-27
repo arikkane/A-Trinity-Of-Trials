@@ -1,5 +1,8 @@
 extends Control
 
+@onready var thief_unselected = preload("res://sprites/thief-selection0.png")
+@onready var thief_selected = preload("res://sprites/thief-selection1.png")
+
 @onready var description_label = $DescriptionLabel
 @onready var seed_toggle = $SeedButton
 @onready var seed_input = $SeedInput
@@ -26,6 +29,10 @@ func _on_mage_pressed():
 func _on_creature_pressed():
 	start_game(GameManager.PlayerClass.CREATURE)
 	print("class selected alien")
+
+func _on_thief_pressed():
+	start_game(GameManager.PlayerClass.THIEF)
+	print("class selected thief")
 
 
 # ----------------------------
@@ -56,6 +63,7 @@ func start_game(selected_class):
 # ----------------------------
 
 func _on_gundam_mouse_entered() -> void:
+	AudioManager.play_sfx("hover")
 	description_label.text = "Health: 120, Passive: Deal extra damage equal to your current block value."
 	
 func _on_gundam_mouse_exited() -> void:
@@ -63,6 +71,7 @@ func _on_gundam_mouse_exited() -> void:
 
 
 func _on_mage_mouse_entered() -> void:
+	AudioManager.play_sfx("hover")
 	description_label.text = "Health: 70, Passive: Gain a damage buff when you play draw cards."
 
 func _on_mage_mouse_exited() -> void:
@@ -70,6 +79,7 @@ func _on_mage_mouse_exited() -> void:
 
 
 func _on_creature_mouse_entered() -> void:
+	AudioManager.play_sfx("hover")
 	description_label.text = "Health: 100, Passive: Recover HP when you deal damage."
 
 func _on_creature_mouse_exited() -> void:
@@ -82,3 +92,25 @@ func _on_seed_button_toggled(toggled_on: bool) -> void:
 	else:
 		seed_input.text = ""
 		seed_input.editable = false
+
+
+func _on_thiefchar_mouse_entered() -> void:
+	AudioManager.play_sfx("squeak")
+	description_label.text = "Health: 90, Passive: Steal cards from enemies, chance to steal cards from shops!"
+	$"Thiefchar".position.x = $"Thiefchar".position.x - 20
+	$"Thiefchar".position.y = $"Thiefchar".position.y - 20
+	$"Thiefchar".texture = thief_selected
+	pass # Replace with function body.
+
+func _on_thiefchar_mouse_exited() -> void:
+	description_label.text = default_description
+	$"Thiefchar".texture = thief_unselected
+	$"Thiefchar".position.x = 1596
+	$"Thiefchar".position.y = 734
+	pass # Replace with function body.
+
+
+func _on_thiefchar_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		start_game(GameManager.PlayerClass.THIEF)
+		print("class selected thief")
